@@ -1,0 +1,54 @@
+<div class="wrapper">
+    <div id="pdf-start">
+        <div class="header"></div>
+        <div class="title">
+            <h2>Custom Dashboard PDF for<br /> <span id="pdf-title"></span></h2>
+        </div>
+
+        <div id="cd-content">
+            <div class="widget-container">
+                <div class="widget-header">
+                    <h2>
+                        <span name="widget-title">My Cool Piechart</span>
+                    </h2>
+                </div>
+                <div class="widget-wrapper">
+                    <div id="piechart">
+
+                    </div>
+                </div>
+                <div class="no-data-in-chart" style="display:none">
+                    <div>
+                        <p>not enough data</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer"></div>
+    </div>
+
+    <!-- WIDGET CONTAINER -->
+    <!--<div id="templateContainer" class="template-hide ">
+        <div class="widget-container">
+            <div class="widget-header">
+                <h2>
+                    <span name="widget-title">nps score</span>
+                </h2>
+            </div>
+            <div class="widget-wrapper">
+
+            </div>
+            <div class="no-data-in-chart" style="display:none">
+                <div>
+                    <p>not enough data</p>
+                </div>
+            </div>
+        </div>
+    </div>-->
+
+    <p>my-page works!</p>
+    <button (click)="uiOnGenerateHtmlClicked()">Generate HTML</button>
+    <!-- htmlizer -->
+<textarea class="input" rows="50" [(ngModel)]="myHtml" disabled></textarea>
+</div>
