@@ -24,7 +24,7 @@ time, mark, audio, video, input, textarea {
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
-    display: block;  
+    display: block;
 }
 
 body {
@@ -89,6 +89,7 @@ a {
     height: 90px;
 }
 
+/*WIDGET GENERAL*/
 .widget-container {
     background-color: white;
     border: 1px solid #d3d9df;
@@ -137,7 +138,7 @@ a {
                 font-size: 14px;
                 color: #a4adb8;
             }
-
+    /*WIDGET NPS SCORE*/
     .widget-container .nps-score-content {
         display: flex;
     }
@@ -211,6 +212,7 @@ a {
                     background: #25ce7d;
                 }
 
+    /*WIDGET CES SCORE*/
     .widget-container .ces-score-content {
         display: flex;
         height: 110px;
@@ -347,6 +349,7 @@ a {
                             background-color: #25ce7d;
                         }
 
+    /*WIDGET CSAT SCORE*/
     .widget-container .csat-score-content {
         display: flex;
         height: 120px;
@@ -474,3 +477,117 @@ a {
                         .widget-container .csat-score-content .csat-bars div .bar .full.passive {
                             background-color: #a4adb8;
                         }
+
+    /* WIGDET GENERAL RESPONSE RATE*/
+    .widget-container .general-response-rate-content {
+        display: flex;
+        height: 120px;
+    }
+
+        .widget-container .general-response-rate-content table {
+            height: 100%;
+            width: 100%;
+        }
+
+            .widget-container .general-response-rate-content table tr td {
+                width: 33%;
+                vertical-align: middle;
+                text-align: center;
+            }
+
+                .widget-container .general-response-rate-content table tr td p:first-of-type {
+                    font-family: Arial, HelveticaNeue;
+                    color: #2c3847;
+                    font-size: 25px;
+                    line-height: 30px;
+                    font-weight: 700;
+                    letter-spacing: 0.63px;
+                    margin-bottom: 5px;
+                }
+
+                .widget-container .general-response-rate-content table tr td p:nth-of-type(2) {
+                    font-family: Arial, HelveticaNeue;
+                    color: #a4adb8;
+                    font-size: 10px;
+                    line-height: 10px;
+                    font-weight: 400;
+                    letter-spacing: 0.21px;
+                    text-transform: uppercase;
+                }
+
+                .widget-container .general-response-rate-content table tr td p:nth-of-type(3) {
+                    font-family: Arial, HelveticaNeue;
+                    color: #2c3847;
+                    font-size: 10px;
+                    line-height: 10px;
+                    font-weight: 400;
+                    letter-spacing: 0.21px;
+                }
+
+                .widget-container .general-response-rate-content table tr td .progress {
+                    height: 3px;
+                    background: #d3dae2;
+                    position: relative;
+                    bottom: 0;
+                    width: 56%;
+                    border-radius: 3px;
+                    margin: 15px auto;
+                }
+
+                    .widget-container .general-response-rate-content table tr td .progress .meter {
+                        background: #20a7e0;
+                        height: 3px;
+                        display: inline-block;
+                        border-radius: 3px;
+                        position: absolute;
+                        width: 100%;
+                        left: 0;
+                    }
+
+                .widget-container .general-response-rate-content table tr td:not(:last-of-type) {
+                    border-right: 1px solid #d3d9df;
+                }
+
+    /*WIDGET TEXT RESPONSE RATE*/
+    .widget-container .text-response-rate-content {
+        height: 100%;
+    }
+
+        .widget-container .text-response-rate-content .trr-chart {
+            float: left;
+            width: 50%;
+            text-align: center;
+        }
+
+            .widget-container .text-response-rate-content .trr-chart .trr-donut {
+                display: inline-block;
+            }
+
+        .widget-container .text-response-rate-content .result {
+            margin-top: 28px;
+            float: left;
+            width: 50%;
+        }
+
+            .widget-container .text-response-rate-content .result li {
+                color: black;
+                padding-bottom: 10px;
+                font-family: Arial, HelveticaNeue;
+                font-weight: 400;
+                font-size: 13.28px;
+                line-height: 13.28px;
+                text-align: center;
+                text-transform: lowercase;
+            }
+
+                .widget-container .text-response-rate-content .result li span {
+                    color: #20a7e0;
+                    font-family: Arial, HelveticaNeue;
+                    font-weight: 700;
+                    font-size: 14px;
+                    line-height: 14px;
+                }
+
+                .widget-container .text-response-rate-content .result li:last-child {
+                    padding-bottom: 0;
+                }

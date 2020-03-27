@@ -21,7 +21,7 @@ $(function () {
                         <p>not enough data</p>
                     </div>
                 </div>
-            </div>`); 
+            </div>`);
         }
     }
 
@@ -38,6 +38,12 @@ $(function () {
                     break;
                 case 3:
                     initialiseCSATBar(widget);
+                    break;
+                case 4:
+                    initialiseGeneralResponseRate(widget);
+                    break;
+                case 5:
+                    initialiseTextResponseRate(widget);
                     break;
                 case 99:
                     initialiseCoolPieChart(widget);
@@ -194,6 +200,63 @@ $(function () {
         return degrees;
     }
 
+    // WIDGET ID 4 GENERAL RESPONSE RATE
+    function initialiseGeneralResponseRate(widget) {
+        $("#" + widget["uniqueID"] + " .widget-wrapper").append(`<div class="general-response-rate-content">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <p>` + widget["data"]["respondents"] + `</p>
+                                        <p>Respondents</p>        
+                                    </td>
+                                    <td>
+                                        <p>`+ widget["data"]["answers"] + `</p>
+                                        <p>Answers</p>
+                                        <div class="progress">
+                                            <span class="meter"></span>
+                                        </div>
+                                        <p class="percentage"></p>
+                                    </td>
+                                    <td>
+                                        <p>` + widget["data"]["unsubscribed"] + `</p>
+                                        <p>Unsubscribed</p>
+                                        <div class="progress">
+                                            <span class="meter"></span>
+                                        </div>
+                                        <p class="percentage"></p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>`);
+
+        let widgetId = widget["uniqueID"];
+        $("#" + widgetId + " .widget-wrapper").css("padding-top", "0px");
+        $("#" + widgetId + " .widget-wrapper").css("padding-bottom", "0px");
+        $("#" + widgetId + " td:nth-child(2) .meter").css("width", calculatePercentage(widget["data"]["answers"], widget["data"]["respondents"]) + "%");
+        $("#" + widgetId + " td:nth-child(2) .percentage").text(calculatePercentage(widget["data"]["answers"], widget["data"]["respondents"]) + "%");
+        $("#" + widgetId + " td:nth-child(3) .meter").css("width", calculatePercentage(widget["data"]["unsubscribed"], widget["data"]["respondents"]) + "%");
+        $("#" + widgetId + " td:nth-child(3) .percentage").text(calculatePercentage(widget["data"]["unsubscribed"], widget["data"]["respondents"]) + "%");
+    }
+
+    // WIDGET ID 5 TEXT RESPONSE RATE
+    function initialiseTextResponseRate(widget) {
+        $("#" + widget["uniqueID"] + " .widget-wrapper").append(`<div class="text-response-rate-content">
+                        <div class="chart">
+                            <div class="donut">
+                                <div class="percent"></div>
+                                <div class="slice">
+                                    <div class="pie"></div>
+                                    <div class="pie fill"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`);
+
+        let widgetId = widget["uniqueID"];
+    }
+
     // ID 99 JUST A TEST
     function initialiseCoolPieChart(widget) {
         $("#" + widget["uniqueID"] + " .widget-wrapper").append("<div id='piechartholder'></div");
@@ -275,6 +338,18 @@ $(function () {
         });
     }
 
+    // GENERAL FUNCTIONS
+    function calculatePercentage(numerator, denominator) {
+        let result = 0;
+        result = parseFloat((numerator / denominator * 100).toFixed(2));
+
+        if (result > 100) {
+            result = 100.00;
+        }
+        return result;
+    }
+
+    //----- INIT -----//
     setPDFTitle();
     initialisewidgetContainers();
     selectWidgetType();
