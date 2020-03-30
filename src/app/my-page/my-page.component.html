@@ -12,22 +12,7 @@
                         <span name="widget-title">My Cool Piechart</span>
                     </h2>
                 </div>
-                <div class="widget-wrapper">
-                    <div class="text-response-rate-content">
-                        <div class="chart">
-                            <div #donut class="donut">
-                                <div class="percent">{{ percentage | number: '1.1-1'}}%</div>
-                                <div class="slice">
-                                    <div #pie class="pie"></div>
-                                    <div class="pie fill"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <ul class="result">
-                            <li><span>{{textResponseRate.answers}}</span> {{'COMPLETED_SMALL'|translate}}</li>
-                            <li><span>{{textResponseRate.text}}</span> {{'TEXT_COMPLETED'|translate}}</li>
-                        </ul>
-                    </div>
+                <div class="widget-wrapper">                    
                 </div>
                 <div class="no-data-in-chart" style="display:none">
                     <div>

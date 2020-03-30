@@ -45,6 +45,9 @@ $(function () {
                 case 5:
                     initialiseTextResponseRate(widget);
                     break;
+                case 6:
+                    initialiseLastResponses(widget);
+                    break;
                 case 99:
                     initialiseCoolPieChart(widget);
                     break;
@@ -243,8 +246,8 @@ $(function () {
     // WIDGET ID 5 TEXT RESPONSE RATE
     function initialiseTextResponseRate(widget) {
         $("#" + widget["uniqueID"] + " .widget-wrapper").append(`<div class="text-response-rate-content">
-                        <div class="chart">
-                            <div class="donut">
+                        <div class="trr-chart">
+                            <div class="trr-donut donut">
                                 <div class="percent"></div>
                                 <div class="slice">
                                     <div class="pie"></div>
@@ -252,9 +255,70 @@ $(function () {
                                 </div>
                             </div>
                         </div>
+                        <ul class="result">
+                            <li>
+                                <span></span> completed
+                            </li>
+                            <li>
+                                <span></span> texts completed
+                            </li>
+                        </ul>
                     </div>`);
 
         let widgetId = widget["uniqueID"];
+        let percentage = calculatePercentage(widget["data"]["text"], widget["data"]["answers"]);
+        let degrees = 360 / 100 * percentage;
+        $("#" + widgetId + " .percent").text(percentage + "%");
+        $("#" + widgetId + " .slice div:first-child").css("transform", "rotate(" + degrees + "deg)");
+        if (degrees <= 180) {
+            $("#" + widgetId + " .trr-donut").removeClass("big");
+            $("#" + widgetId + " .trr-donut").addClass("small");
+        }
+        else {
+            $("#" + widgetId + " .trr-donut").removeClass("small");
+            $("#" + widgetId + " .trr-donut").addClass("big");
+        }
+        $("#" + widgetId + " .result li:first-child span:first-child").text(widget["data"]["answers"]);
+        $("#" + widgetId + " .result li:nth-child(2) span:first-child").text(widget["data"]["text"]);
+    }
+
+    // WIDGET ID 6 LAST RESPONSES
+    function initialiseLastResponses(widget) {
+        $("#" + widget["uniqueID"] + " .widget-wrapper").append(`<div class="last-responses-content">
+                        <div class="lr-chart">
+                            <div class="lr-donut donut">
+                                <div class="percent"></div>
+                                <div class="slice">
+                                    <div class="pie"></div>
+                                    <div class="pie fill"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="result">
+                            <li>
+                                <span></span> last week
+                            </li>
+                            <li>
+                                <span></span> yesterday
+                            </li>
+                        </ul>
+                    </div>`);
+
+        let widgetId = widget["uniqueID"];
+        let percentage = calculatePercentage(widget["data"]["lastweek"], widget["data"]["answers"]);
+        let degrees = 360 / 100 * percentage;
+        $("#" + widgetId + " .percent").text(percentage + "%");
+        $("#" + widgetId + " .slice div:first-child").css("transform", "rotate(" + degrees + "deg)");
+        if (degrees <= 180) {
+            $("#" + widgetId + " .lr-donut").removeClass("big");
+            $("#" + widgetId + " .lr-donut").addClass("small");
+        } else {
+            $("#" + widgetId + " .lr-donut").removeClass("small");
+            $("#" + widgetId + " .lr-donut").addClass("big");
+        }
+
+        $("#" + widgetId + " .result li:first-child span:first-child").text(widget["data"]["lastweek"]);
+        $("#" + widgetId + " .result li:nth-child(2) span:first-child").text(widget["data"]["yesterday"]);
     }
 
     // ID 99 JUST A TEST

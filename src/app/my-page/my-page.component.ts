@@ -80,6 +80,16 @@ export class MyPageComponent implements OnInit {
                         text: 982
                     }
                 },
+                {
+                    title: "Last Responses",
+                    id: 6,
+                    uniqueID: "e0529b62-89a9-48ea-879b-63de560174a3",
+                    data: {
+                        answers: 1,
+                        yesterday: 0,
+                        lastweek: 0
+                    }
+                },
                 /*{
                 title: "My Cool Piechart",
                 id: 99,
