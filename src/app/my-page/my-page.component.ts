@@ -61,7 +61,7 @@ export class MyPageComponent implements OnInit {
                         passive: 28.57
                     }
                 },*/
-                {
+                /*{
                     title: "General Response Rate",
                     id: 4,
                     uniqueID: "66250e4e-7ccb-4e7f-bb28-a48698de1ff3",
@@ -70,8 +70,8 @@ export class MyPageComponent implements OnInit {
                         respondents: 7566,
                         unsubscribed: 0
                     }
-                },
-                {
+                },*/
+                /*{
                     title: "Text Response Rate",
                     id: 5,
                     uniqueID: "e0f33724-311c-445d-9864-9419144a4473",
@@ -79,8 +79,8 @@ export class MyPageComponent implements OnInit {
                         answers: 1501,
                         text: 982
                     }
-                },
-                {
+                },*/
+                /*{
                     title: "Last Responses",
                     id: 6,
                     uniqueID: "e0529b62-89a9-48ea-879b-63de560174a3",
@@ -88,6 +88,25 @@ export class MyPageComponent implements OnInit {
                         answers: 1,
                         yesterday: 0,
                         lastweek: 0
+                    }
+                },*/
+                {
+                    title: "Repartition NPS Score",
+                    id: 7,
+                    uniqueID: "4ac80b68-219a-415b-b980-0c9fe31d6451",
+                    data: {
+                        totalAnswers: 0,
+                        score0: 3.56,
+                        score1: 1.13,
+                        score2: 1.62,
+                        score3: 1.46,
+                        score4: 1.29,
+                        score5: 2.75,
+                        score6: 3.56,
+                        score7: 13.59,
+                        score8: 25.24,
+                        score9: 18.77,
+                        score10: 27.02
                     }
                 },
                 /*{

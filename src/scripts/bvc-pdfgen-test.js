@@ -48,6 +48,15 @@ $(function () {
                 case 6:
                     initialiseLastResponses(widget);
                     break;
+                case 7:
+                    initialiseRepartitionNpsScore(widget);
+                    break;
+                case 8:
+                    initialiseRepartitionCesScore(widget);
+                    break;
+                case 9:
+                    initialiseRepartitionCsatScore(widget);
+                    break;
                 case 99:
                     initialiseCoolPieChart(widget);
                     break;
@@ -321,6 +330,34 @@ $(function () {
         $("#" + widgetId + " .result li:nth-child(2) span:first-child").text(widget["data"]["yesterday"]);
     }
 
+    // WIDGET ID 7 REPARTITION NPS SCORE
+    function initialiseRepartitionNpsScore(widget) {
+        $("#" + widget["uniqueID"] + " .widget-wrapper").append(`<div class="repartition-nps-score-content">
+                            <div id="chart"></div>
+                        </div>`);
+
+        let widgetId = widget["uniqueID"];
+        let chartId = "chart_" + widgetId;
+        $("#" + widgetId + " .repartition-nps-score-content div").attr("id", chartId);
+        let npsRepartition = prepareRepartitionData(widget["data"], "nps");
+        let options = getRepartitionChartOptions(chartId, "nps");
+
+        let myChart = new Highcharts.chart(options);
+
+        myChart.setSize(760, 290);
+        myChart.series[0].setData(npsRepartition, true);
+    }
+
+    // WIDGET ID 8 REPARTITION NPS SCORE
+    function initialiseRepartitionCesScore(widget) {
+
+    }
+
+    // WIDGET ID 9 REPARTITION NPS SCORE
+    function initialiseRepartitionCsatScore(widget) {
+
+    }
+
     // ID 99 JUST A TEST
     function initialiseCoolPieChart(widget) {
         $("#" + widget["uniqueID"] + " .widget-wrapper").append("<div id='piechartholder'></div");
@@ -411,6 +448,214 @@ $(function () {
             result = 100.00;
         }
         return result;
+    }
+
+    // CHART SPECIFIC FUNCTIONS
+    function prepareRepartitionData(data, type) {
+        let collection = [];
+
+        let colorPromoters = "#25ce7d";
+        let colorPassive = " #ecedee";
+        let colorDetractors = "#ff4d4d";
+        let blue = "#0999d8";
+
+        if (type === "nps") {
+            collection.push({ y: data.score0, color: colorDetractors });
+            collection.push({ y: data.score1, color: colorDetractors });
+            collection.push({ y: data.score2, color: colorDetractors });
+            collection.push({ y: data.score3, color: colorDetractors });
+            collection.push({ y: data.score4, color: colorDetractors });
+            collection.push({ y: data.score5, color: colorDetractors });
+            collection.push({ y: data.score6, color: colorDetractors });
+            collection.push({ y: data.score7, color: colorPassive });
+            collection.push({ y: data.score8, color: colorPassive });
+            collection.push({ y: data.score9, color: colorPromoters });
+            collection.push({ y: data.score10, color: colorPromoters });
+        }
+
+        if (type === "ces") {
+            collection.push({ y: data.score1, color: colorDetractors });
+            collection.push({ y: data.score2, color: colorDetractors });
+            collection.push({ y: data.score3, color: colorDetractors });
+            collection.push({ y: data.score4, color: colorDetractors });
+            collection.push({ y: data.score5, color: colorPromoters });
+            collection.push({ y: data.score6, color: colorPromoters });
+            collection.push({ y: data.score7, color: colorPromoters });
+        }
+
+        if (type === "csat") {
+            collection.push({ y: data.score1, color: colorDetractors });
+            collection.push({ y: data.score2, color: colorDetractors });
+            collection.push({ y: data.score3, color: colorPassive });
+            collection.push({ y: data.score4, color: colorPromoters });
+            collection.push({ y: data.score5, color: colorPromoters });
+        }
+
+        if (type === "0to10") {
+            collection.push({ y: data.score0, color: blue });
+            collection.push({ y: data.score1, color: blue });
+            collection.push({ y: data.score2, color: blue });
+            collection.push({ y: data.score3, color: blue });
+            collection.push({ y: data.score4, color: blue });
+            collection.push({ y: data.score5, color: blue });
+            collection.push({ y: data.score6, color: blue });
+            collection.push({ y: data.score7, color: blue });
+            collection.push({ y: data.score8, color: blue });
+            collection.push({ y: data.score9, color: blue });
+            collection.push({ y: data.score10, color: blue });
+        }
+
+        return collection;
+    }
+
+    function getRepartitionChartOptions(chartId, type) {
+        let options = {
+            chart: {
+                renderTo: chartId,
+                plotBackgroundColor: undefined,
+                plotBorderWidth: undefined,
+                plotShadow: false,
+                spacing: [0, 0, 0, 0],
+                style: {
+                    fontFamily: "Arial",
+                    fontWeight: 400
+                },
+                height: 290,
+                type: "column"
+            },
+            credits: {
+                enabled: false
+            },
+            title: {
+                text: "",
+                style: {
+                    display: "none"
+                }
+            },
+            subtitle: {
+                text: "",
+                style: {
+                    display: "none"
+                }
+            },
+            exporting: {
+                enabled: false
+            },
+            yAxis: {
+                title: {
+                    text: "",
+                    style: {
+                        display: "none"
+                    }
+                },
+                labels: {
+                    enabled: false,
+                },
+                gridLineWidth: 0,
+                maxPadding: 0.4
+            },
+            tooltip: {
+                enabled: false
+            },
+            plotOptions: {
+                series: {
+                    groupPadding: 0.2,
+                    pointPadding: 0.0,
+                }
+            },
+            series: [
+                {
+                    showInLegend: false,
+                    dataLabels: {
+                        rotation: 0,
+                        enabled: true,
+                        color: "#222222",
+                        align: "center",
+                        y: 0,
+                        format: "{y:.1f}%",
+                        style: {
+                            fontFamily: "Arial",
+                            fontWeight: 700,
+                            fontSize: "11px"
+                        }
+                    }
+                }
+            ]
+        };
+
+        if (type === "nps") {
+            options["xAxis"] = {
+                categories: ["0", "1", "2", "3", "4", "5",
+                    "6", "7", "8", "9", "10"],
+                tickLength: 0,
+                lineColor: "#e0e0e0",
+                lineWidth: 3,
+                offset: 5,
+                labels: {
+                    style: {
+                        fontFamily: "Arial",
+                        fontSize: "12px",
+                        color: "#2c3846",
+                        fontWeight: 700,
+                    }
+                },
+            }
+        }
+        if (type === "ces") {
+            options["xAxis"] = {
+                categories: ["1", "2", "3", "4", "5",
+                    "6", "7"],
+                tickLength: 0,
+                lineColor: "#e0e0e0",
+                lineWidth: 3,
+                offset: 5,
+                labels: {
+                    style: {
+                        fontFamily: "Arial",
+                        fontSize: "12px",
+                        color: "#2c3846",
+                        fontWeight: 700,
+                    }
+                }
+            }
+        }
+        if (type === "csat") {
+            options["xAxis"] = {
+                categories: ["1", "2", "3", "4", "5"],
+                tickLength: 0,
+                lineColor: "#e0e0e0",
+                lineWidth: 3,
+                offset: 5,
+                labels: {
+                    style: {
+                        fontFamily: "Arial",
+                        fontSize: "12px",
+                        color: "#2c3846",
+                        fontWeight: 700,
+                    }
+                }
+            }
+        }
+        if (type === "0to10") {
+            options["xAxis"] = {
+                categories: ["0", "1", "2", "3", "4", "5",
+                    "6", "7", "8", "9", "10"],
+                tickLength: 0,
+                lineColor: "#e0e0e0",
+                lineWidth: 3,
+                offset: 5,
+                labels: {
+                    style: {
+                        fontFamily: "Arial",
+                        fontSize: "12px",
+                        color: "#2c3846",
+                        fontWeight: 700,
+                    }
+                },
+            }
+        }
+
+        return options;
     }
 
     //----- INIT -----//
