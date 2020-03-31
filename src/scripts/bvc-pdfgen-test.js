@@ -348,14 +348,40 @@ $(function () {
         myChart.series[0].setData(npsRepartition, true);
     }
 
-    // WIDGET ID 8 REPARTITION NPS SCORE
+    // WIDGET ID 8 REPARTITION CES SCORE
     function initialiseRepartitionCesScore(widget) {
+        $("#" + widget["uniqueID"] + " .widget-wrapper").append(`<div class="repartition-ces-score-content">
+                            <div id="chart"></div>
+                        </div>`);
 
+        let widgetId = widget["uniqueID"];
+        let chartId = "chart_" + widgetId;
+        $("#" + widgetId + " .repartition-ces-score-content div").attr("id", chartId);
+        let npsRepartition = prepareRepartitionData(widget["data"], "ces");
+        let options = getRepartitionChartOptions(chartId, "ces");
+
+        let myChart = new Highcharts.chart(options);
+
+        myChart.setSize(760, 290);
+        myChart.series[0].setData(npsRepartition, true);
     }
 
-    // WIDGET ID 9 REPARTITION NPS SCORE
+    // WIDGET ID 9 REPARTITION CSAT SCORE
     function initialiseRepartitionCsatScore(widget) {
+        $("#" + widget["uniqueID"] + " .widget-wrapper").append(`<div class="repartition-csat-score-content">
+                            <div id="chart"></div>
+                        </div>`);
 
+        let widgetId = widget["uniqueID"];
+        let chartId = "chart_" + widgetId;
+        $("#" + widgetId + " .repartition-csat-score-content div").attr("id", chartId);
+        let npsRepartition = prepareRepartitionData(widget["data"], "csat");
+        let options = getRepartitionChartOptions(chartId, "csat");
+
+        let myChart = new Highcharts.chart(options);
+
+        myChart.setSize(760, 290);
+        myChart.series[0].setData(npsRepartition, true);
     }
 
     // ID 99 JUST A TEST

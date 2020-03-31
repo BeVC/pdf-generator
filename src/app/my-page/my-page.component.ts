@@ -109,6 +109,32 @@ export class MyPageComponent implements OnInit {
                         score10: 27.02
                     }
                 },
+                {
+                    title: "Repartition CES Score",
+                    id: 8,
+                    uniqueID: "0571aa6e-16b2-48de-a2c6-262811dc188d",
+                    data: {
+                        score1: 20,
+                        score2: 0,
+                        score3: 20,
+                        score4: 20,
+                        score5: 20,
+                        score6: 20,
+                        score7: 0
+                    }
+                },
+                {
+                    title: "Repartition CSAT Score",
+                    id: 8,
+                    uniqueID: "3d2aae13-8949-4139-a2aa-132b7b8a65b2",
+                    data: {
+                        score1: 28.57,
+                        score2: 0,
+                        score3: 28.57,
+                        score4: 0,
+                        score5: 42.86
+                    }
+                }
                 /*{
                 title: "My Cool Piechart",
                 id: 99,

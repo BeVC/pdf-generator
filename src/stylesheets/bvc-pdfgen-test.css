@@ -736,6 +736,21 @@ a {
         display: flex;
         height: 290px;
     }
-        .widget-container .repartition-nps-score-content div {
-            max-height: 290px;
-        }
+
+    /* WIDGET REPARTITION CES SCORE*/
+    .widget-container .repartition-ces-score-content {
+        display: flex;
+        height: 290px;
+    }
+
+    /* WIDGET REPARTITION CSAT SCORE*/
+    .widget-container .repartition-csat-score-content {
+        display: flex;
+        height: 290px;
+    }
+
+    /* WIDGET REPARTITION 0-10 SCORE*/
+    .widget-container .repartition-zero-to-ten-score-content {
+        display: flex;
+        height: 290px;
+    }
