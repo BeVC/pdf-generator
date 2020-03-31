@@ -57,6 +57,9 @@ $(function () {
                 case 9:
                     initialiseRepartitionCsatScore(widget);
                     break;
+                case 10:
+                    initialiseRepartitionZeroToTenScore(widget);
+                    break;
                 case 99:
                     initialiseCoolPieChart(widget);
                     break;
@@ -339,13 +342,13 @@ $(function () {
         let widgetId = widget["uniqueID"];
         let chartId = "chart_" + widgetId;
         $("#" + widgetId + " .repartition-nps-score-content div").attr("id", chartId);
-        let npsRepartition = prepareRepartitionData(widget["data"], "nps");
+        let repartition = prepareRepartitionData(widget["data"], "nps");
         let options = getRepartitionChartOptions(chartId, "nps");
 
         let myChart = new Highcharts.chart(options);
 
         myChart.setSize(760, 290);
-        myChart.series[0].setData(npsRepartition, true);
+        myChart.series[0].setData(repartition, true);
     }
 
     // WIDGET ID 8 REPARTITION CES SCORE
@@ -357,13 +360,13 @@ $(function () {
         let widgetId = widget["uniqueID"];
         let chartId = "chart_" + widgetId;
         $("#" + widgetId + " .repartition-ces-score-content div").attr("id", chartId);
-        let npsRepartition = prepareRepartitionData(widget["data"], "ces");
+        let repartition = prepareRepartitionData(widget["data"], "ces");
         let options = getRepartitionChartOptions(chartId, "ces");
 
         let myChart = new Highcharts.chart(options);
 
         myChart.setSize(760, 290);
-        myChart.series[0].setData(npsRepartition, true);
+        myChart.series[0].setData(repartition, true);
     }
 
     // WIDGET ID 9 REPARTITION CSAT SCORE
@@ -375,14 +378,33 @@ $(function () {
         let widgetId = widget["uniqueID"];
         let chartId = "chart_" + widgetId;
         $("#" + widgetId + " .repartition-csat-score-content div").attr("id", chartId);
-        let npsRepartition = prepareRepartitionData(widget["data"], "csat");
+        let repartition = prepareRepartitionData(widget["data"], "csat");
         let options = getRepartitionChartOptions(chartId, "csat");
 
         let myChart = new Highcharts.chart(options);
 
         myChart.setSize(760, 290);
-        myChart.series[0].setData(npsRepartition, true);
+        myChart.series[0].setData(repartition, true);
     }
+
+    // WIDGET ID 10 REPARTITION 0-10 SCORE
+    function initialiseRepartitionZeroToTenScore(widget) {
+        $("#" + widget["uniqueID"] + " .widget-wrapper").append(`<div class="repartition-zero-to-ten-score-content">
+                            <div id="chart"></div>
+                        </div>`);
+
+        let widgetId = widget["uniqueID"];
+        let chartId = "chart_" + widgetId;
+        $("#" + widgetId + " .repartition-zero-to-ten-score-content div").attr("id", chartId);
+        let repartition = prepareRepartitionData(widget["data"], "0to10");
+        let options = getRepartitionChartOptions(chartId, "0to10");
+
+        let myChart = new Highcharts.chart(options);
+
+        myChart.setSize(760, 290);
+        myChart.series[0].setData(repartition, true);
+    }
+
 
     // ID 99 JUST A TEST
     function initialiseCoolPieChart(widget) {
@@ -575,7 +597,7 @@ $(function () {
                     }
                 },
                 labels: {
-                    enabled: false,
+                    enabled: false
                 },
                 gridLineWidth: 0,
                 maxPadding: 0.4
@@ -586,7 +608,7 @@ $(function () {
             plotOptions: {
                 series: {
                     groupPadding: 0.2,
-                    pointPadding: 0.0,
+                    pointPadding: 0.0
                 }
             },
             series: [
@@ -622,10 +644,10 @@ $(function () {
                         fontFamily: "Arial",
                         fontSize: "12px",
                         color: "#2c3846",
-                        fontWeight: 700,
+                        fontWeight: 700
                     }
-                },
-            }
+                }
+            };
         }
         if (type === "ces") {
             options["xAxis"] = {
@@ -640,10 +662,10 @@ $(function () {
                         fontFamily: "Arial",
                         fontSize: "12px",
                         color: "#2c3846",
-                        fontWeight: 700,
+                        fontWeight: 700
                     }
                 }
-            }
+            };
         }
         if (type === "csat") {
             options["xAxis"] = {
@@ -657,10 +679,10 @@ $(function () {
                         fontFamily: "Arial",
                         fontSize: "12px",
                         color: "#2c3846",
-                        fontWeight: 700,
+                        fontWeight: 700
                     }
                 }
-            }
+            };
         }
         if (type === "0to10") {
             options["xAxis"] = {
@@ -675,10 +697,10 @@ $(function () {
                         fontFamily: "Arial",
                         fontSize: "12px",
                         color: "#2c3846",
-                        fontWeight: 700,
+                        fontWeight: 700
                     }
-                },
-            }
+                }
+            };
         }
 
         return options;

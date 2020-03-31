@@ -90,7 +90,7 @@ export class MyPageComponent implements OnInit {
                         lastweek: 0
                     }
                 },*/
-                {
+                /*{
                     title: "Repartition NPS Score",
                     id: 7,
                     uniqueID: "4ac80b68-219a-415b-b980-0c9fe31d6451",
@@ -108,8 +108,8 @@ export class MyPageComponent implements OnInit {
                         score9: 18.77,
                         score10: 27.02
                     }
-                },
-                {
+                },*/
+                /*{
                     title: "Repartition CES Score",
                     id: 8,
                     uniqueID: "0571aa6e-16b2-48de-a2c6-262811dc188d",
@@ -122,10 +122,10 @@ export class MyPageComponent implements OnInit {
                         score6: 20,
                         score7: 0
                     }
-                },
-                {
+                },*/
+                /*{
                     title: "Repartition CSAT Score",
-                    id: 8,
+                    id: 9,
                     uniqueID: "3d2aae13-8949-4139-a2aa-132b7b8a65b2",
                     data: {
                         score1: 28.57,
@@ -134,7 +134,26 @@ export class MyPageComponent implements OnInit {
                         score4: 0,
                         score5: 42.86
                     }
-                }
+                },*/
+                /*{
+                    title: "Repartition 0-10 Score",
+                    id: 10,
+                    uniqueID: "ba69ba0f-07d0-42f5-a67a-92b5595b9fd4",
+                    data: {
+                        totalAnswers: 8,
+                        score0: 0,
+                        score1: 0,
+                        score2: 0,
+                        score3: 12.5,
+                        score4: 12.5,
+                        score5: 0,
+                        score6: 12.5,
+                        score7: 12.5,
+                        score8: 25,
+                        score9: 0,
+                        score10: 25
+                    }
+                }*/
                 /*{
                 title: "My Cool Piechart",
                 id: 99,
