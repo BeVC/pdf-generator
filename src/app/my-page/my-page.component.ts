@@ -158,19 +158,75 @@ export class MyPageComponent implements OnInit {
                     title: "Evolution NPS Score",
                     id: 11,
                     uniqueID: "ba80ba0f-07d0-42f5-a67a-92b5595b9fd4",
-                    data: []
+                    data: [
+                        { totalSubmitted: 140, nps: 32.0, detractors: 12.14, passive: 43.57, promoters: 44.29, date: "2016-08-07T00:00:00" },
+                        { totalSubmitted: 140, nps: 28.0, detractors: 20.0, passive: 32.14, promoters: 47.86, date: "2016-08-14T00:00:00" },
+                        { totalSubmitted: 140, nps: 31.0, detractors: 16.43, passive: 36.43, promoters: 47.14, date: "2016-08-21T00:00:00" },
+                        { totalSubmitted: 140, nps: 33.0, detractors: 11.43, passive: 44.28, promoters: 44.29, date: "2016-08-28T00:00:00" },
+                        { totalSubmitted: 57, nps: 28.0, detractors: 17.54, passive: 36.85, promoters: 45.61, date: "2016-09-04T00:00:00" },
+                        { totalSubmitted: 5, nps: 0.0, detractors: 40.0, passive: 20.0, promoters: 40.0, date: "2017-09-17T00:00:00" },
+                        { totalSubmitted: 1, nps: -100.0, detractors: 100.0, passive: 0.0, promoters: 0.0, date: "2017-09-24T00:00:00" },
+                        { totalSubmitted: 1, nps: -100.0, detractors: 100.0, passive: 0.0, promoters: 0.0, date: "2019-12-15T00:00:00" }
+                    ]
                 },
                 {
                     title: "Evolution CES Score",
                     id: 12,
                     uniqueID: "ba90ba0f-07d0-42f5-a67a-92b5595b9fd4",
-                    data: []
+                    data: [
+                        {
+                            "totalSubmitted": 5,
+                            "ces": 4.8,
+                            "disagree": 40.0,
+                            "agree": 60.0,
+                            "date": "2017-09-17T00:00:00"
+                        },
+                        {
+                            "totalSubmitted": 1,
+                            "ces": 5.0,
+                            "disagree": 0.0,
+                            "agree": 100.0,
+                            "date": "2017-09-24T00:00:00"
+                        },
+                        {
+                            "totalSubmitted": 15,
+                            "ces": 4.6,
+                            "disagree": 46.67,
+                            "agree": 53.33,
+                            "date": "2017-10-01T00:00:00"
+                        }
+                    ]
                 },
                 {
                     title: "Evolution CSAT Score",
                     id: 13,
                     uniqueID: "ba50ba0f-07d0-42f5-a67a-92b5595b9fd4",
-                    data: []
+                    data: [
+                        {
+                            "totalSubmitted": 19,
+                            "csat": 42.11,
+                            "satisfied": 42.11,
+                            "unsatisfied": 36.84,
+                            "passive": 21.05,
+                            "date": "2017-10-15T00:00:00"
+                        },
+                        {
+                            "totalSubmitted": 1,
+                            "csat": 0.0,
+                            "satisfied": 0.0,
+                            "unsatisfied": 100.0,
+                            "passive": 0.0,
+                            "date": "2017-12-03T00:00:00"
+                        },
+                        {
+                            "totalSubmitted": 1,
+                            "csat": 100.0,
+                            "satisfied": 100.0,
+                            "unsatisfied": 0.0,
+                            "passive": 0.0,
+                            "date": "2018-02-04T00:00:00"
+                        }
+                    ]
                 },
                 {
                     title: "Evolution 0-10 Score",
@@ -188,7 +244,8 @@ export class MyPageComponent implements OnInit {
                         {
                             count: 5,
                             date: "2017-09-17T00:00:00"
-                        }]
+                        }
+                    ]
                 },
                 /*{
                 title: "My Cool Piechart",

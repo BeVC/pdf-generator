@@ -812,22 +812,35 @@ a {
     /*WIDGET EVOLUTION NPS SCORE*/
     .widget-container .evolution-nps-score-content {
         display: flex;
-        height: 275px;
+        flex-direction: column;
+        height: 300px;
     }
+
+        .widget-container .evolution-nps-score-content div {
+            overflow: unset !important;
+        }
 
         .widget-container .evolution-nps-score-content .highchart-info {
             height: 11px;
         }
 
-            .widget-container .evolution-nps-score-content .highchart-info .p1 {
-                display: inline-block;
-                float: left;
-            }
+        .widget-container .evolution-nps-score-content .highchart-info-1 {
+            display: flex;
+            justify-content: space-between;
+            flex-direction: row-reverse;
+            height: 100%;
+            align-items: center;
+        }
 
-            .widget-container .evolution-nps-score-content .highchart-info .p2 {
-                display: inline-block;
-                float: right;
-            }
+        .widget-container .evolution-nps-score-content .highchart-info .p1 {
+            display: inline-block;
+            float: left;
+        }
+
+        .widget-container .evolution-nps-score-content .highchart-info .p2 {
+            display: inline-block;
+            float: right;
+        }
 
         .widget-container .evolution-nps-score-content .highchart-info-1 span:first-of-type {
             color: #20a7e0;
@@ -837,22 +850,35 @@ a {
     /*WIDGET EVOLUTION CES SCORE*/
     .widget-container .evolution-ces-score-content {
         display: flex;
-        height: 275px;
+        flex-direction: column;
+        height: 300px;
     }
+
+        .widget-container .evolution-ces-score-content div {
+            overflow: unset !important;
+        }
 
         .widget-container .evolution-ces-score-content .highchart-info {
             height: 11px;
         }
 
-            .widget-container .evolution-ces-score-content .highchart-info .p1 {
-                display: inline-block;
-                float: left;
-            }
+        .widget-container .evolution-ces-score-content .highchart-info-1 {
+            display: flex;
+            justify-content: space-between;
+            flex-direction: row-reverse;
+            height: 100%;
+            align-items: center;
+        }
 
-            .widget-container .evolution-ces-score-content .highchart-info .p2 {
-                display: inline-block;
-                float: right;
-            }
+        .widget-container .evolution-ces-score-content .highchart-info .p1 {
+            display: inline-block;
+            float: left;
+        }
+
+        .widget-container .evolution-ces-score-content .highchart-info .p2 {
+            display: inline-block;
+            float: right;
+        }
 
         .widget-container .evolution-ces-score-content .highchart-info-1 span:first-of-type {
             color: #20a7e0;
@@ -862,22 +888,35 @@ a {
     /*WIDGET EVOLUTION CSAT SCORE*/
     .widget-container .evolution-csat-score-content {
         display: flex;
-        height: 275px;
+        flex-direction: column;
+        height: 300px;
     }
+
+        .widget-container .evolution-csat-score-content div {
+            overflow: unset !important;
+        }
 
         .widget-container .evolution-csat-score-content .highchart-info {
             height: 11px;
         }
 
-            .widget-container .evolution-csat-score-content .highchart-info .p1 {
-                display: inline-block;
-                float: left;
-            }
+        .widget-container .evolution-csat-score-content .highchart-info-1 {
+            display: flex;
+            justify-content: space-between;
+            flex-direction: row-reverse;
+            height: 100%;
+            align-items: center;
+        }
 
-            .widget-container .evolution-csat-score-content .highchart-info .p2 {
-                display: inline-block;
-                float: right;
-            }
+        .widget-container .evolution-csat-score-content .highchart-info .p1 {
+            display: inline-block;
+            float: left;
+        }
+
+        .widget-container .evolution-csat-score-content .highchart-info .p2 {
+            display: inline-block;
+            float: right;
+        }
 
         .widget-container .evolution-csat-score-content .highchart-info-1 span:first-of-type {
             color: #20a7e0;
@@ -891,9 +930,9 @@ a {
         height: 300px;
     }
 
-    .widget-container .evolution-zero-to-ten-score-content div{
-        overflow:unset !important;
-    }
+        .widget-container .evolution-zero-to-ten-score-content div {
+            overflow: unset !important;
+        }
 
         .widget-container .evolution-zero-to-ten-score-content .highchart-info {
             height: 11px;

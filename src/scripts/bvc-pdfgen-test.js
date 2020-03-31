@@ -419,37 +419,87 @@ $(function () {
 
     // WIDGET ID 11 EVOLUTION SCORE
     function initialiseEvolutionNpsScoreWidget(widget) {
+        $("#" + widget["uniqueID"] + " .widget-wrapper").append(`<div class="evolution-nps-score-content">
+                            <div id="chart"></div>
+                            <div class="highchart-info" style="height:40px">
+                                <div class="highchart-info-1">
+                                    <p class="p1"></p>
+                                    <p class="p2"></p>
+                                </div>
+                            </div>
+                        </div>`);
 
+        let widgetId = widget["uniqueID"];
+        let chartId = "chart_" + widgetId;
+        $("#" + widgetId + " .evolution-nps-score-content div").attr("id", chartId);
+        let chartData = prepareEvolutionChartData(widget["data"], "nps");
+        setEvolutionChartInfos(widgetId, chartData[0][1], chartData[0][0], chartData[chartData.length - 1][1], chartData[chartData.length - 1][0]);
+        let options = getEvolutionChartOptions(chartId, "nps");
+
+        let myChart = new Highcharts.chart(options);
+        myChart.setSize(760, 275);
+        myChart.series[0].setData(chartData, true);
     }
 
     // WIDGET ID 12 EVOLUTION SCORE
     function initialiseEvolutionCesScoreWidget(widget) {
+        $("#" + widget["uniqueID"] + " .widget-wrapper").append(`<div class="evolution-ces-score-content">
+                            <div id="chart"></div>
+                            <div class="highchart-info" style="height:40px">
+                                <div class="highchart-info-1">
+                                    <p class="p1"></p>
+                                    <p class="p2"></p>
+                                </div>
+                            </div>
+                        </div>`);
 
+        let widgetId = widget["uniqueID"];
+        let chartId = "chart_" + widgetId;
+        $("#" + widgetId + " .evolution-ces-score-content div").attr("id", chartId);
+        let chartData = prepareEvolutionChartData(widget["data"], "ces");
+        setEvolutionChartInfos(widgetId, chartData[0][1], chartData[0][0], chartData[chartData.length - 1][1], chartData[chartData.length - 1][0]);
+        let options = getEvolutionChartOptions(chartId, "ces");
+
+        let myChart = new Highcharts.chart(options);
+        myChart.setSize(760, 275);
+        myChart.series[0].setData(chartData, true);
     }
 
     // WIDGET ID 13 EVOLUTION SCORE
     function initialiseEvolutionCsatScoreWidget(widget) {
+        $("#" + widget["uniqueID"] + " .widget-wrapper").append(`<div class="evolution-csat-score-content">
+                            <div id="chart"></div>
+                            <div class="highchart-info" style="height:40px">
+                                <div class="highchart-info-1">
+                                    <p class="p1"></p>
+                                    <p class="p2"></p>
+                                </div>
+                            </div>
+                        </div>`);
 
+        let widgetId = widget["uniqueID"];
+        let chartId = "chart_" + widgetId;
+        $("#" + widgetId + " .evolution-csat-score-content div").attr("id", chartId);
+        let chartData = prepareEvolutionChartData(widget["data"], "csat");
+        setEvolutionChartInfos(widgetId, chartData[0][1], chartData[0][0], chartData[chartData.length - 1][1], chartData[chartData.length - 1][0]);
+        let options = getEvolutionChartOptions(chartId, "csat");
+
+        let myChart = new Highcharts.chart(options);
+        myChart.setSize(760, 275);
+        myChart.series[0].setData(chartData, true);
     }
 
     // WIDGET ID 14 EVOLUTION SCORE
     function initialiseEvolutionZeroToTenScoreWidget(widget) {
         $("#" + widget["uniqueID"] + " .widget-wrapper").append(`<div class="evolution-zero-to-ten-score-content">
                             <div id="chart"></div>
-<div class="highchart-info" style="height:40px">
-            <div class="highchart-info-1">
-                <p class="p1"></p>
-                <p class="p2"></p>
-            </div>
-        </div>
+                            <div class="highchart-info" style="height:40px">
+                                <div class="highchart-info-1">
+                                    <p class="p1"></p>
+                                    <p class="p2"></p>
+                                </div>
+                            </div>
                         </div>`);
-
-        /*<div class="highchart-info" style="height:40px">
-            <div class="highchart-info-1">
-                <p class="p1"></p>
-                <p class="p2"></p>
-            </div>
-        </div>*/
 
         let widgetId = widget["uniqueID"];
         let chartId = "chart_" + widgetId;
@@ -823,9 +873,6 @@ $(function () {
             tooltip: {
                 useHTML: true,
                 formatter: function () {
-                    /*return "<span style=\"background: " + this.series.color + ";\" class=\"tooltip-circle\">" +
-                        "<span class=\"tooltip-nps\">" + this.y + "</span><small>" +
-                        moment(this.key).format("D MMM") + "</small></span>";*/
                     let tooltip = "<span style='background: " + this.series.color + ";' class='line-chart-tooltip'>" +
                         "<span class='text score'>" + this.y + "</span>" +
                         "<span class='text'>" + moment(this.x).format("D MMM") + "</span>" +
