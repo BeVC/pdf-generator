@@ -60,6 +60,18 @@ $(function () {
                 case 10:
                     initialiseRepartitionZeroToTenScore(widget);
                     break;
+                case 11:
+                    initialiseEvolutionNpsScoreWidget(widget);
+                    break;
+                case 12:
+                    initialiseEvolutionCesScoreWidget(widget);
+                    break;
+                case 13:
+                    initialiseEvolutionCsatScoreWidget(widget);
+                    break;
+                case 14:
+                    initialiseEvolutionZeroToTenScoreWidget(widget);
+                    break;
                 case 99:
                     initialiseCoolPieChart(widget);
                     break;
@@ -405,6 +417,51 @@ $(function () {
         myChart.series[0].setData(repartition, true);
     }
 
+    // WIDGET ID 11 EVOLUTION SCORE
+    function initialiseEvolutionNpsScoreWidget(widget) {
+
+    }
+
+    // WIDGET ID 12 EVOLUTION SCORE
+    function initialiseEvolutionCesScoreWidget(widget) {
+
+    }
+
+    // WIDGET ID 13 EVOLUTION SCORE
+    function initialiseEvolutionCsatScoreWidget(widget) {
+
+    }
+
+    // WIDGET ID 14 EVOLUTION SCORE
+    function initialiseEvolutionZeroToTenScoreWidget(widget) {
+        $("#" + widget["uniqueID"] + " .widget-wrapper").append(`<div class="evolution-zero-to-ten-score-content">
+                            <div id="chart"></div>
+<div class="highchart-info" style="height:40px">
+            <div class="highchart-info-1">
+                <p class="p1"></p>
+                <p class="p2"></p>
+            </div>
+        </div>
+                        </div>`);
+
+        /*<div class="highchart-info" style="height:40px">
+            <div class="highchart-info-1">
+                <p class="p1"></p>
+                <p class="p2"></p>
+            </div>
+        </div>*/
+
+        let widgetId = widget["uniqueID"];
+        let chartId = "chart_" + widgetId;
+        $("#" + widgetId + " .evolution-zero-to-ten-score-content div").attr("id", chartId);
+        let chartData = prepareEvolutionChartData(widget["data"], "0to10");
+        setEvolutionChartInfos(widgetId, chartData[0][1], chartData[0][0], chartData[chartData.length - 1][1], chartData[chartData.length - 1][0]);
+        let options = getEvolutionChartOptions(chartId, "0to10");
+
+        let myChart = new Highcharts.chart(options);
+        myChart.setSize(760, 275);
+        myChart.series[0].setData(chartData, true);
+    }
 
     // ID 99 JUST A TEST
     function initialiseCoolPieChart(widget) {
@@ -702,6 +759,164 @@ $(function () {
                 }
             };
         }
+
+        return options;
+    }
+
+    function prepareEvolutionChartData(data, type) {
+        let chartData = [];
+        let date;
+
+        for (let item of data) {
+            let value;
+
+            if (type === "nps") {
+                if (item.nps) {
+                    value = item.nps;
+                }
+                if (item.nps === 0) {
+                    value = 0;
+                }
+            }
+            if (type === "ces") {
+                if (item.ces) {
+                    value = item.ces;
+                }
+                if (item.ces === 0) {
+                    value = 0;
+                }
+            }
+            if (type === "csat") {
+                if (item.csat) {
+                    value = item.csat;
+                }
+                if (item.csat === 0) {
+                    value = 0;
+                }
+            }
+            if (type === "0to10") {
+                if (item.count) {
+                    value = item.count;
+                }
+                if (item.count === 0) {
+                    value = 0;
+                }
+            }
+
+            date = moment.utc(item.date).valueOf();
+            chartData.push([date, value]);
+
+        }
+
+        return chartData;
+    }
+
+    function setEvolutionChartInfos(widgetId, value1, date1, value2, date2) {
+        let $elementOne = "<span>" + value1 + "</span><span>" + moment(date1).format("DD MMM YYYY") + "</span>";
+        $("#" + widgetId + " .highchart-info-1 .p1").append($elementOne);
+        let $elementTwo = "<span>" + value2 + "</span><span>" + moment(date2).format("DD MMM YYYY") + "</span>";
+        $("#" + widgetId + " .highchart-info-1 .p2").append($elementTwo);
+    }
+
+    function getEvolutionChartOptions(chartId, type) {
+        let options = {
+            tooltip: {
+                useHTML: true,
+                formatter: function () {
+                    /*return "<span style=\"background: " + this.series.color + ";\" class=\"tooltip-circle\">" +
+                        "<span class=\"tooltip-nps\">" + this.y + "</span><small>" +
+                        moment(this.key).format("D MMM") + "</small></span>";*/
+                    let tooltip = "<span style='background: " + this.series.color + ";' class='line-chart-tooltip'>" +
+                        "<span class='text score'>" + this.y + "</span>" +
+                        "<span class='text'>" + moment(this.x).format("D MMM") + "</span>" +
+                        "</span>";
+                    return tooltip;
+                },
+                borderWidth: 0,
+                backgroundColor: 0,
+                borderRadius: 100
+            },
+            chart: {
+                renderTo: chartId,
+                plotBackgroundColor: undefined,
+                plotBorderWidth: undefined,
+                plotShadow: false,
+                type: "spline",
+                spacing: [0, 0, 0, 0],
+                style: {
+                    fontFamily: "Arial"
+                },
+                height: 275
+            },
+            credits: {
+                enabled: false
+            },
+            title: {
+                text: "",
+                style: {
+                    display: "none"
+                }
+            },
+            subtitle: {
+                text: "",
+                style: {
+                    display: "none"
+                }
+            },
+            plotOptions: {
+                series: {
+                    animation: false,
+                    dataLabels: {
+                        enabled: false
+                    }
+                }
+            },
+            xAxis: {
+                labels: {
+                    enabled: false
+                },
+                minorTickLength: 0,
+                tickLength: 0,
+                lineWidth: 0
+            },
+            exporting: {
+                enabled: false
+            },
+            yAxis: {
+                title: {
+                    text: "",
+                    style: {
+                        display: "none"
+                    }
+                },
+                gridLineColor: "#f6f7f8",
+                tickLength: 0,
+                labels: {
+                    style: {
+                        fontFamily: "Arial",
+                        fontSize: "10px",
+                        color: "#aab2bc",
+                        fontWeight: 600
+                    }
+                }
+            },
+            series: [{
+                showInLegend: false,
+                color: "#1ca9e6",
+                dataLabels: {
+                    enabled: false,
+                    rotation: 0,
+                    color: "#222222",
+                    align: "center",
+                    y: -5,
+                    style: {
+                        fontSize: "12px",
+                        fontFamily: "Arial"
+                    }
+                }
+            }
+            ]
+        };
 
         return options;
     }

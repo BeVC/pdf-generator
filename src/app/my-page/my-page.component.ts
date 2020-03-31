@@ -154,6 +154,42 @@ export class MyPageComponent implements OnInit {
                         score10: 25
                     }
                 }*/
+                {
+                    title: "Evolution NPS Score",
+                    id: 11,
+                    uniqueID: "ba80ba0f-07d0-42f5-a67a-92b5595b9fd4",
+                    data: []
+                },
+                {
+                    title: "Evolution CES Score",
+                    id: 12,
+                    uniqueID: "ba90ba0f-07d0-42f5-a67a-92b5595b9fd4",
+                    data: []
+                },
+                {
+                    title: "Evolution CSAT Score",
+                    id: 13,
+                    uniqueID: "ba50ba0f-07d0-42f5-a67a-92b5595b9fd4",
+                    data: []
+                },
+                {
+                    title: "Evolution 0-10 Score",
+                    id: 14,
+                    uniqueID: "ba40ba0f-07d0-42f5-a67a-92b5595b9fd4",
+                    data: [
+                        {
+                            count: 10,
+                            date: "2018-12-09T00:00:00"
+                        },
+                        {
+                            count: 8,
+                            date: "2017-12-03T00:00:00"
+                        },
+                        {
+                            count: 5,
+                            date: "2017-09-17T00:00:00"
+                        }]
+                },
                 /*{
                 title: "My Cool Piechart",
                 id: 99,
@@ -171,6 +207,7 @@ export class MyPageComponent implements OnInit {
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <link rel="stylesheet" href="https://cdn2.hubspot.net/hubfs/2050789/app-pdfgen/bvc-pdfgen-test-1.css">
 
     <script>var testObj = `
