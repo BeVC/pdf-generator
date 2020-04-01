@@ -72,6 +72,12 @@ $(function () {
                 case 14:
                     initialiseEvolutionZeroToTenScoreWidget(widget);
                     break;
+                case 15:
+                    initialiseIsaacPieChart(widget);
+                    break;
+                case 16:
+                    initialiseIsaacLineChart(widget);
+                    break;
                 case 99:
                     initialiseCoolPieChart(widget);
                     break;
@@ -511,6 +517,95 @@ $(function () {
         let myChart = new Highcharts.chart(options);
         myChart.setSize(760, 275);
         myChart.series[0].setData(chartData, true);
+    }
+
+    // WIDGET ID 15 ISAAC PIE CHART
+    function initialiseIsaacPieChart(widget) {
+        $("#" + widget["uniqueID"] + " .widget-wrapper").append(`<div class="isaac-pie-chart-content">
+                        <div class="pie-breakdown">
+                            <div class="mentioned">
+                                <p>mentioned</p>
+                                <p></p>
+                            </div>
+                            <div class="positive">
+                                <p>positive</p>
+                                <p></p>
+                            </div>
+                            <div class="neutral">
+                                <p>neutral</p>
+                                <p></p>
+                            </div>
+                            <div class="negative">
+                                <p>negative</p>
+                                <p></p>
+                            </div>
+                        </div>
+                        <div class="pie">
+                            <div id="chart"></div>
+                            <div class="pie-sub-categories">
+                                <ul class="pie-list">
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>`);
+
+
+        let dataCol = [];
+        let isaacSelectedCategory = widget["data"][0];
+        isaacSelectedCategory.items = isaacSelectedCategory.items.sort((n1, n2) => n2.total - n1.total);
+        for (let item of isaacSelectedCategory.items) {
+            item.percentagePos = calculatePercentage(item.positive, item.total);
+            item.percentageNeg = calculatePercentage(item.negative, item.total);
+            let total = item.percentageNeg + item.percentagePos;
+            if (total > 100) {
+                total = 100;
+            }
+            item.percentageNeut = parseFloat((100 - total).toFixed(2));
+
+            // FOR DATACOL
+            let percentage = (item.total / isaacSelectedCategory.total * 100).toFixed(2);
+            dataCol.push({
+                name: item.name,
+                y: parseFloat(percentage),
+                color: item.color,
+                dataLabels: {
+                    enabled: false
+                }
+            });
+        }
+
+        let widgetId = widget["uniqueID"];
+        let chartId = "chart_" + widgetId;
+
+        $("#" + widgetId + " .widget-header h2").append("<span>&ldquo;" + isaacSelectedCategory.name + "&ldquo;</span>");
+        $("#" + widgetId + " .pie-breakdown .mentioned p:nth-child(2)").text(isaacSelectedCategory.total);
+        if (widget["polarityEnabled"]) {
+            $("#" + widgetId + " .pie-breakdown .positive p:nth-child(2)").text(calculatePercentage(isaacSelectedCategory.positive, isaacSelectedCategory.total) + "%");
+            $("#" + widgetId + " .pie-breakdown .neutral p:nth-child(2)").text(calculatePercentage(isaacSelectedCategory.neutral, isaacSelectedCategory.total) + "%");
+            $("#" + widgetId + " .pie-breakdown .negative p:nth-child(2)").text(calculatePercentage(isaacSelectedCategory.negative, isaacSelectedCategory.total) + "%");
+        } else {
+            $("#" + widgetId + " .pie-breakdown .positive").hide();
+            $("#" + widgetId + " .pie-breakdown .neutral").hide();
+            $("#" + widgetId + " .pie-breakdown .negative").hide();
+        }
+
+        let $elements = buildSubCategoryListForPieChart(isaacSelectedCategory.items, widget["polarityEnabled"]);
+        $("#" + widgetId + " .pie-list").append($elements);
+
+        $("#" + widgetId + " .isaac-pie-chart-content .pie div:first-child").attr("id", chartId);
+
+        let options = getIsaacPieChartOptions(chartId);
+        let myChart = new Highcharts.chart(options);
+
+        myChart.setSize(760, 230);
+        myChart.series[0].setData(dataCol, true);
+
+    }
+
+    // WIDGET ID 16 ISAAC LINE CHART
+    function initialiseIsaacLineChart(widget) {
+
     }
 
     // ID 99 JUST A TEST
@@ -966,6 +1061,125 @@ $(function () {
         };
 
         return options;
+    }
+
+    function getIsaacPieChartOptions(chartId) {
+        let options = {
+            chart: {
+                renderTo: chartId,
+                plotBackgroundColor: undefined,
+                plotBorderWidth: undefined,
+                plotShadow: false,
+                type: "pie",
+                height: 230
+            },
+            title: {
+                text: ""
+            },
+            credits: {
+                enabled: false
+            },
+            exporting: {
+                enabled: false
+            },
+            tooltip: {
+                useHTML: true,
+                followPointer: false,
+                borderWidth: 0,
+                backgroundColor: 0,
+                borderRadius: 100,
+                formatter: function () {
+                    return "<span style='background: " + this.point.color + ";opacity:0.9;' class='tooltip-circle'>" +
+                        "<span class='tooltip-nps'>" + this.y + "%</span>" +
+                        "<small>" + this.key + "</small></span>";
+
+                }
+            },
+            plotOptions: {
+                pie: {
+                    dataLabels: {
+                        enabled: false
+                    },
+                    allowPointSelect: false
+                }
+            },
+            series: [{
+                name: "Most Mentioned",
+                animation: true,
+                colorByPoint: true,
+                borderWidth: 0,
+                innerSize: "50%",
+                data: []
+            }]
+        };
+
+        return options;
+    }
+
+    function buildSubCategoryListForPieChart(subCategories, polarityEnabled) {
+        let $elements = [];
+
+        for (let item of subCategories) {
+            let total;
+
+            if (polarityEnabled) {
+                total = "<span class='count'>" + item.total + "</span>";
+            } else {
+                total = "<span class='count no-polarity'>" + item.total + "</span>";
+            }
+
+
+            let element = "<li class='pie-list-item'>" +
+                "<span class='name'>" +
+                "<i class='color-dot' style='background-color:" + item.color + "' title='" + item.name + "'></i> <span class='content'>" + item.name +
+                "</span></span>" +
+                buildTotalSpan(item, polarityEnabled) +
+                buildSubBreakdown(item, polarityEnabled) +
+                "</li>";
+
+            $elements.push(element);
+        }
+
+        return $elements;
+    }
+
+    function buildTotalSpan(subCategory, polarityEnabled) {
+        if (polarityEnabled) {
+            return "<span class='count'>" + subCategory.total + "</span>";
+        } else {
+            return "<span class='count no-polarity'>" + subCategory.total + "</span>";
+        }
+    }
+
+    function buildSubBreakdown(subCategory, polarityEnabled) {
+        if (polarityEnabled) {
+            let posShow = "";
+            let negShow = "";
+            let neutShow = "";
+            if (subCategory.percentagePos < 10) {
+                posShow = "white";
+            }
+            if (subCategory.percentageNeg < 10) {
+                negShow = "white";
+            }
+            if (subCategory.percentageNeut < 10) {
+                neutShow = "white";
+            }
+
+            return "<span class='sub-breakdown'>" +
+                "<span class='bar'>" +
+                "<span class='bar-pos' style='width:" + subCategory.percentagePos + "%'></span>" +
+                "<span class='bar-neg' style='width:" + subCategory.percentageNeg + "%'></span>" +
+                "</span>" +
+                "<span class='percentages'>" +
+                "<span class='pos " + posShow + "' style='width:" + subCategory.percentagePos + "%;' title='" + subCategory.percentagePos + "%'>" + subCategory.percentagePos + "%</span>" +
+                "<span class='neut " + neutShow + "' style='width:" + subCategory.percentageNeut + "%;' title='" + subCategory.percentageNeut + "%'>" + subCategory.percentageNeut + "%</span>" +
+                "<span class='neg " + negShow + "' style='width:" + subCategory.percentageNeg + "%;' title='" + subCategory.percentageNeg + "%'>" + subCategory.percentageNeg + "%</span>" +
+                "</span>" +
+                "</span>";
+        } else {
+            return "";
+        }
     }
 
     //----- INIT -----//

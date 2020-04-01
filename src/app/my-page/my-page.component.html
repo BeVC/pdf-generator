@@ -12,7 +12,7 @@
                         <span name="widget-title">My Cool Piechart</span>
                     </h2>
                 </div>
-                <div class="widget-wrapper">                    
+                <div class="widget-wrapper">
                 </div>
                 <div class="no-data-in-chart" style="display:none">
                     <div>
@@ -25,24 +25,20 @@
         <div class="footer"></div>
     </div>
 
-    <!-- WIDGET CONTAINER -->
-    <!--<div id="templateContainer" class="template-hide ">
-        <div class="widget-container">
-            <div class="widget-header">
-                <h2>
-                    <span name="widget-title">nps score</span>
-                </h2>
-            </div>
-            <div class="widget-wrapper">
-
-            </div>
-            <div class="no-data-in-chart" style="display:none">
-                <div>
-                    <p>not enough data</p>
-                </div>
-            </div>
-        </div>
-    </div>-->
+    <div>Notes: stuff to get in order when we're using the complete api of API2PDF</div>
+    <ul>
+        <li>header only on first page</li>
+        <li>title only on first page</li>
+        <li>footer only on last page</li>
+        <li>
+            does the generator know when a block of html will cross page boundaries?
+            <ul>
+                <li>if so: can it move the block in its entirety to the next page? (cause highcharts are not displaying otherwise)</li>
+                <li>if not: for long widgets we'll need to find something of a solution: either break them into smaller pieces or only show a limited amount of data</li>
+            </ul>
+        </li>
+        <li>use smaller top and bottom border where applicable to use as much space as possible</li>
+    </ul>
 
     <p>my-page works!</p>
     <button (click)="uiOnGenerateHtmlClicked()">Generate HTML</button>

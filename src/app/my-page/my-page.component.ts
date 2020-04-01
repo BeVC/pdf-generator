@@ -154,7 +154,7 @@ export class MyPageComponent implements OnInit {
                         score10: 25
                     }
                 }*/
-                {
+                /*{
                     title: "Evolution NPS Score",
                     id: 11,
                     uniqueID: "ba80ba0f-07d0-42f5-a67a-92b5595b9fd4",
@@ -168,8 +168,8 @@ export class MyPageComponent implements OnInit {
                         { totalSubmitted: 1, nps: -100.0, detractors: 100.0, passive: 0.0, promoters: 0.0, date: "2017-09-24T00:00:00" },
                         { totalSubmitted: 1, nps: -100.0, detractors: 100.0, passive: 0.0, promoters: 0.0, date: "2019-12-15T00:00:00" }
                     ]
-                },
-                {
+                },*/
+                /*{
                     title: "Evolution CES Score",
                     id: 12,
                     uniqueID: "ba90ba0f-07d0-42f5-a67a-92b5595b9fd4",
@@ -196,8 +196,8 @@ export class MyPageComponent implements OnInit {
                             "date": "2017-10-01T00:00:00"
                         }
                     ]
-                },
-                {
+                },*/
+                /*{
                     title: "Evolution CSAT Score",
                     id: 13,
                     uniqueID: "ba50ba0f-07d0-42f5-a67a-92b5595b9fd4",
@@ -227,8 +227,8 @@ export class MyPageComponent implements OnInit {
                             "date": "2018-02-04T00:00:00"
                         }
                     ]
-                },
-                {
+                },*/
+                /*{
                     title: "Evolution 0-10 Score",
                     id: 14,
                     uniqueID: "ba40ba0f-07d0-42f5-a67a-92b5595b9fd4",
@@ -246,7 +246,103 @@ export class MyPageComponent implements OnInit {
                             date: "2017-09-17T00:00:00"
                         }
                     ]
-                },
+                },*/
+                {
+                    title: "Isaac Pie Chart",
+                    id: 15,
+                    uniqueID: "068e1ca7-5ee1-499d-bbf2-c081c97afb80",
+                    polarityEnabled: true,
+                    data: [{
+                        name: "Dinges",
+                        total: 7,
+                        positive: 3,
+                        neutral: 0,
+                        negative: 4,
+                        color: "#855be9",
+                        items: [
+                            {
+                                name: "Exclusiveness",
+                                total: 1,
+                                positive: 1,
+                                neutral: 0,
+                                negative: 0,
+                                color: "#6bca9e",
+                                percentage: 0,
+                                uniqueID: "e3d60f22-c973-499a-b01d-18bf8262194e"
+                            },
+                            {
+                                name: "Quality",
+                                total: 5,
+                                positive: 1,
+                                neutral: 0,
+                                negative: 4,
+                                color: "#74EDBB",
+                                percentage: 0,
+                                uniqueID: "fc0ecb57-c044-4fd0-8444-b071c347f4c3"
+                            },
+                            {
+                                name: "Variety",
+                                total: 1,
+                                positive: 1,
+                                neutral: 0,
+                                negative: 0,
+                                color: "#D06E51",
+                                percentage: 0,
+                                uniqueID: "9f4aeecf-1cc4-4a3d-9a87-6bac6cc3d6f5"
+                            },
+                            {
+                                name: "Exclusiveness",
+                                total: 1,
+                                positive: 1,
+                                neutral: 0,
+                                negative: 0,
+                                color: "#6bca9e",
+                                percentage: 0,
+                                uniqueID: "e3d60f22-c973-499a-b01d-18bf8262194e"
+                            },
+                            {
+                                name: "Quality",
+                                total: 5,
+                                positive: 1,
+                                neutral: 0,
+                                negative: 4,
+                                color: "#74EDBB",
+                                percentage: 0,
+                                uniqueID: "fc0ecb57-c044-4fd0-8444-b071c347f4c3"
+                            },
+                            {
+                                name: "Variety",
+                                total: 1,
+                                positive: 1,
+                                neutral: 0,
+                                negative: 0,
+                                color: "#D06E51",
+                                percentage: 0,
+                                uniqueID: "9f4aeecf-1cc4-4a3d-9a87-6bac6cc3d6f5"
+                            },
+                            {
+                                name: "Exclusiveness",
+                                total: 1,
+                                positive: 1,
+                                neutral: 0,
+                                negative: 0,
+                                color: "#6bca9e",
+                                percentage: 0,
+                                uniqueID: "e3d60f22-c973-499a-b01d-18bf8262194e"
+                            },
+                            {
+                                name: "Quality",
+                                total: 5,
+                                positive: 1,
+                                neutral: 0,
+                                negative: 4,
+                                color: "#74EDBB",
+                                percentage: 0,
+                                uniqueID: "fc0ecb57-c044-4fd0-8444-b071c347f4c3"
+                            }
+                        ]
+                    }]
+                }
                 /*{
                 title: "My Cool Piechart",
                 id: 99,

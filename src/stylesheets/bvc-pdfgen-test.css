@@ -183,7 +183,14 @@ a {
         z-index: 1;
     }
 
-/*.tooltip-circle {
+.color-dot {
+    height: 8px;
+    width: 8px;
+    display: inline-block;
+    border-radius: 50%;
+}
+
+.tooltip-circle {
     border-radius: 100px;
     display: block;
     width: 68px;
@@ -209,7 +216,7 @@ a {
         color: white;
         display: block;
         margin-top: 5px;
-    }*/
+    }
 
 .line-chart-tooltip {
     border-radius: 4px;
@@ -962,3 +969,235 @@ a {
             color: #20a7e0;
             margin-right: 5px;
         }
+
+    /* WIDGET ISAAC PIE CHART */
+    .widget-container .isaac-pie-chart-content {
+        display: flex;
+        flex-direction: column;
+    }
+
+        .widget-container .isaac-pie-chart-content .pie-breakdown {
+            height: 73px;
+            padding-left: 30px;
+            padding-right: 20px;
+        }
+
+            .widget-container .isaac-pie-chart-content .pie-breakdown.short div p:first-of-type {
+                font-size: 8px;
+                line-height: 8px;
+            }
+
+            .widget-container .isaac-pie-chart-content .pie-breakdown.short div p:last-of-type {
+                font-size: 15px;
+                line-height: 15px;
+            }
+
+            .widget-container .isaac-pie-chart-content .pie-breakdown div {
+                display: inline;
+                float: left;
+            }
+
+                .widget-container .isaac-pie-chart-content .pie-breakdown div p:first-of-type {
+                    color: #a4adb8;
+                    font-size: 10px;
+                    line-height: 10px;
+                    font-family: Arial, HelveticaNeue;
+                    font-weight: 500;
+                    text-transform: uppercase;
+                    margin-top: 15px;
+                    margin-bottom: 10px;
+                }
+
+                .widget-container .isaac-pie-chart-content .pie-breakdown div p:last-of-type {
+                    font-family: Arial, HelveticaNeue;
+                    font-size: 25px;
+                    line-height: 25px;
+                    font-weight: 900;
+                    letter-spacing: 0.44px;
+                }
+
+                .widget-container .isaac-pie-chart-content .pie-breakdown div.mentioned {
+                    width: 20%;
+                    text-align: left;
+                }
+
+                    .widget-container .isaac-pie-chart-content .pie-breakdown div.mentioned p:last-of-type {
+                        color: #003261;
+                    }
+
+                .widget-container .isaac-pie-chart-content .pie-breakdown div.positive {
+                    width: 30%;
+                    text-align: center;
+                }
+
+                    .widget-container .isaac-pie-chart-content .pie-breakdown div.positive p:last-of-type {
+                        color: #25ce7d;
+                    }
+
+                .widget-container .isaac-pie-chart-content .pie-breakdown div.neutral {
+                    width: 30%;
+                    text-align: center;
+                }
+
+                    .widget-container .isaac-pie-chart-content .pie-breakdown div.neutral p:last-of-type {
+                        color: #748292;
+                    }
+
+                .widget-container .isaac-pie-chart-content .pie-breakdown div.negative {
+                    width: 20%;
+                    text-align: right;
+                }
+
+                    .widget-container .isaac-pie-chart-content .pie-breakdown div.negative p:last-of-type {
+                        color: #ff4d4d;
+                    }
+
+        .widget-container .isaac-pie-chart-content .pie .pie-sub-categories {
+            padding-left: 30px;
+            padding-right: 20px;
+            /*overflow-y: auto;
+            overflow-x: hidden !important;
+            height: 200px;*/
+        }
+
+            .widget-container .isaac-pie-chart-content .pie .pie-sub-categories .pie-list li {
+                height: 40px;
+                line-height: 40px;
+            }
+
+                .widget-container .isaac-pie-chart-content .pie .pie-sub-categories .pie-list li:nth-of-type(odd) {
+                    background-color: #fcfcfc;
+                }
+
+                .widget-container .isaac-pie-chart-content .pie .pie-sub-categories .pie-list li:nth-of-type(even) {
+                    background-color: white;
+                }
+
+                .widget-container .isaac-pie-chart-content .pie .pie-sub-categories .pie-list li.short .name {
+                    width: 15%;
+                }
+
+                    .widget-container .isaac-pie-chart-content .pie .pie-sub-categories .pie-list li.short .name i {
+                        cursor: help;
+                    }
+
+                    .widget-container .isaac-pie-chart-content .pie .pie-sub-categories .pie-list li.short .name .content {
+                        display: none !important;
+                    }
+
+                .widget-container .isaac-pie-chart-content .pie .pie-sub-categories .pie-list li.short .count {
+                    width: 15%;
+                }
+
+                .widget-container .isaac-pie-chart-content .pie .pie-sub-categories .pie-list li.short .sub-breakdown {
+                    width: 70%;
+                }
+
+                    .widget-container .isaac-pie-chart-content .pie .pie-sub-categories .pie-list li.short .sub-breakdown .bar {
+                        bottom: 0 !important;
+                    }
+
+                    .widget-container .isaac-pie-chart-content .pie .pie-sub-categories .pie-list li.short .sub-breakdown .percentages {
+                        opacity: 0 !important;
+                    }
+
+                .widget-container .isaac-pie-chart-content .pie .pie-sub-categories .pie-list li .name {
+                    color: #2c3847;
+                    font-family: Arial, HelveticaNeue;
+                    font-size: 11px;
+                    font-weight: 400;
+                    width: 30%;
+                    display: inline-block;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    float: left;
+                }
+
+                    .widget-container .isaac-pie-chart-content .pie .pie-sub-categories .pie-list li .name i {
+                        font-size: 10px;
+                        margin-right: 10px;
+                    }
+
+                .widget-container .isaac-pie-chart-content .pie .pie-sub-categories .pie-list li .count {
+                    color: #2c3847;
+                    font-family: Arial, HelveticaNeue;
+                    font-size: 11px;
+                    font-weight: 400;
+                    width: 8%;
+                    display: inline-block;
+                }
+
+                    .widget-container .isaac-pie-chart-content .pie .pie-sub-categories .pie-list li .count.no-polarity {
+                        float: right;
+                    }
+
+                .widget-container .isaac-pie-chart-content .pie .pie-sub-categories .pie-list li .sub-breakdown {
+                    width: 60%;
+                    display: inline-block;
+                    position: relative;
+                }
+
+                    .widget-container .isaac-pie-chart-content .pie .pie-sub-categories .pie-list li .sub-breakdown .percentages {
+                        width: 100%;
+                        display: inline-block;
+                        position: absolute;
+                        bottom: -4px;
+                        font-family: Arial, HelveticaNeue;
+                        font-size: 10px;
+                        font-weight: 500;
+                        height: 30px;
+                    }
+
+                        .widget-container .isaac-pie-chart-content .pie .pie-sub-categories .pie-list li .sub-breakdown .percentages .pos {
+                            float: left;
+                            text-align: left;
+                            color: #1da363;
+                        }
+
+                            .widget-container .isaac-pie-chart-content .pie .pie-sub-categories .pie-list li .sub-breakdown .percentages .pos.white {
+                                opacity: 0;
+                            }
+
+                        .widget-container .isaac-pie-chart-content .pie .pie-sub-categories .pie-list li .sub-breakdown .percentages .neut {
+                            float: left;
+                            text-align: center;
+                            color: #a4adb8;
+                        }
+
+                            .widget-container .isaac-pie-chart-content .pie .pie-sub-categories .pie-list li .sub-breakdown .percentages .neut.white {
+                                opacity: 0;
+                            }
+
+                        .widget-container .isaac-pie-chart-content .pie .pie-sub-categories .pie-list li .sub-breakdown .percentages .neg {
+                            float: left;
+                            text-align: right;
+                            color: #ff1a1a;
+                        }
+
+                            .widget-container .isaac-pie-chart-content .pie .pie-sub-categories .pie-list li .sub-breakdown .percentages .neg.white {
+                                opacity: 0;
+                            }
+
+                    .widget-container .isaac-pie-chart-content .pie .pie-sub-categories .pie-list li .sub-breakdown .bar {
+                        width: 100%;
+                        display: inline-block;
+                        height: 5px;
+                        background-color: #a4adb8;
+                        position: absolute;
+                        bottom: -6px;
+                    }
+
+                        .widget-container .isaac-pie-chart-content .pie .pie-sub-categories .pie-list li .sub-breakdown .bar .bar-pos {
+                            background-color: #48de96;
+                            display: inline-block;
+                            height: 5px;
+                            float: left;
+                        }
+
+                        .widget-container .isaac-pie-chart-content .pie .pie-sub-categories .pie-list li .sub-breakdown .bar .bar-neg {
+                            background-color: #ff8080;
+                            display: inline-block;
+                            height: 5px;
+                            float: right;
+                        }
