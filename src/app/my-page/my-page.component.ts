@@ -247,7 +247,7 @@ export class MyPageComponent implements OnInit {
                         }
                     ]
                 },*/
-                {
+                /*{
                     title: "Isaac Pie Chart",
                     id: 15,
                     uniqueID: "068e1ca7-5ee1-499d-bbf2-c081c97afb80",
@@ -342,7 +342,275 @@ export class MyPageComponent implements OnInit {
                             }
                         ]
                     }]
-                }
+                },*/
+                {
+                    title: "Isaac Line Chart",
+                    id: 16,
+                    uniqueID: "fc0ecb57-c044-4fd0-8444-b071c347f4c3",
+                    data: [
+                        {
+                            date: "2016-10-17T00:00:00",
+                            mostMentioned: [
+                                {
+                                    name: "App",
+                                    total: 1,
+                                    positive: 0,
+                                    neutral: 0,
+                                    negative: 1,
+                                    color: "#057004",
+                                    items: [
+                                        {
+                                            name: "General",
+                                            total: 1,
+                                            positive: 0,
+                                            neutral: 0,
+                                            negative: 1,
+                                            color: "#57a908",
+                                            percentage: 100.0,
+                                            uniqueID: "e753a1cd-07b5-4992-be2f-11e52b0e0bcf"
+                                        }
+                                    ],
+                                    totalMentionsAllCategories: 109,
+                                    uniqueID: "9160649d-5f3d-40a7-90be-8224667d867a"
+                                }]
+                        },
+                        {
+                            date: "2016-10-24T00:00:00",
+                            mostMentioned: [
+                                {
+                                    name: "App",
+                                    total: 4,
+                                    positive: 0,
+                                    neutral: 2,
+                                    negative: 2,
+                                    color: "#057004",
+                                    items: [
+                                        {
+                                            name: "General",
+                                            total: 4,
+                                            positive: 0,
+                                            neutral: 2,
+                                            negative: 2,
+                                            color: "#57a908",
+                                            percentage: 100.0,
+                                            uniqueID: "e753a1cd-07b5-4992-be2f-11e52b0e0bcf"
+                                        }
+                                    ],
+                                    totalMentionsAllCategories: 109,
+                                    uniqueID: "9160649d-5f3d-40a7-90be-8224667d867a"
+                                }]
+                        },
+                        {
+                            date: "2016-10-31T00:00:00",
+                            mostMentioned: [
+                                {
+                                    name: "App",
+                                    total: 11,
+                                    positive: 8,
+                                    neutral: 1,
+                                    negative: 2,
+                                    color: "#057004",
+                                    items: [
+                                        {
+                                            name: "General",
+                                            total: 9,
+                                            positive: 7,
+                                            neutral: 0,
+                                            negative: 2,
+                                            color: "#57a908",
+                                            percentage: 81.82,
+                                            uniqueID: "e753a1cd-07b5-4992-be2f-11e52b0e0bcf"
+                                        },
+                                        {
+                                            name: "Information",
+                                            total: 2,
+                                            positive: 1,
+                                            neutral: 1,
+                                            negative: 0,
+                                            color: "#f5d142",
+                                            percentage: 18.18,
+                                            uniqueID: "de275faf-d685-4333-9563-6e4d439303ad"
+                                        }
+                                    ],
+                                    totalMentionsAllCategories: 109,
+                                    uniqueID: "9160649d-5f3d-40a7-90be-8224667d867a"
+                                }]
+                        },
+                        {
+                            date: "2016-11-07T00:00:00",
+                            mostMentioned: [
+                                {
+                                    name: "App",
+                                    total: 7,
+                                    positive: 4,
+                                    neutral: 1,
+                                    negative: 2,
+                                    color: "#057004",
+                                    items: [
+                                        {
+                                            name: "General",
+                                            total: 7,
+                                            positive: 4,
+                                            neutral: 1,
+                                            negative: 2,
+                                            color: "#57a908",
+                                            percentage: 100.0,
+                                            uniqueID: "e753a1cd-07b5-4992-be2f-11e52b0e0bcf"
+                                        }
+                                    ],
+                                    totalMentionsAllCategories: 109,
+                                    uniqueID: "9160649d-5f3d-40a7-90be-8224667d867a"
+                                }]
+                        },
+                        {
+                            date: "2016-11-14T00:00:00",
+                            mostMentioned: [
+                                {
+                                    name: "App",
+                                    total: 25,
+                                    positive: 13,
+                                    neutral: 3,
+                                    negative: 9,
+                                    color: "#057004",
+                                    items: [
+                                        {
+                                            name: "General",
+                                            total: 20,
+                                            positive: 10,
+                                            neutral: 3,
+                                            negative: 7,
+                                            color: "#57a908",
+                                            percentage: 80.0,
+                                            uniqueID: "e753a1cd-07b5-4992-be2f-11e52b0e0bcf"
+                                        },
+                                        {
+                                            name: "Speed",
+                                            total: 3,
+                                            positive: 1,
+                                            neutral: 0,
+                                            negative: 2,
+                                            color: "#74ff00",
+                                            percentage: 12.00,
+                                            uniqueID: "a5aa4d78-5b11-469a-8fc1-880705dfab25"
+                                        },
+                                        {
+                                            name: "Information",
+                                            total: 1,
+                                            positive: 1,
+                                            neutral: 0,
+                                            negative: 0,
+                                            color: "#f5d142",
+                                            percentage: 4.00,
+                                            uniqueID: "de275faf-d685-4333-9563-6e4d439303ad"
+                                        },
+                                        {
+                                            name: "User-friendliness",
+                                            total: 1,
+                                            positive: 1,
+                                            neutral: 0,
+                                            negative: 0,
+                                            color: "#9F8EE8",
+                                            percentage: 4.00,
+                                            uniqueID: "1b1c0ac2-080a-4257-908a-3bc3dfb2707e"
+                                        }
+                                    ],
+                                    totalMentionsAllCategories: 109,
+                                    uniqueID: "9160649d-5f3d-40a7-90be-8224667d867a"
+                                }]
+                        },
+                        {
+                            date: "2016-11-21T00:00:00",
+                            mostMentioned: [
+                                {
+                                    name: "App",
+                                    total: 41,
+                                    positive: 20,
+                                    neutral: 4,
+                                    negative: 17,
+                                    color: "#057004",
+                                    items: [
+                                        {
+                                            name: "General",
+                                            total: 34,
+                                            positive: 19,
+                                            neutral: 3,
+                                            negative: 12,
+                                            color: "#57a908",
+                                            percentage: 82.93,
+                                            uniqueID: "e753a1cd-07b5-4992-be2f-11e52b0e0bcf"
+                                        },
+                                        {
+                                            name: "User-friendliness",
+                                            total: 1,
+                                            positive: 1,
+                                            neutral: 0,
+                                            negative: 0,
+                                            color: "#9F8EE8",
+                                            percentage: 2.44,
+                                            uniqueID: "1b1c0ac2-080a-4257-908a-3bc3dfb2707e"
+                                        },
+                                        {
+                                            name: "Information",
+                                            total: 4,
+                                            positive: 0,
+                                            neutral: 1,
+                                            negative: 3,
+                                            color: "#f5d142",
+                                            percentage: 9.76,
+                                            uniqueID: "de275faf-d685-4333-9563-6e4d439303ad"
+                                        },
+                                        {
+                                            name: "Speed",
+                                            total: 2,
+                                            positive: 0,
+                                            neutral: 0,
+                                            negative: 2,
+                                            color: "#74ff00",
+                                            percentage: 4.88,
+                                            uniqueID: "a5aa4d78-5b11-469a-8fc1-880705dfab25"
+                                        }
+                                    ],
+                                    totalMentionsAllCategories: 109,
+                                    uniqueID: "9160649d-5f3d-40a7-90be-8224667d867a"
+                                }]
+                        },
+                        {
+                            date: "2016-11-28T00:00:00",
+                            mostMentioned: [
+                                {
+                                    name: "App",
+                                    total: 20,
+                                    positive: 13,
+                                    neutral: 3,
+                                    negative: 4,
+                                    color: "#057004",
+                                    items: [
+                                        {
+                                            name: "General",
+                                            total: 18,
+                                            positive: 11,
+                                            neutral: 3,
+                                            negative: 4,
+                                            color: "#57a908",
+                                            percentage: 90.0,
+                                            uniqueID: "e753a1cd-07b5-4992-be2f-11e52b0e0bcf"
+                                        },
+                                        {
+                                            name: "Information",
+                                            total: 2,
+                                            positive: 2,
+                                            neutral: 0,
+                                            negative: 0,
+                                            color: "#f5d142",
+                                            percentage: 10.0,
+                                            uniqueID: "de275faf-d685-4333-9563-6e4d439303ad"
+                                        }
+                                    ],
+                                    totalMentionsAllCategories: 109,
+                                    uniqueID: "9160649d-5f3d-40a7-90be-8224667d867a"
+                                }]
+                        }]
+                },
                 /*{
                 title: "My Cool Piechart",
                 id: 99,

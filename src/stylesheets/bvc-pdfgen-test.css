@@ -243,6 +243,52 @@ a {
         font-weight: 700;
     }
 
+.cbx-wrapper {
+    line-height: 32px;
+    position: relative;
+}
+
+    .cbx-wrapper .cbx {
+        display: block;
+        float: left;
+        left: 0;
+        margin-left: 11px;
+        margin-right: 16px;
+        margin-top: 9px;
+        cursor: pointer;
+    }
+
+        .cbx-wrapper .cbx .cbx-inner {
+            width: 14px;
+            height: 14px;
+            border: 2px solid #cbcbcb;
+            background-clip: content-box;
+        }
+
+            .cbx-wrapper .cbx .cbx-inner.isInactive {
+                background-color: white !important;
+            }
+
+    .cbx-wrapper .name {
+        color: #748292;
+        font-family: Arial,HelveticaNeue;
+        font-size: 11px;
+        font-weight: 400;
+        letter-spacing: 0.23px;
+    }
+
+        .cbx-wrapper .name i {
+            margin-left: 5px;
+            color: #d3dae2;
+        }
+
+        .cbx-wrapper .name:first-letter {
+            text-transform: uppercase;
+        }
+
+        .cbx-wrapper .name.isInactive {
+            color: #bbc2ca;
+        }
 
 .widget-container {
     background-color: white;
@@ -1055,9 +1101,6 @@ a {
         .widget-container .isaac-pie-chart-content .pie .pie-sub-categories {
             padding-left: 30px;
             padding-right: 20px;
-            /*overflow-y: auto;
-            overflow-x: hidden !important;
-            height: 200px;*/
         }
 
             .widget-container .isaac-pie-chart-content .pie .pie-sub-categories .pie-list li {
@@ -1201,3 +1244,42 @@ a {
                             height: 5px;
                             float: right;
                         }
+
+    /*WIDGET ISAAC LINE CHART*/
+    .widget-container .isaac-line-chart-content {
+        height: 100%;
+    }
+
+        .widget-container .isaac-line-chart-content .line-sub-categories {
+            width: 185px;
+            float: left;
+            overflow-y: auto;
+            max-height: 290px;
+        }
+
+            .widget-container .isaac-line-chart-content .line-sub-categories .list-title {
+                font-family: Arial, HelveticaNeue;
+                font-size: 10px;
+                font-weight: 700;
+                line-height: 10px;
+                text-transform: uppercase;
+                color: #6a7889;
+            }
+
+            .widget-container .isaac-line-chart-content .line-sub-categories .sub-cat-list.horizontal li {
+                float: left;
+            }
+
+            .widget-container .isaac-line-chart-content .line-sub-categories .sub-cat-list li {
+                display: block;
+                line-height: 40px;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+            }
+
+        .widget-container .isaac-line-chart-content .chart-viewport {
+            width: calc(100% - 215px);
+            height: 290px;
+            display: inline-block;
+        }

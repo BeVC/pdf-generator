@@ -605,6 +605,41 @@ $(function () {
 
     // WIDGET ID 16 ISAAC LINE CHART
     function initialiseIsaacLineChart(widget) {
+        $("#" + widget["uniqueID"] + " .widget-wrapper").append(`<div class="isaac-line-chart-content">
+            <div class="line-sub-categories">
+                <div class="list-title">subcategories</div>
+                <ul class="sub-cat-list"></ul>
+            </div>
+            <div class="chart-viewport">
+                <div id="chart"></div>
+            </div>
+        </div>`);
+
+        let series = [];
+        let isaacSelectedCategoryEvolution = widget["data"];
+        let subCategoryCollection = mapSubCategories(isaacSelectedCategoryEvolution);
+        for (let i = 0; i < subCategoryCollection.length; i++) {
+            if (i < 6) {
+                let subCategory = subCategoryCollection[i];
+                subCategory.isInactive = false;
+                let serie = initialiseIsaacLineChartData(subCategory, isaacSelectedCategoryEvolution);
+                series.push(serie);
+            }
+        }
+
+
+        let widgetId = widget["uniqueID"];
+        let chartId = "chart_" + widgetId;
+
+        $("#" + widgetId + " .widget-header h2").append("<span>&ldquo;" + isaacSelectedCategoryEvolution[0].mostMentioned[0].name + "&ldquo;</span>");
+        let $elements = buildSubCategoryListForLineChart(subCategoryCollection, series);
+        $("#" + widgetId + " .sub-cat-list").append($elements);
+
+        $("#" + widgetId + " .isaac-line-chart-content .chart-viewport #chart").attr("id", chartId);
+        let options = getIsaacLineChartOptions(chartId, series);
+        let myChart = new Highcharts.chart(options);
+
+        myChart.setSize(1480, 290);
 
     }
 
@@ -1180,6 +1215,186 @@ $(function () {
         } else {
             return "";
         }
+    }
+
+    function mapSubCategories(data) {
+        let collection = [];
+
+        for (let dataPoint of data) {
+            for (let mention of dataPoint.mostMentioned) {
+                for (let subCat of mention.items) {
+                    let filter = collection.filter(item => item.id === subCat.uniqueID);
+                    if (filter.length === 0) {
+                        let newSubCat = {};
+                        newSubCat.id = subCat.uniqueID;
+                        newSubCat.name = subCat.name;
+                        newSubCat.color = subCat.color;
+                        newSubCat.isInactive = true;
+
+                        collection.push(newSubCat);
+                    }
+                }
+            }
+        }
+
+        return collection;
+    }
+
+    function initialiseIsaacLineChartData(subCategory, data) {
+        let newSerie = {
+            id: "",
+            name: "",
+            data: [],
+            marker: {
+                symbol: "circle"
+            },
+            color: "",
+            connectNulls: true
+        };
+
+        // SET SERIES NAME & COLOR
+        newSerie.id = subCategory.id;
+        newSerie.name = subCategory.name;
+        newSerie.color = subCategory.color;
+        let startTime = data[0].date.toString();
+        newSerie["pointStart"] = new Date(startTime).getTime();
+
+        // ITERATE OVER DATA
+        for (let dataPoint of data) {
+            let mostMentioned = dataPoint.mostMentioned[0];
+            // GET SUBCATEGORY
+            let filter = mostMentioned.items.filter(item => item.uniqueID === subCategory.id);
+            if (filter.length === 1) {
+                // SET DATE AND Y, BASED ON POLARITYENUM
+                //if (this.polarity === PolarityDDLEnum.Mentioned) {
+                newSerie.data.push({
+                    x: new Date(dataPoint.date.toString()).getTime(),
+                    y: filter[0].total, pos: filter[0].positive,
+                    neg: filter[0].negative, neut: filter[0].neutral,
+                    polarity: -1
+                });
+                /*} else if (this.polarity === PolarityDDLEnum.SentimentNeg) {
+                        newSeries.data.push({
+                            x: new Date(dataPoint.date.toString()).getTime(),
+                            y: this.calculatePercentage(filter[0].total, filter[0].negative),
+                            pos: this.calculatePercentage(filter[0].total, filter[0].positive),
+                            neut: this.calculatePercentage(filter[0].total, filter[0].neutral),
+                            polarity: this.polarity
+                        });
+                } else if (this.polarity === PolarityDDLEnum.SentimentPos) {
+                        newSeries.data.push({
+                            x: new Date(dataPoint.date.toString()).getTime(),
+                            y: this.calculatePercentage(filter[0].total, filter[0].positive),
+                            neg: this.calculatePercentage(filter[0].total, filter[0].negative),
+                            neut: this.calculatePercentage(filter[0].total, filter[0].neutral),
+                            polarity: this.polarity
+                        });
+                }*/
+            } else if (filter.length === 0) {
+                newSerie.data.push([new Date(dataPoint.date.toString()).getTime(), null]);
+            }
+        }
+
+        return newSerie;
+    }
+
+    function buildSubCategoryListForLineChart(subCategories, series) {
+        let $elements = [];
+
+        for (let item of subCategories) {
+            // IS THIS INACTIVE?
+            let className = "isInactive";
+            let result = series.find(serie => serie.id === item.id);
+            if (result !== undefined) {
+                className = "";
+            }
+
+            let element = "<li>" +
+                "<div class='cbx-wrapper'>" +
+                "<div class='cbx'>" +
+                "<div id='" + item.id + "' class='cbx-inner " + className + "' style='background-color:" + item.color + "' data-item='" + JSON.stringify(item) + "'></div>" +
+                "</div>" +
+                "<span class='name'>" + item.name + "</span>" +
+                "</div>" +
+                "</li>";
+
+            $elements.push(element);
+        }
+
+        return $elements;
+    }
+
+    function getIsaacLineChartOptions(chartId, series) {
+        let options = {
+            chart: {
+                renderTo: chartId,
+                type: "spline",
+                height: 290
+            },
+            credits: {
+                enabled: false
+            },
+            title: {
+                text: ""
+            },
+            yAxis: {
+                min: 0,
+                floor: 0,
+                ceiling: null,
+                title: {
+                    text: "",
+                    style: {
+                        color: "black"
+                    }
+                }
+            },
+            xAxis: {
+                type: "datetime",
+                labels: {
+                    useHTML: true,
+                    formatter: function () {
+                        return "<span class='evolution-label'>" + Highcharts.dateFormat("%e %b \'%y", this.value) + "</span>";
+                    }
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            plotOptions: {
+                series: {}
+            },
+            tooltip: {
+                useHTML: true,
+                formatter: function () {
+                    let tooltip = "<span style='background: " + this.series.color + ";' class='line-chart-tooltip'>";
+                    //if (this.point.polarity === PolarityDDLEnum.Mentioned) {
+                    tooltip = tooltip + "<span class='text'>POS: " + (this.point.pos / this.y * 100).toFixed(1) + "%</span>";
+                    tooltip = tooltip + "<span class='text'>NEU: " + (this.point.neut / this.y * 100).toFixed(1) + "%</span>";
+                    tooltip = tooltip + "<span class='text'>NEG: " + (this.point.neg / this.y * 100).toFixed(1) + "%</span>";
+                    //}
+                    //if (this.point.polarity === PolarityDDLEnum.SentimentNeg) {
+                    //	tooltip = tooltip + "<span class='text'>POS: " + this.point.pos + "%</span>";
+                    //	tooltip = tooltip + "<span class='text'>NEU: " + this.point.neut + "%</span>";
+                    //	tooltip = tooltip + "<span class='text'>NEG: " + this.point.y + "%</span>";
+                    //}
+                    //if (this.point.polarity === PolarityDDLEnum.SentimentPos) {
+                    //	tooltip = tooltip + "<span class='text'>POS: " + this.y + "%</span>";
+                    //	tooltip = tooltip + "<span class='text'>NEU: " + this.point.neut + "%</span>";
+                    //	tooltip = tooltip + "<span class='text'>NEG: " + this.point.neg + "%</span>";
+                    //}
+
+                    tooltip = tooltip + "</span>";
+
+                    return tooltip;
+                },
+                borderWidth: 0,
+                backgroundColor: 0,
+                borderRadius: 100
+            },
+            series: series
+        };
+
+        return options;
     }
 
     //----- INIT -----//
