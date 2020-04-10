@@ -78,6 +78,15 @@ $(function () {
                 case 16:
                     initialiseIsaacLineChart(widget);
                     break;
+                case 17:
+                    initialiseDepartmentRankingWidget(widget);
+                    break;
+                case 18:
+                    initialiseYesNoResultsWidget(widget);
+                    break;
+                case 19:
+                    initialiseRecentAnswersWidget(widget);
+                    break;
                 case 99:
                     initialiseCoolPieChart(widget);
                     break;
@@ -643,6 +652,53 @@ $(function () {
 
     }
 
+    // WIDGET ID 17 DEPARTMENT RANKING
+    function initialiseDepartmentRankingWidget(widget) {
+        $("#" + widget["uniqueID"] + " .widget-wrapper").append(``);
+    }
+
+    // WIDGET ID 18 YES NO RESULT
+    function initialiseYesNoResultsWidget(widget) {
+        $("#" + widget["uniqueID"] + " .widget-wrapper").append(`<div class="yes-no-results-content">
+            <ul>
+                <li>
+                    <p class="title">yes</p>
+                    <div class="graph">
+                        <div class="progress">
+                            <span class="meter"></span>
+                            <p class="value"></p>
+                        </div>
+                    </div>
+                    <p class="responses"><span></span></p>
+                </li>
+                <li>
+                    <p class="title">no</p>
+                    <div class="graph">
+                        <div class="progress">
+                            <span class="meter"></span>
+                            <p class="value"></p>
+                        </div>
+                    </div>
+                    <p class="responses"><span></span></p>
+                </li>
+            </ul>
+        </div>`);
+
+        let widgetId = widget["uniqueID"];
+
+        $("#" + widgetId + " .yes-no-results-content ul li:first-child .progress").width(calculatePercentageAlt(widget["data"]["yes"], widget["data"]["yes"], widget["data"]["no"]) + "%");
+        $("#" + widgetId + " .yes-no-results-content ul li:first-child p.value").text(calculatePercentageAlt(widget["data"]["yes"], widget["data"]["yes"], widget["data"]["no"]) + "%");
+        $("#" + widgetId + " .yes-no-results-content ul li:first-child p.responses").text(widget["data"]["yes"]);
+        $("#" + widgetId + " .yes-no-results-content ul li:nth-child(2) .progress").width(calculatePercentageAlt(widget["data"]["no"], widget["data"]["yes"], widget["data"]["no"]) + "%");
+        $("#" + widgetId + " .yes-no-results-content ul li:nth-child(2) p.value").text(calculatePercentageAlt(widget["data"]["no"], widget["data"]["yes"], widget["data"]["no"]) + "%");
+        $("#" + widgetId + " .yes-no-results-content ul li:nth-child(2) p.responses").text(widget["data"]["no"]);
+    }
+
+    // WIDGET ID 20 RECENT ANSWERS
+    function initialiseRecentAnswersWidget(widget) {
+        $("#" + widget["uniqueID"] + " .widget-wrapper").append(``);
+    }
+
     // ID 99 JUST A TEST
     function initialiseCoolPieChart(widget) {
         $("#" + widget["uniqueID"] + " .widget-wrapper").append("<div id='piechartholder'></div");
@@ -733,6 +789,14 @@ $(function () {
             result = 100.00;
         }
         return result;
+    }
+
+    function calculatePercentageAlt(numerator, denominator1, denominator2) {
+        if (denominator1 === 0 && denominator2 === 0) {
+            return "0";
+        } else {
+            return (numerator * 100 / (denominator1 + denominator2)).toFixed(1);
+        }
     }
 
     // CHART SPECIFIC FUNCTIONS

@@ -343,7 +343,7 @@ export class MyPageComponent implements OnInit {
                         ]
                     }]
                 },*/
-                {
+                /*{
                     title: "Isaac Line Chart",
                     id: 16,
                     uniqueID: "fc0ecb57-c044-4fd0-8444-b071c347f4c3",
@@ -610,7 +610,28 @@ export class MyPageComponent implements OnInit {
                                     uniqueID: "9160649d-5f3d-40a7-90be-8224667d867a"
                                 }]
                         }]
+                },*/
+                /*{
+                    title: "Department Ranking",
+                    id: 17,
+                    uniqueID: "fc0ecb99-c044-4fd0-8444-b071c347f4c3",
+                    data:[]
+                },*/
+                {
+                    title: "Yes No Results",
+                    id: 18,
+                    uniqueID: "fc0ecb95-c044-4fd0-8444-b071c347f4c3",
+                    data: {
+                        yes: 58,
+                        no: 66
+                    }
                 },
+                /*{
+                    title: "Recent Answers",
+                    id: 19,
+                    uniqueID: "fc0ecb90-c044-4fd0-8444-b071c347f4c3",
+                    data: []
+                }*/
                 /*{
                 title: "My Cool Piechart",
                 id: 99,
