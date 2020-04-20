@@ -654,7 +654,131 @@ $(function () {
 
     // WIDGET ID 17 DEPARTMENT RANKING
     function initialiseDepartmentRankingWidget(widget) {
-        $("#" + widget["uniqueID"] + " .widget-wrapper").append(``);
+        $("#" + widget["uniqueID"] + " .widget-wrapper").append(`<div class="department-ranking-content">
+            <table class="department-ranking-table">
+                <thead>
+                    <tr>
+                        <td>rank</td>
+                        <td>units</td>
+                        <td></td>
+                        <td>respondents</td>
+                        <td>answers</td>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>`);
+
+        let widgetId = widget["uniqueID"];
+        $("#" + widgetId + " .department-ranking-table thead tr td:nth-child(3)").text(getType(widget["data"]["list"][0]));
+
+        let relevantDepartments = filterRelevantDepartments(widget["data"]["list"]);
+        let $elements = [];
+        for (var i = 0; i < relevantDepartments.length; i++) {
+            let item = relevantDepartments[i];
+            let element = "<tr class='" + departmentIsRoot(item) + "'>" +
+                "<td>" + i + "</td>" +
+                "<td>" +
+                "<span class='name'>" + item.name + "</span>" +
+                buildAliasSpan(item) +
+                "</td>" +
+                buildScoreTD(item) +
+                "<td>" + item.recipients + "</td>" +
+                buildTotalSubmittedTD(item) +
+                "</tr>";
+
+            $elements.push(element);
+        }
+        $("#" + widgetId + " .department-ranking-table tbody").append($elements);
+    }
+
+
+    function getType(department) {
+        if (department.nps) {
+            return "nps";
+        }
+        if (department.ces) {
+            return "ces";
+        }
+        if (department.csat) {
+            return "csat";
+        }
+    }
+
+    function filterRelevantDepartments(departments) {
+        let collection = [];
+
+        for (let department of departments) {
+            if (department.type === "bu" && department.parent_UniqueID === undefined) {
+                collection.push(department);
+                continue;
+            }
+            if (department.nps !== undefined && department.type !== "bu") {
+                collection.push(department);
+                continue;
+            }
+            if (department.ces !== undefined && department.type !== "bu") {
+                collection.push(department);
+                continue;
+            }
+            if (department.csat !== undefined && department.type !== "bu") {
+                collection.push(department);
+                continue;
+            }
+        }
+
+        return collection;
+    }
+
+    function departmentIsRoot(department) {
+        if (department.type === "bu" && department.parent_UniqueID === undefined) {
+            return "first";
+        } else {
+            return "";
+        }
+    }
+
+    function buildAliasSpan(department) {
+        if (department.parent_UniqueID !== undefined && department.alias !== undefined) {
+            return "<span class='alias'>" + department.alias + "</span>";
+        } else {
+            return "";
+        }
+    }
+
+    function buildScoreTD(department) {
+        let type;
+        let score;
+
+        if (department.nps !== undefined) {
+            type = "nps";
+            score = department.nps.nps;
+        }
+        if (department.ces !== undefined) {
+            type = "ces";
+            score = department.ces.ces;
+        }
+        if (department.csat !== undefined) {
+            type = "csat";
+            score = department.csat.csat;
+        }
+
+        return "<td class='" + type + "'>" + score + "</td>";
+    }
+
+    function buildTotalSubmittedTD(department) {
+        let totalSubmitted;
+        if (department.nps) {
+            totalSubmitted = department.nps.totalSubmitted;
+        }
+        if (department.ces) {
+            totalSubmitted = department.ces.totalSubmitted;
+        }
+        if (department.csat) {
+            totalSubmitted = department.csat.totalSubmitted;
+        }
+
+        return "<td>" + totalSubmitted + "</td>";
     }
 
     // WIDGET ID 18 YES NO RESULT

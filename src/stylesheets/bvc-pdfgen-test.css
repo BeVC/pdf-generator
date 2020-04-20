@@ -1285,7 +1285,180 @@ a {
         }
 
     /* WIDGET DEPARTMENT RANKING */
+    .widget-container .department-ranking-content {
+        display: flex;
+        flex-direction: column;
+    }
 
+        .widget-container .department-ranking-content table {
+            font-family: Arial, HelveticaNeue;
+            width: 100%;
+        }
+
+            .widget-container .department-ranking-content table.small thead tr td:first-of-type {
+                display: none !important;
+            }
+
+            .widget-container .department-ranking-content table.small thead tr td:nth-of-type(4) {
+                width: 15%;
+            }
+
+            .widget-container .department-ranking-content table.small tbody tr td:first-of-type {
+                display: none !important;
+            }
+
+            .widget-container .department-ranking-content table.small tbody tr td:nth-of-type(4) {
+                width: 15% !important;
+            }
+
+            .widget-container .department-ranking-content table thead tr td {
+                font-size: 10px;
+                font-weight: 400;
+                color: #2c3847;
+                line-height: 40px;
+                text-transform: capitalize;
+            }
+
+                .widget-container .department-ranking-content table thead tr td:first-of-type {
+                    width: 7%;
+                }
+
+                .widget-container .department-ranking-content table thead tr td:nth-of-type(2) {
+                    width: 59%;
+                }
+
+                .widget-container .department-ranking-content table thead tr td:nth-of-type(3) {
+                    text-transform: uppercase;
+                    width: 7%;
+                }
+
+                .widget-container .department-ranking-content table thead tr td:nth-of-type(4) {
+                    width: 20%;
+                }
+
+                .widget-container .department-ranking-content table thead tr td:nth-of-type(5) {
+                    width: 7%;
+                }
+
+            .widget-container .department-ranking-content table tbody tr {
+                height: 42px;
+            }
+
+                .widget-container .department-ranking-content table tbody tr:nth-child(odd) {
+                    background-color: #f2f4f6;
+                }
+
+                .widget-container .department-ranking-content table tbody tr.first {
+                    background-color: #efefef;
+                }
+
+                    .widget-container .department-ranking-content table tbody tr.first td {
+                        vertical-align: middle;
+                    }
+
+                        .widget-container .department-ranking-content table tbody tr.first td:first-of-type {
+                            width: 7%;
+                            color: #efefef;
+                        }
+
+                        .widget-container .department-ranking-content table tbody tr.first td:nth-of-type(2) {
+                            width: 59%;
+                        }
+
+                            .widget-container .department-ranking-content table tbody tr.first td:nth-of-type(2) .name {
+                                font-size: 12px;
+                                font-weight: 900;
+                                text-transform: uppercase;
+                                letter-spacing: 1px;
+                                color: #2c3847;
+                                white-space: nowrap;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                            }
+
+                        .widget-container .department-ranking-content table tbody tr.first td:nth-of-type(3) {
+                            text-transform: uppercase;
+                            width: 7%;
+                            color: #2c3847;
+                            font-size: 13px;
+                            font-weight: 700;
+                        }
+
+                        .widget-container .department-ranking-content table tbody tr.first td:nth-of-type(4) {
+                            width: 20%;
+                            color: #2c3847;
+                            font-size: 12px;
+                            font-weight: 400;
+                        }
+
+                        .widget-container .department-ranking-content table tbody tr.first td:nth-of-type(5) {
+                            width: 7%;
+                            color: #2c3847;
+                            font-size: 12px;
+                            font-weight: 400;
+                        }
+
+                .widget-container .department-ranking-content table tbody tr:not(.first) td {
+                    vertical-align: middle;
+                }
+
+                    .widget-container .department-ranking-content table tbody tr:not(.first) td:first-of-type {
+                        width: 7%;
+                        padding-left: 10px;
+                        font-size: 12px;
+                        font-weight: 400;
+                        letter-spacing: 1px;
+                        color: #2c3847;
+                    }
+
+                    .widget-container .department-ranking-content table tbody tr:not(.first) td:nth-of-type(2) .name {
+                        font-size: 12px;
+                        font-weight: 400;
+                        letter-spacing: 1px;
+                        color: #2c3847;
+                    }
+
+                    .widget-container .department-ranking-content table tbody tr:not(.first) td:nth-of-type(2) .alias {
+                        font-size: 12px;
+                        font-weight: 400;
+                        text-transform: uppercase;
+                        letter-spacing: 1px;
+                        margin-left: 16px;
+                        color: #919aa2;
+                    }
+
+                    .widget-container .department-ranking-content table tbody tr:not(.first) td:nth-of-type(3) {
+                        text-transform: uppercase;
+                        width: 7%;
+                        font-size: 13px;
+                        font-weight: 700;
+                    }
+
+                        .widget-container .department-ranking-content table tbody tr:not(.first) td:nth-of-type(3).nps {
+                            color: #20a7e0;
+                        }
+
+                        .widget-container .department-ranking-content table tbody tr:not(.first) td:nth-of-type(3).ces {
+                            color: #f5a623;
+                        }
+
+                        .widget-container .department-ranking-content table tbody tr:not(.first) td:nth-of-type(3).csat20 {
+                            color: #f56666;
+                        }
+
+                    .widget-container .department-ranking-content table tbody tr:not(.first) td:nth-of-type(4) {
+                        width: 20%;
+                        color: #2c3847;
+                        font-size: 12px;
+                        font-weight: 400;
+                    }
+
+                    .widget-container .department-ranking-content table tbody tr:not(.first) td:nth-of-type(5) {
+                        width: 7%;
+                        color: #2c3847;
+                        font-size: 12px;
+                        font-weight: 400;
+                    }
     /* WIDGET YES NO RESULTS */
     .widget-container .yes-no-results-content {
         display: flex;

@@ -611,12 +611,94 @@ export class MyPageComponent implements OnInit {
                                 }]
                         }]
                 },*/
-                /*{
+                {
                     title: "Department Ranking",
                     id: 17,
                     uniqueID: "fc0ecb99-c044-4fd0-8444-b071c347f4c3",
-                    data:[]
-                },*/
+                    data: {
+                        list: [
+                            {
+                                name: "Company Level",
+                                nps: {
+                                    nps: 28,
+                                    totalSubmitted: 1500
+                                },
+                                recipients: 8121,
+                                textCompleted: 1299,
+                                type: "bu",
+                                uniqueID: "a81bf6c7-5a79-464e-b307-4e111e0dde08",
+                                unsubscribed: 128
+                            },
+                            {
+                                name: "Bernard Van Landschoot",
+                                nps: {
+                                    nps: 62,
+                                    totalSubmitted: 500
+                                },
+                                recipients: 18,
+                                textCompleted: 11,
+                                type: "bu",
+                                uniqueID: "304db98d-996d-42e4-92c2-1cee11c55c30",
+                                parent_UniqueID: "6aa8a850-5eb1-4e30-a9c3-b0aa4102bafd",
+                                unsubscribed: 0
+                            },
+                            {
+                                name: "Leentje De Vreese",
+                                alias: "patatje",
+                                nps: {
+                                    nps: 48,
+                                    totalSubmitted: 480
+                                },
+                                recipients: 8121,
+                                textCompleted: 1299,
+                                type: "pos",
+                                parent_UniqueID: "6aa8a850-5eb1-4e30-a9c3-b0aa4102bafd",
+                                uniqueID: "4203214a-6b17-4db0-86b2-bb64e3503509",
+                                unsubscribed: 128
+                            },
+                            {
+                                name: "Michel Tilquin",
+                                alias: "petoetje",
+                                nps: {
+                                    nps: 47,
+                                    totalSubmitted: 280
+                                },
+                                recipients: 206,
+                                textCompleted: 35,
+                                type: "pos",
+                                parent_UniqueID: "6aa8a850-5eb1-4e30-a9c3-b0aa4102bafd",
+                                uniqueID: "ce4e5e6c-cb85-4a62-9a07-83fd74b8d7a4",
+                                unsubscribed: 4
+                            },
+                            {
+                                name: "Jan Vuylsteke",
+                                nps: {
+                                    nps: 45,
+                                    totalSubmitted: 137
+                                },
+                                recipients: 751,
+                                textCompleted: 105,
+                                type: "pos",
+                                parent_UniqueID: "6aa8a850-5eb1-4e30-a9c3-b0aa4102bafd",
+                                uniqueID: "b7c8a561-bbdb-44d7-9f01-b02d46a2b7bb",
+                                unsubscribed: 12
+                            },
+                            {
+                                name: "Hans Theys",
+                                nps: {
+                                    nps: 42,
+                                    totalSubmitted: 38
+                                },
+                                recipients: 164,
+                                textCompleted: 26,
+                                type: "pos",
+                                parent_UniqueID: "6aa8a850-5eb1-4e30-a9c3-b0aa4102bafd",
+                                uniqueID: "0db86f2e-ff5e-4282-a510-970db01915cb",
+                                unsubscribed: 2
+                            }
+                        ]
+                    }
+                },
                 {
                     title: "Yes No Results",
                     id: 18,
