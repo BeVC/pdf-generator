@@ -87,6 +87,17 @@ $(function () {
                 case 19:
                     initialiseRecentAnswersWidget(widget);
                     break;
+                case 20:
+                    initialiseMostMentionedPerCategory(widget);
+                    break;
+                case 21:
+                    break;
+                case 22:
+                    break;
+                case 23:
+                    break;
+                case 24:
+                    break;
                 case 99:
                     initialiseCoolPieChart(widget);
                     break;
@@ -692,7 +703,6 @@ $(function () {
         $("#" + widgetId + " .department-ranking-table tbody").append($elements);
     }
 
-
     function getType(department) {
         if (department.nps) {
             return "nps";
@@ -818,10 +828,158 @@ $(function () {
         $("#" + widgetId + " .yes-no-results-content ul li:nth-child(2) p.responses").text(widget["data"]["no"]);
     }
 
-    // WIDGET ID 20 RECENT ANSWERS
+    // WIDGET ID 19 RECENT ANSWERS
     function initialiseRecentAnswersWidget(widget) {
-        $("#" + widget["uniqueID"] + " .widget-wrapper").append(``);
+        $("#" + widget["uniqueID"] + " .widget-wrapper").append(`<div class="recent-answers-content">
+            <ul class="score-list"></ul>
+        </div>`);
+
+        let widgetId = widget["uniqueID"];
+        let recentAnswers = prepareRecentAnswers(widget["data"]["items"]);
+        let $elements = [];
+        for (let item of recentAnswers) {
+            let color = determineScoreColor(item.score, item.type);
+
+            let element = "<li><span>" + item.respondentParsedName + "</span><span class='score " + color + "'>" + item.score + "</span></li>";
+            $elements.push(element);
+        }
+        $("#" + widgetId + " .score-list").append($elements);
     }
+
+    function prepareRecentAnswers(entries) {
+        for (let entry of entries) {
+
+            // GET SCORE VALUE AND TYPE
+            for (let answerQuestion of entry.answerQuestions) {
+                if (answerQuestion.question_HasNpsValueAnswer) {
+                    entry.score = answerQuestion.answer_Value;
+                    entry.type = "nps";
+                    break;
+                }
+                if (answerQuestion.question_HasCesScoreAnswer) {
+                    entry.score = answerQuestion.answer_Value;
+                    entry.type = "ces";
+                    break;
+                }
+                if (answerQuestion.question_HasCsatScoreAnswer) {
+                    entry.score = answerQuestion.answer_Value;
+                    entry.type = "csat";
+                    break;
+                }
+            }
+
+            // GET IDENTIFICATION OF RESPONDENT
+            entry.respondentParsedName = getRespondentName(entry);
+        }
+        return entries;
+    }
+
+    function getRespondentName(entry) {
+        if (entry === undefined) {
+            return "anonymous";
+        }
+        if ((entry.firstName === undefined || entry.firstName === "") && (entry.lastName === undefined || entry.lastName === "")) {
+            if (entry.email === undefined || entry.email === "") {
+                return "anonymous";
+            } else {
+                return entry.email;
+            }
+        } else {
+            if (entry.firstName === undefined || entry.firstName === "") {
+                return entry.lastName;
+            } else if (entry.lastName === undefined || entry.lastName === "") {
+                return entry.firstName;
+            } else {
+                return entry.firstName + " " + entry.lastName;
+            }
+        }
+    }
+
+    function determineScoreColor(score, type) {
+        let color = "";
+
+        if (type === "nps") {
+            if (score <= 6) {
+                return "red";
+            }
+            if (score >= 7 && score <= 8) {
+                return "gray";
+            }
+            if (score >= 9) {
+                return "green";
+            }
+        }
+
+        if (type === "ces") {
+            if (score <= 4) {
+                return "red";
+            }
+            if (score >= 5) {
+                return "green";
+            }
+        }
+
+        if (type === "csat") {
+            if (score < 3) {
+                return "red";
+            }
+            if (score === 3) {
+                return "gray";
+            }
+            if (score > 3) {
+                return "green";
+            }
+        }
+
+        return color;
+    }
+
+    // ID 20 MENTIONS PER MAIN CATEGORY
+    function initialiseMostMentionedPerCategory(widget) {
+        $("#" + widget["uniqueID"] + " .widget-wrapper").append(`<div class="most-mentioned-categories-content">
+            <table>
+                <tbody>
+                </tbody>
+            </table>
+        </div>`);
+
+        let widgetId = widget["uniqueID"];
+        let dataMentionedMainCategories = filterUnspecified(widget["data"].sort((a, b) => b.total - a.total));
+        let totalMentionsAllCategories = widget["data"][0]["totalMentionsAllCategories"];
+
+        let $elements = [];
+        for (var i = 0; i < dataMentionedMainCategories.length; i++) {
+            let item = dataMentionedMainCategories[i];
+            let element = "<tr>" +
+                "<td>" +
+                "<span class='grey'>"+item.total+"</span>" +
+                "</td>" +
+                "<td>" +
+                "<span>"+ item.name+"</span>" +
+                "</td>" +
+                "<td>" +
+                "<div class='bar'>" +
+                "<div class='fill' style='width:" + calculatePercentage(item.total, totalMentionsAllCategories) +"%'></div>"+
+                "</div>"+
+                "</td>" +
+                "</tr>";
+
+            $elements.push(element);
+        }
+        $("#" + widgetId + " .most-mentioned-categories-content table tbody").append($elements);
+    }
+
+    function filterUnspecified(array) {
+        let filterArray = array.slice().filter(item => !item.name.includes("Unspecified & Misc"));
+        return filterArray;
+    }
+    // ID 21
+
+    // ID 22
+
+    // ID 23
+
+    // ID 24
 
     // ID 99 JUST A TEST
     function initialiseCoolPieChart(widget) {

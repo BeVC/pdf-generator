@@ -611,7 +611,7 @@ export class MyPageComponent implements OnInit {
                                 }]
                         }]
                 },*/
-                {
+                /*{
                     title: "Department Ranking",
                     id: 17,
                     uniqueID: "fc0ecb99-c044-4fd0-8444-b071c347f4c3",
@@ -698,8 +698,8 @@ export class MyPageComponent implements OnInit {
                             }
                         ]
                     }
-                },
-                {
+                },*/
+                /*{
                     title: "Yes No Results",
                     id: 18,
                     uniqueID: "fc0ecb95-c044-4fd0-8444-b071c347f4c3",
@@ -707,13 +707,242 @@ export class MyPageComponent implements OnInit {
                         yes: 58,
                         no: 66
                     }
-                },
+                },*/
                 /*{
                     title: "Recent Answers",
                     id: 19,
                     uniqueID: "fc0ecb90-c044-4fd0-8444-b071c347f4c3",
-                    data: []
-                }*/
+                    data: {
+                        items: [
+                            {
+                                email: "bernard@hellocustomer.com",
+                                firstName: "Bernard",
+                                lastName: "Van Couwenberghe",
+                                answerQuestions: [
+                                    {
+                                        answer_Value: 9,
+                                        question_HasCesScoreAnswer: false,
+                                        question_HasCsatScoreAnswer: false,
+                                        question_HasNpsValueAnswer: true
+                                    }
+                                ]
+                            },
+                            {
+                                email: "wendy@hellocustomer.com",
+                                firstName: "Wendy",
+                                lastName: "Devos",
+                                answerQuestions: [
+                                    {
+                                        answer_Value: 7,
+                                        question_HasCesScoreAnswer: false,
+                                        question_HasCsatScoreAnswer: false,
+                                        question_HasNpsValueAnswer: true
+                                    }
+                                ]
+                            },
+                            {
+                                email: "robin@hellocustomer.com",
+                                firstName: "Robin",
+                                lastName: "Berthier",
+                                answerQuestions: [
+                                    {
+                                        answer_Value: 5,
+                                        question_HasCesScoreAnswer: false,
+                                        question_HasCsatScoreAnswer: false,
+                                        question_HasNpsValueAnswer: true
+                                    }
+                                ]
+                            },
+                            {
+                                email: "Karl@hellocustomer.com",
+                                firstName: "Karl",
+                                lastName: "Theeten",
+                                answerQuestions: [
+                                    {
+                                        answer_Value: 1,
+                                        question_HasCesScoreAnswer: false,
+                                        question_HasCsatScoreAnswer: false,
+                                        question_HasNpsValueAnswer: true
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                },*/
+                {
+                    title: "Mentions per Main Category",
+                    id: 20,
+                    uniqueID: "fc0ecb90-c044-4fd0-8444-b071c347f4c3",
+                    data: [
+                        {
+                            name: "Personnel",
+                            total: 8967,
+                            positive: 8669,
+                            neutral: 232,
+                            negative: 66,
+                            color: "#a9b72f",
+                            items: [],
+                            totalMentionsAllCategories: 14251,
+                            uniqueID: "068e1ca7-5ee1-499d-bbf2-c081c97afb80"
+                        },
+                        {
+                            name: "Company",
+                            total: 1485,
+                            positive: 1349,
+                            neutral: 81,
+                            negative: 55,
+                            color: "#41DBCA",
+                            items: [],
+                            totalMentionsAllCategories: 14251,
+                            uniqueID: "f79caca7-eb35-4ab4-a30b-3d6b37be3f5a"
+                        },
+                        {
+                            name: "Branch",
+                            total: 1273,
+                            positive: 1161,
+                            neutral: 82,
+                            negative: 30,
+                            color: "#6F09FC",
+                            items: [],
+                            totalMentionsAllCategories: 14251,
+                            uniqueID: "95dd5f09-00dc-4021-9ca4-432475b68a3e"
+                        },
+                        {
+                            name: "Unspecified & Misc12345",
+                            total: 1048,
+                            positive: 1012,
+                            neutral: 0,
+                            negative: 36,
+                            color: "#413504",
+                            items: [],
+                            totalMentionsAllCategories: 14251,
+                            uniqueID: "9a7d1ddb-588a-4161-a231-cb49b6db5c9f"
+                        },
+                        {
+                            name: "Product",
+                            total: 873,
+                            positive: 758,
+                            neutral: 62,
+                            negative: 53,
+                            color: "#926EE9",
+                            items: [],
+                            totalMentionsAllCategories: 14251,
+                            uniqueID: "f5aa6d75-ab0a-434f-be5c-9efe63d29c5d"
+                        },
+                        {
+                            name: "Price",
+                            total: 188,
+                            positive: 149,
+                            neutral: 11,
+                            negative: 28,
+                            color: "#1A53DA",
+                            items: [],
+                            totalMentionsAllCategories: 14251,
+                            uniqueID: "e31148ce-5385-416d-9d39-674dc89d55f9",
+                        },
+                        {
+                            name: "Webshop",
+                            total: 148,
+                            positive: 140,
+                            neutral: 5,
+                            negative: 3,
+                            color: "#C590A5",
+                            items: [],
+                            totalMentionsAllCategories: 14251,
+                            uniqueID: "def10516-ac63-4844-ac59-b0bc771a99ac"
+                        },
+                        {
+                            name: "App",
+                            total: 144,
+                            positive: 134,
+                            neutral: 6,
+                            negative: 4,
+                            color: "#057004",
+                            items: [],
+                            totalMentionsAllCategories: 14251,
+                            uniqueID: "9160649d-5f3d-40a7-90be-8224667d867a"
+                        },
+                        {
+                            name: "Website",
+                            total: 90,
+                            positive: 79,
+                            neutral: 5,
+                            negative: 6,
+                            color: "#074CC7",
+                            items: [],
+                            totalMentionsAllCategories: 14251,
+                            uniqueID: "70b38395-73c2-4ed3-a996-e2285709c363"
+                        },
+                        {
+                            name: "Promo",
+                            total: 20,
+                            positive: 18,
+                            neutral: 2,
+                            negative: 0,
+                            color: "#42971B",
+                            items: [],
+                            totalMentionsAllCategories: 14251,
+                            uniqueID: "28e4f11a-6295-4fe0-823b-82a55f1e6871"
+                        },
+                        {
+                            name: "Order/Delivery",
+                            total: 11,
+                            positive: 8,
+                            neutral: 0,
+                            negative: 3,
+                            color: "#C68F0D",
+                            items: [],
+                            totalMentionsAllCategories: 14251,
+                            uniqueID: "11f2c317-1629-4a82-9714-77014d233d02"
+                        },
+                        {
+                            name: "Disbursement",
+                            total: 2,
+                            positive: 0,
+                            neutral: 1,
+                            negative: 1,
+                            color: "#B9A772",
+                            items: [],
+                            totalMentionsAllCategories: 14251,
+                            uniqueID: "87933ae3-7650-42f6-ad04-c24bfabdb104"
+                        },
+                        {
+                            name: "Training",
+                            total: 2,
+                            positive: 2,
+                            neutral: 0,
+                            negative: 0,
+                            color: "#C1B96D",
+                            items: [],
+                            totalMentionsAllCategories: 14251,
+                            uniqueID: "98fd3fab-302f-41f7-b308-06e6d0f67472"
+                        }
+                    ]
+                },
+                {
+                    title: "Sentiment Spread",
+                    id: 21,
+                    uniqueID: "fc0ecb90-c044-4fd0-8444-b071c347f4c5",
+                    data: {}
+                },
+                {
+                    title: "Top Positive Categories",
+                    id: 22,
+                    uniqueID: "fc0ecb90-c044-4fd0-8444-b071c347f4c7",
+                    data: {}
+                },
+                {
+                    title: "Top Negative Categories",
+                    id: 23,
+                    uniqueID: "fc0ecb90-c044-4fd0-8444-b071c347f4c9",
+                    data: {}
+                },
+                {
+                    title: "Sentiment by Category",
+                    id: 24,
+                    uniqueID: "fc0ecb90-c044-4fd0-8444-b071c347f4c1",
+                    data: {}
+                }
                 /*{
                 title: "My Cool Piechart",
                 id: 99,
