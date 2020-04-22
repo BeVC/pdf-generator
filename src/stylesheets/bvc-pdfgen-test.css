@@ -1498,9 +1498,7 @@ a {
 
                 .widget-container .yes-no-results-content ul li .graph .progress {
                     height: 40px;
-                    /*float: left;*/
                     display: flex;
-                    /*position: relative;*/
                 }
 
                     .widget-container .yes-no-results-content ul li .graph .progress .meter {
@@ -1512,10 +1510,6 @@ a {
                     }
 
                 .widget-container .yes-no-results-content ul li .graph .value {
-                    /*position: absolute;
-                top: 0;
-                right: -30px;*/
-                    /*float: left;*/
                     font-size: 10px;
                     font-family: Arial, HelveticaNeue;
                     color: #748292;
@@ -1641,6 +1635,7 @@ a {
         display: flex;
         flex-direction: column;
     }
+
         .widget-container .most-mentioned-categories-content table {
             font-family: Arial, HelveticaNeue;
             display: flex;
@@ -1648,35 +1643,98 @@ a {
             width: 100%;
             flex-flow: column;
         }
-        .widget-container .most-mentioned-categories-content table tbody{
-            width: 100%;
-            color: #003161;
-        }
-            .widget-container .most-mentioned-categories-content table tbody tr td {
-                vertical-align: middle;
-                padding-bottom: 10px;
-            }
-            .widget-container .most-mentioned-categories-content table tbody tr td:first-of-type {
-                min-width: 60px;
-            }
-            .widget-container .most-mentioned-categories-content table tbody tr td:nth-of-type(2) {
-                min-width: 150px;
-            }
-            .widget-container .most-mentioned-categories-content table tbody tr td:not(:last-of-type) {
-                padding-right: 10px;
-            }
-            .widget-container .most-mentioned-categories-content table tbody tr td:last-of-type {
+
+            .widget-container .most-mentioned-categories-content table tbody {
                 width: 100%;
+                color: #003161;
             }
-            .widget-container .most-mentioned-categories-content table tbody tr td .grey{
-                color: #adadad;
-            }
-                .widget-container .most-mentioned-categories-content table tbody tr td .bar {
-                    height: 20px;
-                    background-color: #efefef;
-                    width: 100%;
+
+                .widget-container .most-mentioned-categories-content table tbody tr td {
+                    vertical-align: middle;
+                    padding-bottom: 10px;
                 }
-                    .widget-container .most-mentioned-categories-content table tbody tr td .bar .fill {
-                        background-color: #006cff;
-                        height: 100%;
+
+                    .widget-container .most-mentioned-categories-content table tbody tr td:first-of-type {
+                        min-width: 60px;
                     }
+
+                    .widget-container .most-mentioned-categories-content table tbody tr td:nth-of-type(2) {
+                        min-width: 150px;
+                    }
+
+                    .widget-container .most-mentioned-categories-content table tbody tr td:not(:last-of-type) {
+                        padding-right: 10px;
+                    }
+
+                    .widget-container .most-mentioned-categories-content table tbody tr td:last-of-type {
+                        width: 100%;
+                    }
+
+                    .widget-container .most-mentioned-categories-content table tbody tr td .grey {
+                        color: #adadad;
+                    }
+
+                    .widget-container .most-mentioned-categories-content table tbody tr td .bar {
+                        height: 20px;
+                        background-color: #efefef;
+                        width: 100%;
+                    }
+
+                        .widget-container .most-mentioned-categories-content table tbody tr td .bar .fill {
+                            background-color: #006cff;
+                            height: 100%;
+                        }
+
+    /* WIDGET SENTIMENT SPREAD */
+    .widget-container .sentiment-spread-content {
+        display: flex;
+        flex-direction: column;
+    }
+
+        .widget-container .sentiment-spread-content .pie-breakdown {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            font-family: Arial, HelveticaNeue;            
+        }
+
+            .widget-container .sentiment-spread-content .pie-breakdown .data-item {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+                .widget-container .sentiment-spread-content .pie-breakdown .data-item .grey {
+                    color: grey;
+                    font-size : 14px;
+                }
+
+                .widget-container .sentiment-spread-content .pie-breakdown .data-item p:nth-of-type(2) {
+                    font-size: 18px;
+                }
+                .widget-container .sentiment-spread-content .pie-breakdown .data-item .negative {
+                    color: #ff1e5d;
+                }
+                .widget-container .sentiment-spread-content .pie-breakdown .data-item .mentions {
+                    color: #003161;
+                }
+                .widget-container .sentiment-spread-content .pie-breakdown .data-item .positive {
+                    color: #28AF53;
+                }
+                .widget-container .sentiment-spread-content .pie-breakdown .data-item .neutral {
+                    color: #595959;
+                }
+
+        .widget-container .sentiment-spread-content .pie {
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+        }
+
+/* WIDGET TOP POSITIVE CATEGORIES*/
+
+
+/* WIDGET TOP NEGATIVE CATEGORIES*/
+
+
+/* WIDGET SENTIMENT BY CATEGORY*/

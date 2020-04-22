@@ -769,7 +769,7 @@ export class MyPageComponent implements OnInit {
                         ]
                     }
                 },*/
-                {
+                /*{
                     title: "Mentions per Main Category",
                     id: 20,
                     uniqueID: "fc0ecb90-c044-4fd0-8444-b071c347f4c3",
@@ -918,12 +918,18 @@ export class MyPageComponent implements OnInit {
                             uniqueID: "98fd3fab-302f-41f7-b308-06e6d0f67472"
                         }
                     ]
-                },
+                },*/
                 {
                     title: "Sentiment Spread",
                     id: 21,
                     uniqueID: "fc0ecb90-c044-4fd0-8444-b071c347f4c5",
-                    data: {}
+                    data: {
+                        positiveMentions: 24421,
+                        neutralMentions: 2158,
+                        negativeMentions: 6519,
+                        totalMentions: 33098,
+                        uniqueID: "00000000-0000-0000-0000-000000000000"
+                    }
                 },
                 {
                     title: "Top Positive Categories",

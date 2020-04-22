@@ -91,6 +91,7 @@ $(function () {
                     initialiseMostMentionedPerCategory(widget);
                     break;
                 case 21:
+                    initialiseSentimentSpread(widget);
                     break;
                 case 22:
                     break;
@@ -952,15 +953,15 @@ $(function () {
             let item = dataMentionedMainCategories[i];
             let element = "<tr>" +
                 "<td>" +
-                "<span class='grey'>"+item.total+"</span>" +
+                "<span class='grey'>" + item.total + "</span>" +
                 "</td>" +
                 "<td>" +
-                "<span>"+ item.name+"</span>" +
+                "<span>" + item.name + "</span>" +
                 "</td>" +
                 "<td>" +
                 "<div class='bar'>" +
-                "<div class='fill' style='width:" + calculatePercentage(item.total, totalMentionsAllCategories) +"%'></div>"+
-                "</div>"+
+                "<div class='fill' style='width:" + calculatePercentage(item.total, totalMentionsAllCategories) + "%'></div>" +
+                "</div>" +
                 "</td>" +
                 "</tr>";
 
@@ -973,13 +974,78 @@ $(function () {
         let filterArray = array.slice().filter(item => !item.name.includes("Unspecified & Misc"));
         return filterArray;
     }
-    // ID 21
+    // ID 21 SENTIMENT SPREAD
+    function initialiseSentimentSpread(widget) {
+        $("#" + widget["uniqueID"] + " .widget-wrapper").append(`<div class="sentiment-spread-content">
+                        <div class="pie-breakdown">
+                            <div class="data-item">
+                                <p class='grey'>MENTIONS</p>
+                                <p class='mentions'>`+ widget["data"]["totalMentions"] +`</p>
+                            </div>
+                            <div class="data-item">
+                                <p class='grey'>POSITIVE</p>
+                                <p class='positive'>`+ uiIsSmallerThanOne(calculatePercentage(widget["data"]["positiveMentions"], widget["data"]["totalMentions"])) +`</p>
+                            </div>
+                            <div class="data-item">
+                                <p class='grey'>NEUTRAL</p>
+                                <p class='neutral'>`+ uiIsSmallerThanOne(calculatePercentage(widget["data"]["neutralMentions"], widget["data"]["totalMentions"])) +`</p>
+                            </div>
+                            <div class="data-item">
+                                <p class='grey'>NEGATIVE</p>
+                                <p class='negative'>`+ uiIsSmallerThanOne(calculatePercentage(widget["data"]["negativeMentions"], widget["data"]["totalMentions"])) +`</p>
+                            </div>
+                        </div>
+                        <div class='pie'>
+                            <div class='chart'></div>
+                        </div>
+        </div>`);
 
-    // ID 22
+        let dataCol = [];
+        dataCol.push({
+            name: 'positive',
+            y: calculatePercentage(widget["data"]["positiveMentions"], widget["data"]["totalMentions"]),
+            color: '#25ce7d',
+            tooltipColor: '#25ce7d',
+            dataLabels: {
+                enabled: false
+            }
+        });
 
-    // ID 23
+        dataCol.push({
+            name: 'neutral',
+            y: calculatePercentage(widget["data"]["neutralMentions"], widget["data"]["totalMentions"]),
+            color: '#eaecee',
+            tooltipColor: '#595959',
+            dataLabels: {
+                enabled: false
+            }
+        });
 
-    // ID 24
+        dataCol.push({
+            name: 'negative',
+            y: calculatePercentage(widget["data"]["negativeMentions"], widget["data"]["totalMentions"]),
+            color: '#ff4d4d',
+            tooltipColor: '#ff4d4d',
+            dataLabels: {
+                enabled: false
+            }
+        });
+
+        let widgetId = widget["uniqueID"];
+        let chartId = "chart_" + widgetId;
+        $("#" + widgetId + " .sentiment-spread-content .pie div:first-child").attr("id", chartId);
+        let options = getSentimentSpreadOptions(chartId);
+        let myChart = new Highcharts.chart(options);
+
+        myChart.setSize(760, 230);
+        myChart.series[0].setData(dataCol, true);
+    }
+
+    // ID 22 TOP POSITIVE CATEGORIES
+
+    // ID 23 TOP NEGATIVE CATEGORIES
+
+    // ID 24 SENTIMENT BY CATEGORY
 
     // ID 99 JUST A TEST
     function initialiseCoolPieChart(widget) {
@@ -1078,6 +1144,14 @@ $(function () {
             return "0";
         } else {
             return (numerator * 100 / (denominator1 + denominator2)).toFixed(1);
+        }
+    }
+
+    function uiIsSmallerThanOne(amount) {
+        if (amount < 1 && amount > 0) {
+            return "< 1";
+        } else {
+            return amount.toString();
         }
     }
 
@@ -1742,7 +1816,62 @@ $(function () {
 
         return options;
     }
+    
+    function getSentimentSpreadOptions(chartId) {
+        let options = {
+            chart: {
+                renderTo: chartId,
+                plotBackgroundColor: undefined,
+                plotBorderWidth: undefined,
+                plotShadow: false,
+                type: "pie",
+                style: {
+                    width: '100%',
+                    height: '100%'
+                }
+            },
+            title: {
+                text: ""
+            },
+            credits: {
+                enabled: false
+            },
+            exporting: {
+                enabled: false
+            },
+            /*tooltip: {
+                useHTML: true,
+                followPointer: false,
+                borderWidth: 0,
+                backgroundColor: 0,
+                borderRadius: 100,
+                formatter: function () {
+                    return "<span style='background: " + this.point.tooltipColor + ";opacity:0.9;' class='tooltip-circle'>" +
+                        "<span class='tooltip-nps'>" + this.y + "%</span>" +
+                        "<small>" + this.key + "</small></span>";
 
+                }
+            },*/
+            plotOptions: {
+                pie: {
+                    dataLabels: {
+                        enabled: false
+                    },
+                    allowPointSelect: false
+                }
+            },
+            series: [{
+                name: "Most Mentioned",
+                animation: true,
+                colorByPoint: true,
+                borderWidth: 0,
+                innerSize: "50%",
+                data: []
+            }]
+        };
+
+        return options;
+    }
     //----- INIT -----//
     setPDFTitle();
     initialisewidgetContainers();
