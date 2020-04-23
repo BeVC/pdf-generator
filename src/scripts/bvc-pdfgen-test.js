@@ -100,6 +100,7 @@ $(function () {
                     initialiseTopNegativeCategories(widget);
                     break;
                 case 24:
+                    initialiseSentimentByCategory(widget);
                     break;
                 case 99:
                     initialiseCoolPieChart(widget);
@@ -1170,7 +1171,58 @@ $(function () {
     }
 
     // ID 24 SENTIMENT BY CATEGORY
+    function initialiseSentimentByCategory(widget) {
+        $("#" + widget["uniqueID"] + " .widget-wrapper").append(`<div class="sentiment-by-category-content">
+<div class="rows">
+<div class="row row-wrapper">
+<div class="main-category">
+<span class="amount"></span">
+<div class="sentiment-bar">
+<div class="fill-container green">
+<span></span>
+<div class="fill"></div>
+</div>
+<div class="fill-container grey">
+<span></span>
+<div class="fill"></div>
+</div>
+<div class="fill-container red">
+<span></span>
+<div class="fill"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>`);
+    }
 
+    function sortOnPolarity(dataRefine, selectedSort) {
+        let array = dataRefine.slice();
+
+        switch (selectedSort) {
+            case -1:
+                array.sort((a, b) => b.total - a.total);
+                array.forEach(category => {
+                    category.items = category.items.sort((a, b) => b.total - a.total);
+                });
+                return array;                
+            case 3:
+                array.sort((a, b) => b.negative - a.negative);
+                array.forEach(category => {
+                    category.items = category.items.sort((a, b) => b.negative - a.negative);
+                });
+                return array;
+            case 7:
+                array.sort((a, b) => b.positive - a.positive);
+                array.forEach(category => {
+                    category.items = category.items.sort((a, b) => b.positive - a.positive);
+                });
+                return array;
+            default:
+                return array;
+        }
+    }
     // ID 99 JUST A TEST
     function initialiseCoolPieChart(widget) {
         $("#" + widget["uniqueID"] + " .widget-wrapper").append("<div id='piechartholder'></div");
