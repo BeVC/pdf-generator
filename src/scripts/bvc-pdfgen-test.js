@@ -94,8 +94,10 @@ $(function () {
                     initialiseSentimentSpread(widget);
                     break;
                 case 22:
+                    initialiseTopPositiveCategories(widget);
                     break;
                 case 23:
+                    initialiseTopNegativeCategories(widget);
                     break;
                 case 24:
                     break;
@@ -980,19 +982,19 @@ $(function () {
                         <div class="pie-breakdown">
                             <div class="data-item">
                                 <p class='grey'>MENTIONS</p>
-                                <p class='mentions'>`+ widget["data"]["totalMentions"] +`</p>
+                                <p class='mentions'>`+ widget["data"]["totalMentions"] + `</p>
                             </div>
                             <div class="data-item">
                                 <p class='grey'>POSITIVE</p>
-                                <p class='positive'>`+ uiIsSmallerThanOne(calculatePercentage(widget["data"]["positiveMentions"], widget["data"]["totalMentions"])) +`</p>
+                                <p class='positive'>`+ uiIsSmallerThanOne(calculatePercentage(widget["data"]["positiveMentions"], widget["data"]["totalMentions"])) + `</p>
                             </div>
                             <div class="data-item">
                                 <p class='grey'>NEUTRAL</p>
-                                <p class='neutral'>`+ uiIsSmallerThanOne(calculatePercentage(widget["data"]["neutralMentions"], widget["data"]["totalMentions"])) +`</p>
+                                <p class='neutral'>`+ uiIsSmallerThanOne(calculatePercentage(widget["data"]["neutralMentions"], widget["data"]["totalMentions"])) + `</p>
                             </div>
                             <div class="data-item">
                                 <p class='grey'>NEGATIVE</p>
-                                <p class='negative'>`+ uiIsSmallerThanOne(calculatePercentage(widget["data"]["negativeMentions"], widget["data"]["totalMentions"])) +`</p>
+                                <p class='negative'>`+ uiIsSmallerThanOne(calculatePercentage(widget["data"]["negativeMentions"], widget["data"]["totalMentions"])) + `</p>
                             </div>
                         </div>
                         <div class='pie'>
@@ -1042,8 +1044,74 @@ $(function () {
     }
 
     // ID 22 TOP POSITIVE CATEGORIES
+    function initialiseTopPositiveCategories(widget) {
+        let firstCategoryBaseAmount;
+        let widgetId = widget["uniqueID"];
+        let categorySubcategoryList = flattenList(widget["data"]["mentionedMainCategories"]);
+        let top10Refined = categorySubcategoryList.sort((a, b) => b.positive - a.positive).slice(0, 10);
+        let categoriesCol = findCorresponding(top10Refined, []);
+        if (categoriesCol.length > 0) {
+            let flatCountList = [];
+            categoriesCol.forEach(category => {
+                category.items.forEach(item => {
+                    flatCountList.push(item.countMentions);
+                });
+            });
+            firstCategoryBaseAmount = Math.max(...flatCountList);
+        }
+
+        $("#" + widget["uniqueID"] + " .widget-wrapper").append(`<div class="top-positive-content">
+                    <div class="summary-container">
+                        <div class="summary">
+                            <div class="summary-numbers">
+                                <div class="number-total">
+                                    <span class="amount">`+ getSum(categoriesCol) + `</span>
+                                    <span>mentions</span>
+                                </div>
+                                <div class="line"></div>
+                                <div class="numbers-percentages">
+                                    <span class="grey total">is `+ calculatePercentage(getSum(categoriesCol), widget["data"]["sentimentSpread"]["totalMentions"]) + `% of ` + widget["data"]["sentimentSpread"]["totalMentions"] + ` total mentions</span>
+                                    <span class="share">is `+ calculatePercentage(getSum(categoriesCol), widget["data"]["sentimentSpread"]["positiveMentions"]) + `% of ` + widget["data"]["sentimentSpread"]["positiveMentions"] + ` total positive</span>
+                                    <div class="bar">
+                                        <div class="fill" style="width:`+ calculatePercentage(getSum(categoriesCol), widget["data"]["sentimentSpread"]["positiveMentions"]) + `%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="chart">
+                    </ul>
+                </div>`);
+
+        let $elements = [];
+        for (let i = 0; i < categoriesCol.length; i++) {
+            let item = categoriesCol[i];
+            let element = "<li>" +
+                "<div class='bars'>" +
+                "<div class='bar-chart'>" +
+                "<div class='fill transparent' style='width:" + (100 - item.items[0].countMentions * 80 / 100 / firstCategoryBaseAmount * 100) +"%'>" +
+                "<span class='grey'>" + item.items[0].countMentions + "</span>" +
+                "</div>" +
+                "<div class='fill green' style='width:" + item.items[0].countMentions * 80 / 100 / firstCategoryBaseAmount * 100+"%'></div>" +
+                "</div>" +
+                "</div>" +
+                "<div class='name'>" +
+                "<span class='category'>" + item.mainCategoryName + "/" + item.subCategoryName + "</span>" +
+                "</div>" +
+                "</li>";
+
+            $elements.push(element);
+        }
+
+        $("#" + widgetId + " .top-positive-content .chart").append($elements);
+    }
 
     // ID 23 TOP NEGATIVE CATEGORIES
+    function initialiseTopNegativeCategories(widget) {
+        $("#" + widget["uniqueID"] + " .widget-wrapper").append(`<div class="top-negative-content">
+</div>`);
+        let widgetId = widget["uniqueID"];
+    }
 
     // ID 24 SENTIMENT BY CATEGORY
 
@@ -1155,6 +1223,13 @@ $(function () {
         }
     }
 
+    function getSum(array) {
+        let sum = 0;
+        array.forEach(subCategory => {
+            sum = sum + subCategory.items[0].countMentions;
+        });
+        return sum;
+    }
     // CHART SPECIFIC FUNCTIONS
     function prepareRepartitionData(data, type) {
         let collection = [];
@@ -1816,7 +1891,7 @@ $(function () {
 
         return options;
     }
-    
+
     function getSentimentSpreadOptions(chartId) {
         let options = {
             chart: {
@@ -1872,6 +1947,63 @@ $(function () {
 
         return options;
     }
+
+    // TOP POSITIVE/NEGATIVE CATEGORIES FUNCTIONS
+    function flattenList(array) {
+        let flatList = [];
+
+        array.forEach(mainCategory => {
+            mainCategory.items.forEach(subCategory => {
+                flatList.push({
+                    ...subCategory,
+                    subCategoryName: subCategory.name,
+                    subCategoryId: subCategory.uniqueID,
+                    mainCategoryName: mainCategory.name,
+                    mainCategoryId: mainCategory.uniqueID
+                });
+            });
+        });
+
+        return flatList;
+    }
+
+    function findCorresponding(top10List, correspondingList) {
+        let mergedList = [];
+
+        top10List.forEach(top10Item => {
+            let index = -1;
+            index = correspondingList.findIndex(correspondingItem => (correspondingItem.subCategoryId === top10Item.subCategoryId) && (correspondingItem.mainCategoryId === top10Item.mainCategoryId))
+            let mergeItem;
+            if (index > -1) {
+                mergeItem = mergeCorrespondingItems(top10Item, correspondingList[index]);
+            } else {
+                mergeItem = mergeCorrespondingItems(top10Item, undefined);
+            }
+            if (mergeItem) {
+                mergedList.push(mergeItem);
+            }
+        });
+
+        return mergedList;
+    }
+
+    function mergeCorrespondingItems(item1, item2) {
+        let mergedItem = new Object();
+        mergedItem.mainCategoryName = item1.mainCategoryName;
+        mergedItem.mainCategoryId = item1.mainCategoryId;
+        mergedItem.subCategoryName = item1.subCategoryName;
+        mergedItem.subCategoryId = item1.subCategoryId;
+        let items = [];
+
+        items.push({
+            countMentions: item1.positive
+        });
+
+        mergedItem.items = items;
+
+        return mergedItem;
+    }
+
     //----- INIT -----//
     setPDFTitle();
     initialisewidgetContainers();

@@ -1695,7 +1695,7 @@ a {
             display: flex;
             width: 100%;
             justify-content: space-between;
-            font-family: Arial, HelveticaNeue;            
+            font-family: Arial, HelveticaNeue;
         }
 
             .widget-container .sentiment-spread-content .pie-breakdown .data-item {
@@ -1706,21 +1706,25 @@ a {
 
                 .widget-container .sentiment-spread-content .pie-breakdown .data-item .grey {
                     color: grey;
-                    font-size : 14px;
+                    font-size: 14px;
                 }
 
                 .widget-container .sentiment-spread-content .pie-breakdown .data-item p:nth-of-type(2) {
                     font-size: 18px;
                 }
+
                 .widget-container .sentiment-spread-content .pie-breakdown .data-item .negative {
                     color: #ff1e5d;
                 }
+
                 .widget-container .sentiment-spread-content .pie-breakdown .data-item .mentions {
                     color: #003161;
                 }
+
                 .widget-container .sentiment-spread-content .pie-breakdown .data-item .positive {
                     color: #28AF53;
                 }
+
                 .widget-container .sentiment-spread-content .pie-breakdown .data-item .neutral {
                     color: #595959;
                 }
@@ -1731,7 +1735,156 @@ a {
             justify-content: center;
         }
 
-/* WIDGET TOP POSITIVE CATEGORIES*/
+    /* WIDGET TOP POSITIVE CATEGORIES*/
+    .widget-container .top-positive-content {
+        display: flex;
+        flex-direction: column;
+        font-family: Arial, HelveticaNeue;
+        color: #003161;
+    }
+
+        .widget-container .top-positive-content .summary-container {
+        }
+
+            .widget-container .top-positive-content .summary-container .summary {
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 20px;
+            }
+
+                .widget-container .top-positive-content .summary-container .summary .summary-numbers {
+                    display: flex;
+                    margin-bottom: 10px;
+                    align-items: center;
+                }
+
+                    .widget-container .top-positive-content .summary-container .summary .summary-numbers .number-total {
+                        display: flex;
+                        flex-direction: column;
+                        font-weight: 600;
+                        font-size: 14px;
+                    }
+
+                        .widget-container .top-positive-content .summary-container .summary .summary-numbers .number-total .amount {
+                            font-size: 21px;
+                        }
+
+                        .widget-container .top-positive-content .summary-container .summary .summary-numbers .number-total span:nth-of-type(2) {
+                        }
+
+                    .widget-container .top-positive-content .summary-container .summary .summary-numbers .line {
+                        margin: 0 15px;
+                        border-left: 1px solid #006cff;
+                        align-self: stretch;
+                    }
+
+                    .widget-container .top-positive-content .summary-container .summary .summary-numbers .numbers-percentages {
+                        display: flex;
+                        flex-direction: column;
+                    }
+
+                        .widget-container .top-positive-content .summary-container .summary .summary-numbers .numbers-percentages .grey {
+                            color: #adadad;
+                            font-size: 13px;
+                        }
+
+                        .widget-container .top-positive-content .summary-container .summary .summary-numbers .numbers-percentages .total {
+                            font-size: 13px;
+                            margin-bottom: 5px;
+                            font-weight: 600;
+                        }
+
+                        .widget-container .top-positive-content .summary-container .summary .summary-numbers .numbers-percentages .share {
+                            margin-bottom: 7px;
+                            font-weight: 600;
+                            font-size: 14px;
+                        }
+
+                        .widget-container .top-positive-content .summary-container .summary .summary-numbers .numbers-percentages .bar {
+                            height: 5px;
+                            background-color: #efefef;
+                            width: 150px;
+                        }
+
+                            .widget-container .top-positive-content .summary-container .summary .summary-numbers .numbers-percentages .bar .fill {
+                                background-color: #006cff;
+                                height: 100%;
+                            }
+
+        .widget-container .top-positive-content .chart {
+            width: 100%;
+        }
+
+            .widget-container .top-positive-content .chart li {
+                display: flex;
+                align-items: center;
+            }
+
+                .widget-container .top-positive-content .chart li .bars {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    border-right: 1px solid #dedede;
+                    padding: 4px 0;
+                }
+
+                    .widget-container .top-positive-content .chart li .bars .bar-chart {
+                        height: 20px;
+                        width: 100%;
+                        display: flex;
+                        justify-content: flex-end;
+                        align-items: center;
+                        margin: 1px 0;
+                    }
+
+                        .widget-container .top-positive-content .chart li .bars .bar-chart span {
+                            margin-right: 10px;
+                        }
+
+                        .widget-container .top-positive-content .chart li .bars .bar-chart .fill {
+                            height: 100%;
+                        }
+
+                        .widget-container .top-positive-content .chart li .bars .bar-chart .transparent {
+                            display: flex;
+                            justify-content: flex-end;
+                            align-items: center;
+                        }
+
+                        .widget-container .top-positive-content .chart li .bars .bar-chart div .grey {
+                            color: #adadad;
+                        }
+
+                        .widget-container .top-positive-content .chart li .bars .bar-chart .green {
+                            background-color: #25ce7d;
+                        }
+
+                .widget-container .top-positive-content .chart li .name {
+                    width: 100%;
+                    display: inline-flex;
+                    margin-left: 10px;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    font-size: 14px;
+                }
+
+                    .widget-container .top-positive-content .chart li .name .category {
+                        margin-right: 10px;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        line-height: 1rem;
+                    }
+
+                .widget-container .top-positive-content .chart li:first-of-type .bars {
+                    padding-top: 10px;
+                }
+
+                .widget-container .top-positive-content .chart li:first-of-type .name {
+                    margin-top: 5px;
+                }
+
 
 
 /* WIDGET TOP NEGATIVE CATEGORIES*/

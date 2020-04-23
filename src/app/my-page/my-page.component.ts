@@ -919,7 +919,7 @@ export class MyPageComponent implements OnInit {
                         }
                     ]
                 },*/
-                {
+                /*{
                     title: "Sentiment Spread",
                     id: 21,
                     uniqueID: "fc0ecb90-c044-4fd0-8444-b071c347f4c5",
@@ -930,18 +930,798 @@ export class MyPageComponent implements OnInit {
                         totalMentions: 33098,
                         uniqueID: "00000000-0000-0000-0000-000000000000"
                     }
-                },
+                },*/
                 {
                     title: "Top Positive Categories",
                     id: 22,
                     uniqueID: "fc0ecb90-c044-4fd0-8444-b071c347f4c7",
-                    data: {}
+                    data: {
+                        sentimentSpread: {
+                            negativeMentions: 166,
+                            neutralMentions: 35,
+                            positiveMentions: 473,
+                            totalMentions: 674,
+                            uniqueID: "00000000-0000-0000-0000-000000000000"
+                        },
+                        mentionedMainCategories: [
+                            {
+                                name: 'Personnel',
+                                total: 350,
+                                positive: 291,
+                                neutral: 13,
+                                negative: 46,
+                                color: '#a9b72f',
+                                items: [
+                                    {
+                                        name: 'Service',
+                                        total: 123,
+                                        positive: 110,
+                                        neutral: 5,
+                                        negative: 8,
+                                        color: '#0071ff',
+                                        percentage: 0,
+                                        uniqueID: '3c2c92c5-606a-4732-9f28-64adacca0307'
+                                    },
+                                    {
+                                        name: 'Friendliness',
+                                        total: 53,
+                                        positive: 49,
+                                        neutral: 0,
+                                        negative: 4,
+                                        color: '#F047B2',
+                                        percentage: 0,
+                                        uniqueID: 'a47f1817-15e2-415e-9b0c-1013fec756f8'
+                                    },
+                                    {
+                                        name: 'Information',
+                                        total: 56,
+                                        positive: 45,
+                                        neutral: 3,
+                                        negative: 8,
+                                        color: '#f5d142',
+                                        percentage: 0,
+                                        uniqueID: 'de275faf-d685-4333-9563-6e4d439303ad'
+                                    },
+                                    {
+                                        name: 'Availability',
+                                        total: 15,
+                                        positive: 14,
+                                        neutral: 0,
+                                        negative: 1,
+                                        color: '#28594a',
+                                        percentage: 0,
+                                        uniqueID: '015df90b-ae83-4229-8cf3-6d2546887c53'
+                                    },
+                                    {
+                                        name: 'Proactivity',
+                                        total: 1,
+                                        positive: 1,
+                                        neutral: 0,
+                                        negative: 0,
+                                        color: '#265A25',
+                                        percentage: 0,
+                                        uniqueID: '50ea60e1-8f75-499b-bf16-e0b02b2fff02'
+                                    },
+                                    {
+                                        name: 'General',
+                                        total: 38,
+                                        positive: 22,
+                                        neutral: 3,
+                                        negative: 13,
+                                        color: '#57a908',
+                                        percentage: 0,
+                                        uniqueID: 'e753a1cd-07b5-4992-be2f-11e52b0e0bcf'
+                                    },
+                                    {
+                                        name: 'Reception',
+                                        total: 17,
+                                        positive: 13,
+                                        neutral: 2,
+                                        negative: 2,
+                                        color: '#C75BF4',
+                                        percentage: 0,
+                                        uniqueID: '18a8037e-6bdb-42e9-a1db-7dc8437d6817'
+                                    },
+                                    {
+                                        name: 'Flexibility',
+                                        total: 3,
+                                        positive: 3,
+                                        neutral: 0,
+                                        negative: 0,
+                                        color: '#1F19A9',
+                                        percentage: 0,
+                                        uniqueID: 'd343cca4-176c-4a53-ab8e-832ff3994a19'
+                                    },
+                                    {
+                                        name: 'Speed',
+                                        total: 12,
+                                        positive: 8,
+                                        neutral: 0,
+                                        negative: 4,
+                                        color: '#74ff00',
+                                        percentage: 0,
+                                        uniqueID: 'a5aa4d78-5b11-469a-8fc1-880705dfab25'
+                                    },
+                                    {
+                                        name: 'Unintrusiveness',
+                                        total: 2,
+                                        positive: 2,
+                                        neutral: 0,
+                                        negative: 0,
+                                        color: '#6B8CBC',
+                                        percentage: 0,
+                                        uniqueID: '911fecd2-7f6d-460d-8c20-8fe61849c08a'
+                                    },
+                                    {
+                                        name: 'Reliability',
+                                        total: 10,
+                                        positive: 10,
+                                        neutral: 0,
+                                        negative: 0,
+                                        color: '#905778',
+                                        percentage: 0,
+                                        uniqueID: '3d4a15fd-022e-4d0f-bc71-b7f88ed2b863'
+                                    },
+                                    {
+                                        name: 'punctuality',
+                                        total: 1,
+                                        positive: 1,
+                                        neutral: 0,
+                                        negative: 0,
+                                        color: '#7389B6',
+                                        percentage: 0,
+                                        uniqueID: 'bf36b34c-0fef-4e20-be60-1573107451b7'
+                                    },
+                                    {
+                                        name: 'Familiarity',
+                                        total: 1,
+                                        positive: 1,
+                                        neutral: 0,
+                                        negative: 0,
+                                        color: '#8C4D64',
+                                        percentage: 0,
+                                        uniqueID: '67e8797d-2311-44e7-8599-446001151891'
+                                    },
+                                    {
+                                        name: 'Effort',
+                                        total: 4,
+                                        positive: 4,
+                                        neutral: 0,
+                                        negative: 0,
+                                        color: '#43F977',
+                                        percentage: 0,
+                                        uniqueID: 'b511a06e-3feb-4df5-b06f-95e1071e8b75'
+                                    },
+                                    {
+                                        name: 'Follow-up',
+                                        total: 3,
+                                        positive: 1,
+                                        neutral: 0,
+                                        negative: 2,
+                                        color: '#A55E29',
+                                        percentage: 0,
+                                        uniqueID: 'db2e139a-46f4-4cdd-911c-bbc2294acd0c'
+                                    },
+                                    {
+                                        name: 'Comprehension',
+                                        total: 8,
+                                        positive: 6,
+                                        neutral: 0,
+                                        negative: 2,
+                                        color: '#E32B61',
+                                        percentage: 0,
+                                        uniqueID: 'd6aa6e0f-e49c-471d-b085-9f19d03272ad'
+                                    },
+                                    {
+                                        name: 'Inclusion',
+                                        total: 2,
+                                        positive: 0,
+                                        neutral: 0,
+                                        negative: 2,
+                                        color: '#9C1AFA',
+                                        percentage: 0,
+                                        uniqueID: '7fef2c02-986b-4e97-a95a-a4fc480a996b'
+                                    },
+                                    {
+                                        name: 'customer service and support',
+                                        total: 1,
+                                        positive: 1,
+                                        neutral: 0,
+                                        negative: 0,
+                                        color: '#0E31EF',
+                                        percentage: 0,
+                                        uniqueID: '4c2ad6bd-580a-4228-8116-f6aa61531a9c'
+                                    }
+                                ],
+                                totalMentionsAllCategories: 674,
+                                uniqueID: '068e1ca7-5ee1-499d-bbf2-c081c97afb80'
+                            },
+                            {
+                                name: 'Company',
+                                total: 100,
+                                positive: 60,
+                                neutral: 12,
+                                negative: 28,
+                                color: '#41DBCA',
+                                items: [
+                                    {
+                                        name: 'General',
+                                        total: 92,
+                                        positive: 58,
+                                        neutral: 11,
+                                        negative: 23,
+                                        color: '#57a908',
+                                        percentage: 0,
+                                        uniqueID: 'e753a1cd-07b5-4992-be2f-11e52b0e0bcf'
+                                    },
+                                    {
+                                        name: 'Reliability',
+                                        total: 7,
+                                        positive: 2,
+                                        neutral: 1,
+                                        negative: 4,
+                                        color: '#905778',
+                                        percentage: 0,
+                                        uniqueID: '3d4a15fd-022e-4d0f-bc71-b7f88ed2b863'
+                                    },
+                                    {
+                                        name: 'Policy',
+                                        total: 1,
+                                        positive: 0,
+                                        neutral: 0,
+                                        negative: 1,
+                                        color: '#695FB1',
+                                        percentage: 0,
+                                        uniqueID: '5849932b-2756-45e3-9910-3d66f01e003c'
+                                    }
+                                ],
+                                totalMentionsAllCategories: 674,
+                                uniqueID: 'f79caca7-eb35-4ab4-a30b-3d6b37be3f5a'
+                            },
+                            {
+                                name: 'Product',
+                                total: 99,
+                                positive: 42,
+                                neutral: 4,
+                                negative: 53,
+                                color: '#926EE9',
+                                items: [
+                                    {
+                                        name: 'Accounts',
+                                        total: 16,
+                                        positive: 7,
+                                        neutral: 1,
+                                        negative: 8,
+                                        color: '#1CF525',
+                                        percentage: 0,
+                                        uniqueID: 'a17c2c34-fa8c-4705-b732-3cf87e47038f'
+                                    },
+                                    {
+                                        name: 'Insurance',
+                                        total: 15,
+                                        positive: 6,
+                                        neutral: 2,
+                                        negative: 7,
+                                        color: '#DC31C3',
+                                        percentage: 0,
+                                        uniqueID: '1651f65d-0b23-46d3-8662-0aa2a3662950'
+                                    },
+                                    {
+                                        name: 'General',
+                                        total: 9,
+                                        positive: 7,
+                                        neutral: 0,
+                                        negative: 2,
+                                        color: '#57a908',
+                                        percentage: 0,
+                                        uniqueID: 'e753a1cd-07b5-4992-be2f-11e52b0e0bcf'
+                                    },
+                                    {
+                                        name: 'Foreign Currency',
+                                        total: 1,
+                                        positive: 0,
+                                        neutral: 0,
+                                        negative: 1,
+                                        color: '#5E7BE9',
+                                        percentage: 0,
+                                        uniqueID: 'b971a166-6db0-48dd-b036-f3adc4614f49'
+                                    },
+                                    {
+                                        name: 'Housing Loan',
+                                        total: 5,
+                                        positive: 3,
+                                        neutral: 0,
+                                        negative: 2,
+                                        color: '#17AD4B',
+                                        percentage: 0,
+                                        uniqueID: '6a756dbd-00b6-4042-9582-13e2afd0d7fc'
+                                    },
+                                    {
+                                        name: 'Investments',
+                                        total: 9,
+                                        positive: 4,
+                                        neutral: 0,
+                                        negative: 5,
+                                        color: '#B84514',
+                                        percentage: 0,
+                                        uniqueID: 'ca63adf8-b874-46cb-8f72-2daf23cce78f'
+                                    },
+                                    {
+                                        name: 'Language Use',
+                                        total: 1,
+                                        positive: 1,
+                                        neutral: 0,
+                                        negative: 0,
+                                        color: '#C11533',
+                                        percentage: 0,
+                                        uniqueID: 'f37c0128-05c1-431c-9f69-a95eca6bcd08'
+                                    },
+                                    {
+                                        name: 'Conditions',
+                                        total: 3,
+                                        positive: 2,
+                                        neutral: 0,
+                                        negative: 1,
+                                        color: '#D94AD5',
+                                        percentage: 0,
+                                        uniqueID: '0aed6c67-5dfc-4268-be35-ebdd2ad20988'
+                                    },
+                                    {
+                                        name: 'bank cards',
+                                        total: 2,
+                                        positive: 1,
+                                        neutral: 0,
+                                        negative: 1,
+                                        color: '#28A23F',
+                                        percentage: 0,
+                                        uniqueID: 'c164009c-2f28-4818-9298-2678a2e4e5f4'
+                                    },
+                                    {
+                                        name: 'Interest Rates',
+                                        total: 12,
+                                        positive: 2,
+                                        neutral: 1,
+                                        negative: 9,
+                                        color: '#D42900',
+                                        percentage: 0,
+                                        uniqueID: 'c2703165-2b19-4bd1-98d0-be4ce67fca16'
+                                    },
+                                    {
+                                        name: 'Administration',
+                                        total: 7,
+                                        positive: 2,
+                                        neutral: 0,
+                                        negative: 5,
+                                        color: '#4E170C',
+                                        percentage: 0,
+                                        uniqueID: '683d4ac7-a425-411e-8dc8-db1a8ee3fc90'
+                                    },
+                                    {
+                                        name: 'Kids',
+                                        total: 2,
+                                        positive: 1,
+                                        neutral: 0,
+                                        negative: 1,
+                                        color: '#70A121',
+                                        percentage: 0,
+                                        uniqueID: 'b0c5e5b8-f894-48e7-be8f-c1122b851393'
+                                    },
+                                    {
+                                        name: 'Variety',
+                                        total: 3,
+                                        positive: 0,
+                                        neutral: 0,
+                                        negative: 3,
+                                        color: '#D06E51',
+                                        percentage: 0,
+                                        uniqueID: '1a3788fa-9c8b-4fbd-9814-031c0abe0982'
+                                    },
+                                    {
+                                        name: 'animal welfare',
+                                        total: 3,
+                                        positive: 1,
+                                        neutral: 0,
+                                        negative: 2,
+                                        color: '#D683AA',
+                                        percentage: 0,
+                                        uniqueID: 'a4a3ab39-d12a-4c18-993e-a2abaa3eeec0'
+                                    },
+                                    {
+                                        name: 'Brands',
+                                        total: 1,
+                                        positive: 1,
+                                        neutral: 0,
+                                        negative: 0,
+                                        color: '#4B616F',
+                                        percentage: 0,
+                                        uniqueID: 'a714231e-b184-4449-856a-a8faabacd3a5'
+                                    },
+                                    {
+                                        name: 'Loans',
+                                        total: 7,
+                                        positive: 2,
+                                        neutral: 0,
+                                        negative: 5,
+                                        color: '#AD5725',
+                                        percentage: 0,
+                                        uniqueID: '738966ad-b773-4fdb-81ea-1ff6d012b645'
+                                    },
+                                    {
+                                        name: 'Clothing Sizes',
+                                        total: 1,
+                                        positive: 1,
+                                        neutral: 0,
+                                        negative: 0,
+                                        color: '#2A4E59',
+                                        percentage: 0,
+                                        uniqueID: '9bd05b33-8ced-4890-ab82-f4a2b409c598'
+                                    },
+                                    {
+                                        name: 'Women',
+                                        total: 1,
+                                        positive: 0,
+                                        neutral: 0,
+                                        negative: 1,
+                                        color: '#CBF2FC',
+                                        percentage: 0,
+                                        uniqueID: '49472f67-7304-4746-b48f-0c0c2f636266'
+                                    },
+                                    {
+                                        name: 'Quality',
+                                        total: 1,
+                                        positive: 1,
+                                        neutral: 0,
+                                        negative: 0,
+                                        color: '#74EDBB',
+                                        percentage: 0,
+                                        uniqueID: 'e4f3d954-91dd-4c7f-b655-f182409e8a64'
+                                    }
+                                ],
+                                totalMentionsAllCategories: 674,
+                                uniqueID: 'f5aa6d75-ab0a-434f-be5c-9efe63d29c5d'
+                            },
+                            {
+                                name: 'Branch',
+                                total: 61,
+                                positive: 40,
+                                neutral: 4,
+                                negative: 17,
+                                color: '#6F09FC',
+                                items: [
+                                    {
+                                        name: 'General',
+                                        total: 52,
+                                        positive: 38,
+                                        neutral: 4,
+                                        negative: 10,
+                                        color: '#57a908',
+                                        percentage: 0,
+                                        uniqueID: 'e753a1cd-07b5-4992-be2f-11e52b0e0bcf'
+                                    },
+                                    {
+                                        name: 'Opening Hours',
+                                        total: 3,
+                                        positive: 0,
+                                        neutral: 0,
+                                        negative: 3,
+                                        color: '#F8D0BA',
+                                        percentage: 0,
+                                        uniqueID: '7f1113bd-3621-4701-804d-c91d138dba65'
+                                    },
+                                    {
+                                        name: 'Location',
+                                        total: 2,
+                                        positive: 1,
+                                        neutral: 0,
+                                        negative: 1,
+                                        color: '#04B7E6',
+                                        percentage: 0,
+                                        uniqueID: '58e52eea-0056-4964-b504-63490c310351'
+                                    },
+                                    {
+                                        name: 'Machines',
+                                        total: 3,
+                                        positive: 0,
+                                        neutral: 0,
+                                        negative: 3,
+                                        color: '#754017',
+                                        percentage: 0,
+                                        uniqueID: 'eef9bad2-9f79-4b2a-bfc4-d3dbbe23d37e'
+                                    },
+                                    {
+                                        name: 'Atmosphere',
+                                        total: 1,
+                                        positive: 1,
+                                        neutral: 0,
+                                        negative: 0,
+                                        color: '#DA197B',
+                                        percentage: 0,
+                                        uniqueID: 'ae6f191a-e0a4-42ac-9ee1-3b0a15fbc146'
+                                    }
+                                ],
+                                totalMentionsAllCategories: 674,
+                                uniqueID: '95dd5f09-00dc-4021-9ca4-432475b68a3e'
+                            },
+                            {
+                                name: 'Unspecified & Misc12345',
+                                total: 29,
+                                positive: 24,
+                                neutral: 0,
+                                negative: 5,
+                                color: '#413504',
+                                items: [
+                                    {
+                                        name: 'General',
+                                        total: 29,
+                                        positive: 24,
+                                        neutral: 0,
+                                        negative: 5,
+                                        color: '#57a908',
+                                        percentage: 0,
+                                        uniqueID: 'e753a1cd-07b5-4992-be2f-11e52b0e0bcf'
+                                    }
+                                ],
+                                totalMentionsAllCategories: 674,
+                                uniqueID: '9a7d1ddb-588a-4161-a231-cb49b6db5c9f'
+                            },
+                            {
+                                name: 'Price',
+                                total: 15,
+                                positive: 5,
+                                neutral: 0,
+                                negative: 10,
+                                color: '#1A53DA',
+                                items: [
+                                    {
+                                        name: 'General',
+                                        total: 15,
+                                        positive: 5,
+                                        neutral: 0,
+                                        negative: 10,
+                                        color: '#57a908',
+                                        percentage: 0,
+                                        uniqueID: 'e753a1cd-07b5-4992-be2f-11e52b0e0bcf'
+                                    }
+                                ],
+                                totalMentionsAllCategories: 674,
+                                uniqueID: 'e31148ce-5385-416d-9d39-674dc89d55f9'
+                            },
+                            {
+                                name: 'Webshop',
+                                total: 9,
+                                positive: 8,
+                                neutral: 0,
+                                negative: 1,
+                                color: '#C590A5',
+                                items: [
+                                    {
+                                        name: 'General',
+                                        total: 4,
+                                        positive: 3,
+                                        neutral: 0,
+                                        negative: 1,
+                                        color: '#57a908',
+                                        percentage: 0,
+                                        uniqueID: 'e753a1cd-07b5-4992-be2f-11e52b0e0bcf'
+                                    },
+                                    {
+                                        name: 'Layout',
+                                        total: 3,
+                                        positive: 3,
+                                        neutral: 0,
+                                        negative: 0,
+                                        color: '#2B9AFA',
+                                        percentage: 0,
+                                        uniqueID: 'a2a4f815-0864-4d11-a516-eaefeb9976fc'
+                                    },
+                                    {
+                                        name: 'Information',
+                                        total: 2,
+                                        positive: 2,
+                                        neutral: 0,
+                                        negative: 0,
+                                        color: '#f5d142',
+                                        percentage: 0,
+                                        uniqueID: 'de275faf-d685-4333-9563-6e4d439303ad'
+                                    }
+                                ],
+                                totalMentionsAllCategories: 674,
+                                uniqueID: 'def10516-ac63-4844-ac59-b0bc771a99ac'
+                            },
+                            {
+                                name: 'App',
+                                total: 6,
+                                positive: 0,
+                                neutral: 2,
+                                negative: 4,
+                                color: '#057004',
+                                items: [
+                                    {
+                                        name: 'General',
+                                        total: 6,
+                                        positive: 0,
+                                        neutral: 2,
+                                        negative: 4,
+                                        color: '#57a908',
+                                        percentage: 0,
+                                        uniqueID: 'e753a1cd-07b5-4992-be2f-11e52b0e0bcf'
+                                    }
+                                ],
+                                totalMentionsAllCategories: 674,
+                                uniqueID: '9160649d-5f3d-40a7-90be-8224667d867a'
+                            },
+                            {
+                                name: 'Website',
+                                total: 4,
+                                positive: 3,
+                                neutral: 0,
+                                negative: 1,
+                                color: '#074CC7',
+                                items: [
+                                    {
+                                        name: 'General',
+                                        total: 4,
+                                        positive: 3,
+                                        neutral: 0,
+                                        negative: 1,
+                                        color: '#57a908',
+                                        percentage: 0,
+                                        uniqueID: 'e753a1cd-07b5-4992-be2f-11e52b0e0bcf'
+                                    }
+                                ],
+                                totalMentionsAllCategories: 674,
+                                uniqueID: '70b38395-73c2-4ed3-a996-e2285709c363'
+                            },
+                            {
+                                name: 'Order/Delivery',
+                                total: 1,
+                                positive: 0,
+                                neutral: 0,
+                                negative: 1,
+                                color: '#C68F0D',
+                                items: [
+                                    {
+                                        name: 'General',
+                                        total: 1,
+                                        positive: 0,
+                                        neutral: 0,
+                                        negative: 1,
+                                        color: '#57a908',
+                                        percentage: 0,
+                                        uniqueID: 'e753a1cd-07b5-4992-be2f-11e52b0e0bcf'
+                                    }
+                                ],
+                                totalMentionsAllCategories: 674,
+                                uniqueID: '11f2c317-1629-4a82-9714-77014d233d02'
+                            }
+                        ]
+                    }
                 },
                 {
                     title: "Top Negative Categories",
                     id: 23,
                     uniqueID: "fc0ecb90-c044-4fd0-8444-b071c347f4c9",
-                    data: {}
+                    data: {
+                        sentimentSpread: {
+                            negativeMentions: 166,
+                            neutralMentions: 35,
+                            positiveMentions: 473,
+                            totalMentions: 674,
+                            uniqueID: "00000000-0000-0000-0000-000000000000"
+                        },
+                        mentionedMainCategories: [
+                            {
+                                name: "Personnel",
+                                total: 350,
+                                positive: 291,
+                                neutral: 13,
+                                negative: 46,
+                                color: "#a9b72f",
+                                items: [],
+                                totalMentionsAllCategories: 14251,
+                                uniqueID: "068e1ca7-5ee1-499d-bbf2-c081c97afb80"
+                            },
+                            {
+                                name: "Company",
+                                total: 100,
+                                positive: 60,
+                                neutral: 12,
+                                negative: 28,
+                                color: "#41DBCA",
+                                items: [],
+                                totalMentionsAllCategories: 14251,
+                                uniqueID: "f79caca7-eb35-4ab4-a30b-3d6b37be3f5a"
+                            },
+                            {
+                                name: "Branch",
+                                total: 61,
+                                positive: 40,
+                                neutral: 4,
+                                negative: 17,
+                                color: "#6F09FC",
+                                items: [],
+                                totalMentionsAllCategories: 14251,
+                                uniqueID: "95dd5f09-00dc-4021-9ca4-432475b68a3e"
+                            },
+                            {
+                                name: "Unspecified & Misc12345",
+                                total: 29,
+                                positive: 24,
+                                neutral: 0,
+                                negative: 5,
+                                color: "#413504",
+                                items: [],
+                                totalMentionsAllCategories: 14251,
+                                uniqueID: "9a7d1ddb-588a-4161-a231-cb49b6db5c9f"
+                            },
+                            {
+                                name: "Product",
+                                total: 99,
+                                positive: 42,
+                                neutral: 4,
+                                negative: 53,
+                                color: "#926EE9",
+                                items: [],
+                                totalMentionsAllCategories: 14251,
+                                uniqueID: "f5aa6d75-ab0a-434f-be5c-9efe63d29c5d"
+                            },
+                            {
+                                name: "Price",
+                                total: 15,
+                                positive: 5,
+                                neutral: 0,
+                                negative: 10,
+                                color: "#1A53DA",
+                                items: [],
+                                totalMentionsAllCategories: 14251,
+                                uniqueID: "e31148ce-5385-416d-9d39-674dc89d55f9",
+                            },
+                            {
+                                name: "Webshop",
+                                total: 9,
+                                positive: 8,
+                                neutral: 0,
+                                negative: 1,
+                                color: "#C590A5",
+                                items: [],
+                                totalMentionsAllCategories: 14251,
+                                uniqueID: "def10516-ac63-4844-ac59-b0bc771a99ac"
+                            },
+                            {
+                                name: "App",
+                                total: 6,
+                                positive: 0,
+                                neutral: 2,
+                                negative: 4,
+                                color: "#057004",
+                                items: [],
+                                totalMentionsAllCategories: 14251,
+                                uniqueID: "9160649d-5f3d-40a7-90be-8224667d867a"
+                            },
+                            {
+                                name: "Website",
+                                total: 4,
+                                positive: 3,
+                                neutral: 0,
+                                negative: 1,
+                                color: "#074CC7",
+                                items: [],
+                                totalMentionsAllCategories: 14251,
+                                uniqueID: "70b38395-73c2-4ed3-a996-e2285709c363"
+                            },
+                            {
+                                name: "Order/Delivery",
+                                total: 1,
+                                positive: 0,
+                                neutral: 0,
+                                negative: 1,
+                                color: "#C68F0D",
+                                items: [],
+                                totalMentionsAllCategories: 14251,
+                                uniqueID: "11f2c317-1629-4a82-9714-77014d233d02"
+                            }
+                        ]
+                    }
                 },
                 {
                     title: "Sentiment by Category",
