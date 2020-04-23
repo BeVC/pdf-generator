@@ -1049,7 +1049,7 @@ $(function () {
         let widgetId = widget["uniqueID"];
         let categorySubcategoryList = flattenList(widget["data"]["mentionedMainCategories"]);
         let top10Refined = categorySubcategoryList.sort((a, b) => b.positive - a.positive).slice(0, 10);
-        let categoriesCol = findCorresponding(top10Refined, []);
+        let categoriesCol = findCorresponding(top10Refined, [], "positive");
         if (categoriesCol.length > 0) {
             let flatCountList = [];
             categoriesCol.forEach(category => {
@@ -1089,10 +1089,10 @@ $(function () {
             let element = "<li>" +
                 "<div class='bars'>" +
                 "<div class='bar-chart'>" +
-                "<div class='fill transparent' style='width:" + (100 - item.items[0].countMentions * 80 / 100 / firstCategoryBaseAmount * 100) +"%'>" +
+                "<div class='fill transparent' style='width:" + (100 - item.items[0].countMentions * 80 / 100 / firstCategoryBaseAmount * 100) + "%'>" +
                 "<span class='grey'>" + item.items[0].countMentions + "</span>" +
                 "</div>" +
-                "<div class='fill green' style='width:" + item.items[0].countMentions * 80 / 100 / firstCategoryBaseAmount * 100+"%'></div>" +
+                "<div class='fill green' style='width:" + item.items[0].countMentions * 80 / 100 / firstCategoryBaseAmount * 100 + "%'></div>" +
                 "</div>" +
                 "</div>" +
                 "<div class='name'>" +
@@ -1108,9 +1108,65 @@ $(function () {
 
     // ID 23 TOP NEGATIVE CATEGORIES
     function initialiseTopNegativeCategories(widget) {
-        $("#" + widget["uniqueID"] + " .widget-wrapper").append(`<div class="top-negative-content">
-</div>`);
+        let firstCategoryBaseAmount;
         let widgetId = widget["uniqueID"];
+        let categorySubcategoryList = flattenList(widget["data"]["mentionedMainCategories"]);
+        let top10Refined = categorySubcategoryList.sort((a, b) => b.negative - a.negative).slice(0, 10);
+        let categoriesCol = findCorresponding(top10Refined, [], "negative");
+        if (categoriesCol.length > 0) {
+            let flatCountList = [];
+            categoriesCol.forEach(category => {
+                category.items.forEach(item => {
+                    flatCountList.push(item.countMentions);
+                });
+            });
+            firstCategoryBaseAmount = Math.max(...flatCountList);
+        }
+
+        $("#" + widget["uniqueID"] + " .widget-wrapper").append(`<div class="top-negative-content">
+                    <div class="summary-container">
+                        <div class="summary">
+                            <div class="summary-numbers">
+                                <div class="number-total">
+                                    <span class="amount">`+ getSum(categoriesCol) + `</span>
+                                    <span>mentions</span>
+                                </div>
+                                <div class="line"></div>
+                                <div class="numbers-percentages">
+                                    <span class="grey total">is `+ calculatePercentage(getSum(categoriesCol), widget["data"]["sentimentSpread"]["totalMentions"]) + `% of ` + widget["data"]["sentimentSpread"]["totalMentions"] + ` total mentions</span>
+                                    <span class="share">is `+ calculatePercentage(getSum(categoriesCol), widget["data"]["sentimentSpread"]["negativeMentions"]) + `% of ` + widget["data"]["sentimentSpread"]["negativeMentions"] + ` total negative</span>
+                                    <div class="bar">
+                                        <div class="fill" style="width:`+ calculatePercentage(getSum(categoriesCol), widget["data"]["sentimentSpread"]["negativeMentions"]) + `%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="chart">
+                    </ul>
+                </div>`);
+
+        let $elements = [];
+        for (let i = 0; i < categoriesCol.length; i++) {
+            let item = categoriesCol[i];
+            let element = "<li>" +
+                "<div class='bars'>" +
+                "<div class='bar-chart'>" +
+                "<div class='fill transparent' style='width:" + (100 - item.items[0].countMentions * 80 / 100 / firstCategoryBaseAmount * 100) + "%'>" +
+                "<span class='grey'>" + item.items[0].countMentions + "</span>" +
+                "</div>" +
+                "<div class='fill red' style='width:" + item.items[0].countMentions * 80 / 100 / firstCategoryBaseAmount * 100 + "%'></div>" +
+                "</div>" +
+                "</div>" +
+                "<div class='name'>" +
+                "<span class='category'>" + item.mainCategoryName + "/" + item.subCategoryName + "</span>" +
+                "</div>" +
+                "</li>";
+
+            $elements.push(element);
+        }
+
+        $("#" + widgetId + " .top-negative-content .chart").append($elements);
     }
 
     // ID 24 SENTIMENT BY CATEGORY
@@ -1967,18 +2023,18 @@ $(function () {
         return flatList;
     }
 
-    function findCorresponding(top10List, correspondingList) {
+    function findCorresponding(top10List, correspondingList, type) {
         let mergedList = [];
 
         top10List.forEach(top10Item => {
             let index = -1;
-            index = correspondingList.findIndex(correspondingItem => (correspondingItem.subCategoryId === top10Item.subCategoryId) && (correspondingItem.mainCategoryId === top10Item.mainCategoryId))
+            index = correspondingList.findIndex(correspondingItem => (correspondingItem.subCategoryId === top10Item.subCategoryId) && (correspondingItem.mainCategoryId === top10Item.mainCategoryId));
             let mergeItem;
-            if (index > -1) {
-                mergeItem = mergeCorrespondingItems(top10Item, correspondingList[index]);
-            } else {
-                mergeItem = mergeCorrespondingItems(top10Item, undefined);
-            }
+            //if (index > -1) {
+            mergeItem = mergeCorrespondingItems(top10Item, type);
+            //} else {
+            //    mergeItem = mergeCorrespondingItems(top10Item);
+            //}
             if (mergeItem) {
                 mergedList.push(mergeItem);
             }
@@ -1987,7 +2043,7 @@ $(function () {
         return mergedList;
     }
 
-    function mergeCorrespondingItems(item1, item2) {
+    function mergeCorrespondingItems(item1, type) {
         let mergedItem = new Object();
         mergedItem.mainCategoryName = item1.mainCategoryName;
         mergedItem.mainCategoryId = item1.mainCategoryId;
@@ -1995,9 +2051,15 @@ $(function () {
         mergedItem.subCategoryId = item1.subCategoryId;
         let items = [];
 
-        items.push({
-            countMentions: item1.positive
-        });
+        if (type === "positive") {
+            items.push({
+                countMentions: item1.positive
+            });
+        } else {
+            items.push({
+                countMentions: item1.negative
+            });
+        }
 
         mergedItem.items = items;
 
