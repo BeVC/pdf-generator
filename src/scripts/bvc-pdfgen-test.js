@@ -1173,28 +1173,51 @@ $(function () {
     // ID 24 SENTIMENT BY CATEGORY
     function initialiseSentimentByCategory(widget) {
         $("#" + widget["uniqueID"] + " .widget-wrapper").append(`<div class="sentiment-by-category-content">
-<div class="rows">
-<div class="row row-wrapper">
-<div class="main-category">
-<span class="amount"></span">
-<div class="sentiment-bar">
-<div class="fill-container green">
-<span></span>
-<div class="fill"></div>
-</div>
-<div class="fill-container grey">
-<span></span>
-<div class="fill"></div>
-</div>
-<div class="fill-container red">
-<span></span>
-<div class="fill"></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>`);
+                            <div class="rows">                                
+                            </div>
+                        </div>`);
+
+        let widgetId = widget["uniqueID"];
+        let dataMentionedMainCategories = sortOnPolarity(widget["data"]);
+        let $elements = [];
+        for (let i = 0; i < dataMentionedMainCategories.length; i++) {
+            let item = dataMentionedMainCategories[i];
+            let element = `<div class="row row-wrapper">
+                                    <div class="main-category">
+                                        <span class="amount">`+ item.total + `</span>
+                                        <div class="name tooltip">
+                                            <div class="btn">
+                                                <span>`+ item.name + `</span>
+                                            </div>
+                                            <div class="bar">
+                                                <div class="fill" style="width:`+ calculatePercentage(item.total, item.totalMentionsAllCategories) + `%"></div>
+                                            </div>
+                                        </div>
+                                        <div class="sentiment-bar">
+                                            <div class="fill-container green" style="width:`+ calculatePercentage(item.positive, item.total) + `%">
+                                                <span>`+ percentageDisplay(calculatePercentage(item.positive, item.total)) + `</span>
+                                                <div class="fill"></div>
+                                            </div>
+                                            <div class="fill-container grey" style="width:`+ calculatePercentage(item.neutral, item.total) + `%">
+                                                <span>`+ percentageDisplay(calculatePercentage(item.neutral, item.total)) + `</span>
+                                                <div class="fill"></div>
+                                            </div>
+                                            <div class="fill-container red" style="width:`+ calculatePercentage(item.negative, item.total) + `%">
+                                                <span>`+ percentageDisplay(calculatePercentage(item.negative, item.total)) +`</span>
+                                                <div class="fill"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>`;
+
+
+            $elements.push(element);
+        }
+        $("#" + widgetId + " .sentiment-by-category-content .rows").append($elements);
+    }
+
+    function percentageDisplay(percentage) {
+        return percentage >= 5 ? percentage+"%" : "";
     }
 
     function sortOnPolarity(dataRefine, selectedSort) {

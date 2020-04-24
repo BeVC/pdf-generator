@@ -1885,7 +1885,7 @@ a {
                     margin-top: 5px;
                 }
 
-/* WIDGET TOP NEGATIVE CATEGORIES*/
+    /* WIDGET TOP NEGATIVE CATEGORIES*/
     .widget-container .top-negative-content {
         display: flex;
         flex-direction: column;
@@ -2036,4 +2036,128 @@ a {
                 }
 
 
-/* WIDGET SENTIMENT BY CATEGORY*/
+    /* WIDGET SENTIMENT BY CATEGORY*/
+
+    .widget-container .sentiment-by-category-content {
+        display: flex;
+        flex-direction: column;
+        color: #003161;
+        width: 100%;
+        font-family: Arial, HelveticaNeue;
+    }
+
+        .widget-container .sentiment-by-category-content .rows {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            padding-top: 25px;
+        }
+
+            .widget-container .sentiment-by-category-content .rows .row {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                border-bottom: 1px solid #dedede;
+                padding: 10px 10px;
+            }
+
+                .widget-container .sentiment-by-category-content .rows .row .main-category {
+                    display: flex;
+                    align-items: center;
+                }
+
+                    .widget-container .sentiment-by-category-content .rows .row .main-category .amount {
+                        margin-right: 10px;
+                        width: 100%;
+                        max-width: 40px;
+                        color: #adadad;
+                    }
+
+                    .widget-container .sentiment-by-category-content .rows .row .main-category .name {
+                        display: flex;
+                        flex-direction: column;
+                        margin-right: 5px;
+                        width: 100%;
+                        min-width: 110px;
+                        max-width: 140px;
+                    }
+
+                        .widget-container .sentiment-by-category-content .rows .row .main-category .name .btn span {
+                            display: inline-block;
+                            min-width: 110px;
+                            max-width: 140px;
+                            color: #003161;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            line-height: 1rem;
+                        }
+
+                        .widget-container .sentiment-by-category-content .rows .row .main-category .name .bar {
+                            height: 3px;
+                            background-color: #efefef;
+                            width: 75px;
+                            margin-right: 10px;
+                        }
+
+                            .widget-container .sentiment-by-category-content .rows .row .main-category .name .bar .fill {
+                                background-color: #006CFF;
+                                height: 100%;
+                            }
+
+                    .widget-container .sentiment-by-category-content .rows .row .main-category .sentiment-bar {
+                        display: flex;
+                        flex: 1;
+                        margin-right: 15px;
+                        font-size: 14px;
+                    }
+
+                        .widget-container .sentiment-by-category-content .rows .row .main-category .sentiment-bar .fill-container {
+                            display: flex;
+                            flex-direction: column;
+                        }
+
+                            .widget-container .sentiment-by-category-content .rows .row .main-category .sentiment-bar .fill-container:nth-of-type(2) span {
+                                align-self: center;
+                            }
+
+                            .widget-container .sentiment-by-category-content .rows .row .main-category .sentiment-bar .fill-container:nth-of-type(3) span {
+                                align-self: flex-end;
+                            }
+
+                        .widget-container .sentiment-by-category-content .rows .row .main-category .sentiment-bar .fill-container {
+                            display: flex;
+                            flex-direction: column;
+                        }
+
+                            .widget-container .sentiment-by-category-content .rows .row .main-category .sentiment-bar .fill-container span {
+                            }
+
+                            .widget-container .sentiment-by-category-content .rows .row .main-category .sentiment-bar .fill-container .fill {
+                                margin-top: auto;
+                                height: 8px;
+                            }
+
+                        .widget-container .sentiment-by-category-content .rows .row .main-category .sentiment-bar .green {
+                            color: #25ce7d;
+                        }
+
+                        .widget-container .sentiment-by-category-content .rows .row .main-category .sentiment-bar .grey {
+                            color: #adadad;
+                        }
+
+                        .widget-container .sentiment-by-category-content .rows .row .main-category .sentiment-bar .red {
+                            color: #ff4d4d;
+                        }
+
+                        .widget-container .sentiment-by-category-content .rows .row .main-category .sentiment-bar .green .fill {
+                            background-color: #25ce7d;
+                        }
+
+                        .widget-container .sentiment-by-category-content .rows .row .main-category .sentiment-bar .grey .fill {
+                            background-color: #adadad;
+                        }
+
+                        .widget-container .sentiment-by-category-content .rows .row .main-category .sentiment-bar .red .fill {
+                            background-color: #ff4d4d;
+                        }
