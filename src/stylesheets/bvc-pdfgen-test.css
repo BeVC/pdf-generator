@@ -316,6 +316,15 @@ a {
             font-family: Arial, HelveticaNeue;
         }
 
+        .widget-container .widget-header .date {
+            display: none;
+            margin-left: 25px;
+            font-size: 13px;
+            letter-spacing: 1px;
+            color: #1f2832;
+            font-family: Arial,HelveticaNeue;
+        }
+
     .widget-container .widget-wrapper {
         padding: 15px 20px 15px 30px;
     }
@@ -331,12 +340,14 @@ a {
             display: flex;
             align-items: center;
             justify-content: center;
+            min-height: 60px;
         }
 
             .widget-container .no-data-in-chart div p {
                 font-family: Arial, HelveticaNeue;
                 font-size: 14px;
                 color: #a4adb8;
+                text-transform:uppercase;
             }
     /*WIDGET NPS SCORE*/
     .widget-container .nps-score-content {
@@ -344,10 +355,9 @@ a {
     }
 
         .widget-container .nps-score-content .nps-result {
-            width: 80px;
+            min-width: 80px;
+            max-width: 140px;
         }
-
-
             .widget-container .nps-score-content .nps-result p:first-of-type {
                 color: #2c3847;
                 font-size: 60px;

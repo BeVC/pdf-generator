@@ -11,8 +11,11 @@ $(function () {
             $("#cd-content").append(`<div id='` + widget["uniqueID"] + `' class="widget-container">
                 <div class="widget-header">
                     <h2>
-                        <span name="widget-title">`+ widget["title"] + `</span>
+                        <span name="widget-title">`+ widget["name"] + `</span>
                     </h2>
+                    <div class="date">
+                        from <span>`+ widget["beginEndDates"][0] + `</span> to <span>` + widget["beginEndDates"][1] +`</span>
+                    </div>
                 </div>
                 <div class="widget-wrapper">
                 </div>
@@ -22,6 +25,12 @@ $(function () {
                     </div>
                 </div>
             </div>`);
+
+            if (widget["datePeriod"] !== -1) {
+                $("#cd-content #" + widget["uniqueID"] + " .widget-header .date").css('display', 'inline-block');
+                $("#cd-content #" + widget["uniqueID"] + " .widget-header .date").show();
+
+            }
         }
     }
 
@@ -111,9 +120,15 @@ $(function () {
 
     // WIDGET ID 1 NPS SCORE
     function initialiseNPSBar(widget) {
+        if (widget["data"]["detractors"] === 0 && widget["data"]["passive"] === 0 && widget["data"]["promoters"] === 0) {
+            $("#cd-content #" + widget["uniqueID"] + " .widget-wrapper").hide();
+            $("#cd-content #" + widget["uniqueID"] + " .no-data-in-chart").show();
+            return;
+        }
+
         $("#" + widget["uniqueID"] + " .widget-wrapper").append(`<div class="nps-score-content">
                         <div class="nps-result">
-                            <p>`+ widget["data"]["npsScore"] + `</p>
+                            <p>`+ widget["data"]["nps"] + `</p>
                             <p>NPS</p>
                         </div>
                         <div class="nps-bar">
@@ -121,8 +136,8 @@ $(function () {
                                 <p>`+ widget["data"]["detractors"] + `%</p>
                                 <p>detractors</p>
                             </div>
-                            <div class="nps-passives" style="width:`+ widget["data"]["passives"] + `%">
-                                <p>`+ widget["data"]["passives"] + `%</p>
+                            <div class="nps-passives" style="width:`+ widget["data"]["passive"] + `%">
+                                <p>`+ widget["data"]["passive"] + `%</p>
                                 <p>passives</p>
                             </div>
                             <div class="nps-promoters" style="width:`+ widget["data"]["promoters"] + `%">
@@ -134,12 +149,15 @@ $(function () {
 
         let widgetId = widget["uniqueID"];
         if (widget["data"]["detractors"] <= 10) {
+            $("#" + widgetId + " .nps-detractors").css('padding-left', '0');
             $("#" + widgetId + " .nps-detractors p").hide();
         }
-        if (widget["data"]["passives"] <= 10) {
+        if (widget["data"]["passive"] <= 10) {
+            $("#" + widgetId + " .nps-passives").css('padding-left', '0');
             $("#" + widgetId + " .nps-passives p").hide();
         }
         if (widget["data"]["promoters"] <= 10) {
+            $("#" + widgetId + " .nps-promoters").css('padding-left', '0');
             $("#" + widgetId + " .nps-promoters p").hide();
         }
     }
