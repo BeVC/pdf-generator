@@ -286,7 +286,7 @@ $(function () {
 
     // WIDGET ID 4 GENERAL RESPONSE RATE
     function initialiseGeneralResponseRate(widget) {
-        if (widget["data"]["respondents"]=== 0 && widget["data"]["answers"] === 0 && widget["data"]["unsubscribed"] === 0) {
+        if (widget["data"]["respondents"] === 0 && widget["data"]["answers"] === 0 && widget["data"]["unsubscribed"] === 0) {
             displayNoData(widget);
             return;
         }
@@ -423,7 +423,7 @@ $(function () {
         let chartId = "chart_" + widgetId;
         $("#" + widgetId + " .repartition-nps-score-content div").attr("id", chartId);
         let repartition = prepareRepartitionData(widget["data"], "nps");
-        
+
         if (notEnoughRepartition(repartition)) {
             displayNoData(widget);
             return;
@@ -663,6 +663,12 @@ $(function () {
 
         let dataCol = [];
         let isaacSelectedCategory = widget["data"].find(item => item.uniqueID === widget["mainCategoryUniqueID"]);
+
+        if (isaacSelectedCategory === undefined) {
+            displayNoData(widget);
+            return;
+        }
+
         isaacSelectedCategory.items = isaacSelectedCategory.items.sort((n1, n2) => n2.total - n1.total);
         for (let item of isaacSelectedCategory.items) {
             item.percentagePos = calculatePercentage(item.positive, item.total);
@@ -727,6 +733,12 @@ $(function () {
 
         let series = [];
         let isaacSelectedCategoryEvolution = widget["data"];
+
+        if (isaacSelectedCategoryEvolution.length < 2) {
+            displayNoData(widget);
+            return;
+        }
+
         let subCategoryCollection = mapSubCategories(isaacSelectedCategoryEvolution);
         for (let i = 0; i < subCategoryCollection.length; i++) {
             if (i < 6) {
@@ -736,7 +748,6 @@ $(function () {
                 series.push(serie);
             }
         }
-
 
         let widgetId = widget["uniqueID"];
         let chartId = "chart_" + widgetId;
@@ -771,6 +782,12 @@ $(function () {
         </div>`);
 
         let widgetId = widget["uniqueID"];
+
+        if (widget["data"]["list"].length === 0) {
+            displayNoData(widget);
+            return;
+        }
+
         $("#" + widgetId + " .department-ranking-table thead tr td:nth-child(3)").text(getType(widget["data"]["list"][0]));
 
         let relevantDepartments = filterRelevantDepartments(widget["data"]["list"]);
@@ -883,6 +900,12 @@ $(function () {
 
     // WIDGET ID 18 YES NO RESULT
     function initialiseYesNoResultsWidget(widget) {
+
+        if (isNaN(widget["data"]["yes"]) || isNaN(widget["data"]["no"])) {
+            displayNoData(widgtet);
+            return;
+        }
+
         $("#" + widget["uniqueID"] + " .widget-wrapper").append(`<div class="yes-no-results-content">
             <ul>
                 <li>
@@ -926,6 +949,11 @@ $(function () {
 
         let widgetId = widget["uniqueID"];
         let recentAnswers = prepareRecentAnswers(widget["data"]["items"]);
+        if (recentAnswers.length === 0) {
+            displayNoData(widget);
+            return;
+        }
+
         let $elements = [];
         for (let item of recentAnswers) {
             let color = determineScoreColor(item.score, item.type);
@@ -1914,34 +1942,30 @@ $(function () {
     }
 
     function buildSubBreakdown(subCategory, polarityEnabled) {
-        if (polarityEnabled) {
-            let posShow = "";
-            let negShow = "";
-            let neutShow = "";
-            if (subCategory.percentagePos < 10) {
-                posShow = "white";
-            }
-            if (subCategory.percentageNeg < 10) {
-                negShow = "white";
-            }
-            if (subCategory.percentageNeut < 10) {
-                neutShow = "white";
-            }
-
-            return "<span class='sub-breakdown'>" +
-                "<span class='bar'>" +
-                "<span class='bar-pos' style='width:" + subCategory.percentagePos + "%'></span>" +
-                "<span class='bar-neg' style='width:" + subCategory.percentageNeg + "%'></span>" +
-                "</span>" +
-                "<span class='percentages'>" +
-                "<span class='pos " + posShow + "' style='width:" + subCategory.percentagePos + "%;' title='" + subCategory.percentagePos + "%'>" + subCategory.percentagePos + "%</span>" +
-                "<span class='neut " + neutShow + "' style='width:" + subCategory.percentageNeut + "%;' title='" + subCategory.percentageNeut + "%'>" + subCategory.percentageNeut + "%</span>" +
-                "<span class='neg " + negShow + "' style='width:" + subCategory.percentageNeg + "%;' title='" + subCategory.percentageNeg + "%'>" + subCategory.percentageNeg + "%</span>" +
-                "</span>" +
-                "</span>";
-        } else {
-            return "";
+        let posShow = "";
+        let negShow = "";
+        let neutShow = "";
+        if (subCategory.percentagePos < 10) {
+            posShow = "white";
         }
+        if (subCategory.percentageNeg < 10) {
+            negShow = "white";
+        }
+        if (subCategory.percentageNeut < 10) {
+            neutShow = "white";
+        }
+
+        return "<span class='sub-breakdown'>" +
+            "<span class='bar'>" +
+            "<span class='bar-pos' style='width:" + subCategory.percentagePos + "%'></span>" +
+            "<span class='bar-neg' style='width:" + subCategory.percentageNeg + "%'></span>" +
+            "</span>" +
+            "<span class='percentages'>" +
+            "<span class='pos " + posShow + "' style='width:" + subCategory.percentagePos + "%;' title='" + subCategory.percentagePos + "%'>" + subCategory.percentagePos + "%</span>" +
+            "<span class='neut " + neutShow + "' style='width:" + subCategory.percentageNeut + "%;' title='" + subCategory.percentageNeut + "%'>" + subCategory.percentageNeut + "%</span>" +
+            "<span class='neg " + negShow + "' style='width:" + subCategory.percentageNeg + "%;' title='" + subCategory.percentageNeg + "%'>" + subCategory.percentageNeg + "%</span>" +
+            "</span>" +
+            "</span>";
     }
 
     function mapSubCategories(data) {
@@ -1994,13 +2018,45 @@ $(function () {
             if (filter.length === 1) {
                 // SET DATE AND Y, BASED ON POLARITYENUM
                 //if (this.polarity === PolarityDDLEnum.Mentioned) {
-                newSerie.data.push({
+                    newSerie.data.push({
+                        x: new Date(dataPoint.date.toString()).getTime(),
+                        y: filter[0].percentage,
+                        pos: filter[0].positive,
+                        neg: filter[0].negative,
+                        neut: filter[0].neutral,
+                        total: filter[0].total,
+                        polarity: this.polarity
+                    });
+                /*} else if (this.polarity === PolarityDDLEnum.SentimentNeg) {
+                    newSeries.data.push({
+                        x: new Date(dataPoint.date.toString()).getTime(),
+                        y: this.calculatePercentage(filter[0].total, filter[0].negative),
+                        pos: this.calculatePercentage(filter[0].total, filter[0].positive),
+                        neut: this.calculatePercentage(filter[0].total, filter[0].neutral),
+                        total: filter[0].total,
+                        polarity: this.polarity
+                    });
+                } else if (this.polarity === PolarityDDLEnum.SentimentPos) {
+                    newSeries.data.push({
+                        x: new Date(dataPoint.date.toString()).getTime(),
+                        y: this.calculatePercentage(filter[0].total, filter[0].positive),
+                        neg: this.calculatePercentage(filter[0].total, filter[0].negative),
+                        neut: this.calculatePercentage(filter[0].total, filter[0].neutral),
+                        total: filter[0].total,
+                        polarity: this.polarity
+                    });
+                }*/
+
+
+
+                //if (this.polarity === PolarityDDLEnum.Mentioned) {
+                /*newSerie.data.push({
                     x: new Date(dataPoint.date.toString()).getTime(),
                     y: filter[0].total, pos: filter[0].positive,
                     neg: filter[0].negative, neut: filter[0].neutral,
                     polarity: -1
                 });
-                /*} else if (this.polarity === PolarityDDLEnum.SentimentNeg) {
+                } else if (this.polarity === PolarityDDLEnum.SentimentNeg) {
                         newSeries.data.push({
                             x: new Date(dataPoint.date.toString()).getTime(),
                             y: this.calculatePercentage(filter[0].total, filter[0].negative),
