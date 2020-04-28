@@ -14,7 +14,7 @@ $(function () {
                         <span name="widget-title">`+ widget["name"] + `</span>
                     </h2>
                     <div class="date">
-                        from <span>`+ widget["beginEndDates"][0] + `</span> to <span>` + widget["beginEndDates"][1] +`</span>
+                        from <span>`+ widget["beginEndDates"][0] + `</span> to <span>` + widget["beginEndDates"][1] + `</span>
                     </div>
                 </div>
                 <div class="widget-wrapper">
@@ -26,7 +26,7 @@ $(function () {
                 </div>
             </div>`);
 
-            if (widget["datePeriod"] !== -1) {
+            if (widget["datePeriod"] !== -1 && widget["datePeriod"] !== undefined) {
                 $("#cd-content #" + widget["uniqueID"] + " .widget-header .date").css('display', 'inline-block');
                 $("#cd-content #" + widget["uniqueID"] + " .widget-header .date").show();
 
@@ -120,9 +120,8 @@ $(function () {
 
     // WIDGET ID 1 NPS SCORE
     function initialiseNPSBar(widget) {
-        if (widget["data"]["detractors"] === 0 && widget["data"]["passive"] === 0 && widget["data"]["promoters"] === 0) {
-            $("#cd-content #" + widget["uniqueID"] + " .widget-wrapper").hide();
-            $("#cd-content #" + widget["uniqueID"] + " .no-data-in-chart").show();
+        if (widget["data"]["nps"] === undefined || (widget["data"]["detractors"] === 0 && widget["data"]["passive"] === 0 && widget["data"]["promoters"] === 0)) {
+            displayNoData(widget);
             return;
         }
 
@@ -164,10 +163,15 @@ $(function () {
 
     // WIDGET ID 2 CES SCORE
     function initialiseCESBar(widget) {
+        if (widget["data"]["ces"] === undefined || (widget["data"]["disagree"] === 0 && widget["data"]["agree"] === 0)) {
+            displayNoData(widget);
+            return;
+        }
+
         $("#" + widget["uniqueID"] + " .widget-wrapper").append(`<div class="ces-score-content">
                         <div class="ces-graph">
                             <div class="ces20-gauge"></div>
-                            <span class="ces-gauge-score">`+ widget["data"]["cesScore"] + `</span>
+                            <span class="ces-gauge-score">`+ widget["data"]["ces"].toFixed(2) + `</span>
                         </div>
                         <div class="ces-bars">
                             <div class="first-ces-bar">
@@ -194,7 +198,7 @@ $(function () {
                     </div>`);
 
         let widgetId = widget["uniqueID"];
-        let cesScore = widget["data"]["cesScore"];
+        let cesScore = widget["data"]["ces"];
         if (cesScore < 1) {
             $("#" + widgetId + " .ces20-gauge").addClass("state-none");
         } else if (cesScore >= 1 && cesScore < 2) {
@@ -216,6 +220,11 @@ $(function () {
 
     // WIDGET ID 3 CSAT SCORE
     function initialiseCSATBar(widget) {
+        if (widget["data"]["csat"] === undefined || (widget["data"]["unsatisfied"] === 0 && widget["data"]["passive"] === 0 && widget["data"]["satisfied"] === 0)) {
+            displayNoData(widget);
+            return;
+        }
+
         $("#" + widget["uniqueID"] + " .widget-wrapper").append(`<div class="csat-score-content">
                         <div class="csat-graph">
                             <span class="score"></span>
@@ -257,7 +266,7 @@ $(function () {
                     </div>`);
 
         let widgetId = widget["uniqueID"];
-        let csatScore = widget["data"]["csatScore"];
+        let csatScore = widget["data"]["csat"];
         if (csatScore === 0) {
             $("#" + widgetId + " .score").text("?");
             $("#" + widgetId + " .score").addClass("none");
@@ -277,6 +286,11 @@ $(function () {
 
     // WIDGET ID 4 GENERAL RESPONSE RATE
     function initialiseGeneralResponseRate(widget) {
+        if (widget["data"]["respondents"]=== 0 && widget["data"]["answers"] === 0 && widget["data"]["unsubscribed"] === 0) {
+            displayNoData(widget);
+            return;
+        }
+
         $("#" + widget["uniqueID"] + " .widget-wrapper").append(`<div class="general-response-rate-content">
                         <table>
                             <tbody>
@@ -338,7 +352,10 @@ $(function () {
                     </div>`);
 
         let widgetId = widget["uniqueID"];
-        let percentage = calculatePercentage(widget["data"]["text"], widget["data"]["answers"]);
+        let percentage = 0;
+        if (widget["data"]["answers"] > 0) {
+            percentage = calculatePercentage(widget["data"]["text"], widget["data"]["answers"]);
+        }
         let degrees = 360 / 100 * percentage;
         $("#" + widgetId + " .percent").text(percentage + "%");
         $("#" + widgetId + " .slice div:first-child").css("transform", "rotate(" + degrees + "deg)");
@@ -377,7 +394,10 @@ $(function () {
                     </div>`);
 
         let widgetId = widget["uniqueID"];
-        let percentage = calculatePercentage(widget["data"]["lastweek"], widget["data"]["answers"]);
+        let percentage = 0;
+        if (widget["data"]["answers"] > 0) {
+            percentage = calculatePercentage(widget["data"]["lastweek"], widget["data"]["answers"]);
+        }
         let degrees = 360 / 100 * percentage;
         $("#" + widgetId + " .percent").text(percentage + "%");
         $("#" + widgetId + " .slice div:first-child").css("transform", "rotate(" + degrees + "deg)");
@@ -403,6 +423,12 @@ $(function () {
         let chartId = "chart_" + widgetId;
         $("#" + widgetId + " .repartition-nps-score-content div").attr("id", chartId);
         let repartition = prepareRepartitionData(widget["data"], "nps");
+        
+        if (notEnoughRepartition(repartition)) {
+            displayNoData(widget);
+            return;
+        }
+
         let options = getRepartitionChartOptions(chartId, "nps");
 
         let myChart = new Highcharts.chart(options);
@@ -421,6 +447,12 @@ $(function () {
         let chartId = "chart_" + widgetId;
         $("#" + widgetId + " .repartition-ces-score-content div").attr("id", chartId);
         let repartition = prepareRepartitionData(widget["data"], "ces");
+
+        if (notEnoughRepartition(repartition)) {
+            displayNoData(widget);
+            return;
+        }
+
         let options = getRepartitionChartOptions(chartId, "ces");
 
         let myChart = new Highcharts.chart(options);
@@ -439,6 +471,12 @@ $(function () {
         let chartId = "chart_" + widgetId;
         $("#" + widgetId + " .repartition-csat-score-content div").attr("id", chartId);
         let repartition = prepareRepartitionData(widget["data"], "csat");
+
+        if (notEnoughRepartition(repartition)) {
+            displayNoData(widget);
+            return;
+        }
+
         let options = getRepartitionChartOptions(chartId, "csat");
 
         let myChart = new Highcharts.chart(options);
@@ -457,6 +495,12 @@ $(function () {
         let chartId = "chart_" + widgetId;
         $("#" + widgetId + " .repartition-zero-to-ten-score-content div").attr("id", chartId);
         let repartition = prepareRepartitionData(widget["data"], "0to10");
+
+        if (notEnoughRepartition(repartition)) {
+            displayNoData(widget);
+            return;
+        }
+
         let options = getRepartitionChartOptions(chartId, "0to10");
 
         let myChart = new Highcharts.chart(options);
@@ -465,7 +509,7 @@ $(function () {
         myChart.series[0].setData(repartition, true);
     }
 
-    // WIDGET ID 11 EVOLUTION SCORE
+    // WIDGET ID 11 EVOLUTION SCORE NPS
     function initialiseEvolutionNpsScoreWidget(widget) {
         $("#" + widget["uniqueID"] + " .widget-wrapper").append(`<div class="evolution-nps-score-content">
                             <div id="chart"></div>
@@ -481,6 +525,12 @@ $(function () {
         let chartId = "chart_" + widgetId;
         $("#" + widgetId + " .evolution-nps-score-content div").attr("id", chartId);
         let chartData = prepareEvolutionChartData(widget["data"], "nps");
+
+        if (chartData.length < 2) {
+            displayNoData(widget);
+            return;
+        }
+
         setEvolutionChartInfos(widgetId, chartData[0][1], chartData[0][0], chartData[chartData.length - 1][1], chartData[chartData.length - 1][0]);
         let options = getEvolutionChartOptions(chartId, "nps");
 
@@ -489,7 +539,7 @@ $(function () {
         myChart.series[0].setData(chartData, true);
     }
 
-    // WIDGET ID 12 EVOLUTION SCORE
+    // WIDGET ID 12 EVOLUTION SCORE CES
     function initialiseEvolutionCesScoreWidget(widget) {
         $("#" + widget["uniqueID"] + " .widget-wrapper").append(`<div class="evolution-ces-score-content">
                             <div id="chart"></div>
@@ -505,6 +555,12 @@ $(function () {
         let chartId = "chart_" + widgetId;
         $("#" + widgetId + " .evolution-ces-score-content div").attr("id", chartId);
         let chartData = prepareEvolutionChartData(widget["data"], "ces");
+
+        if (chartData.length < 2) {
+            displayNoData(widget);
+            return;
+        }
+
         setEvolutionChartInfos(widgetId, chartData[0][1], chartData[0][0], chartData[chartData.length - 1][1], chartData[chartData.length - 1][0]);
         let options = getEvolutionChartOptions(chartId, "ces");
 
@@ -513,7 +569,7 @@ $(function () {
         myChart.series[0].setData(chartData, true);
     }
 
-    // WIDGET ID 13 EVOLUTION SCORE
+    // WIDGET ID 13 EVOLUTION SCORE CSAT
     function initialiseEvolutionCsatScoreWidget(widget) {
         $("#" + widget["uniqueID"] + " .widget-wrapper").append(`<div class="evolution-csat-score-content">
                             <div id="chart"></div>
@@ -529,6 +585,12 @@ $(function () {
         let chartId = "chart_" + widgetId;
         $("#" + widgetId + " .evolution-csat-score-content div").attr("id", chartId);
         let chartData = prepareEvolutionChartData(widget["data"], "csat");
+
+        if (chartData.length < 2) {
+            displayNoData(widget);
+            return;
+        }
+
         setEvolutionChartInfos(widgetId, chartData[0][1], chartData[0][0], chartData[chartData.length - 1][1], chartData[chartData.length - 1][0]);
         let options = getEvolutionChartOptions(chartId, "csat");
 
@@ -537,7 +599,7 @@ $(function () {
         myChart.series[0].setData(chartData, true);
     }
 
-    // WIDGET ID 14 EVOLUTION SCORE
+    // WIDGET ID 14 EVOLUTION SCORE 0-10
     function initialiseEvolutionZeroToTenScoreWidget(widget) {
         $("#" + widget["uniqueID"] + " .widget-wrapper").append(`<div class="evolution-zero-to-ten-score-content">
                             <div id="chart"></div>
@@ -553,6 +615,12 @@ $(function () {
         let chartId = "chart_" + widgetId;
         $("#" + widgetId + " .evolution-zero-to-ten-score-content div").attr("id", chartId);
         let chartData = prepareEvolutionChartData(widget["data"], "0to10");
+
+        if (chartData.length < 2) {
+            displayNoData(widget);
+            return;
+        }
+
         setEvolutionChartInfos(widgetId, chartData[0][1], chartData[0][0], chartData[chartData.length - 1][1], chartData[chartData.length - 1][0]);
         let options = getEvolutionChartOptions(chartId, "0to10");
 
@@ -594,7 +662,7 @@ $(function () {
 
 
         let dataCol = [];
-        let isaacSelectedCategory = widget["data"][0];
+        let isaacSelectedCategory = widget["data"].find(item => item.uniqueID === widget["mainCategoryUniqueID"]);
         isaacSelectedCategory.items = isaacSelectedCategory.items.sort((n1, n2) => n2.total - n1.total);
         for (let item of isaacSelectedCategory.items) {
             item.percentagePos = calculatePercentage(item.positive, item.total);
@@ -1221,7 +1289,7 @@ $(function () {
                                                 <div class="fill"></div>
                                             </div>
                                             <div class="fill-container red" style="width:`+ calculatePercentage(item.negative, item.total) + `%">
-                                                <span>`+ percentageDisplay(calculatePercentage(item.negative, item.total)) +`</span>
+                                                <span>`+ percentageDisplay(calculatePercentage(item.negative, item.total)) + `</span>
                                                 <div class="fill"></div>
                                             </div>
                                         </div>
@@ -1235,7 +1303,7 @@ $(function () {
     }
 
     function percentageDisplay(percentage) {
-        return percentage >= 5 ? percentage+"%" : "";
+        return percentage >= 5 ? percentage + "%" : "";
     }
 
     function sortOnPolarity(dataRefine, selectedSort) {
@@ -1247,7 +1315,7 @@ $(function () {
                 array.forEach(category => {
                     category.items = category.items.sort((a, b) => b.total - a.total);
                 });
-                return array;                
+                return array;
             case 3:
                 array.sort((a, b) => b.negative - a.negative);
                 array.forEach(category => {
@@ -1346,6 +1414,21 @@ $(function () {
     }
 
     // GENERAL FUNCTIONS
+    function displayNoData(widget) {
+        $("#cd-content #" + widget["uniqueID"] + " .widget-wrapper").hide();
+        $("#cd-content #" + widget["uniqueID"] + " .no-data-in-chart").show();
+    }
+
+    function notEnoughRepartition(repartition) {
+        let notEnough = true;
+        for (let i = 0; i < repartition.length; i++) {
+            if (repartition[i].y > 0) {
+                notEnough = false;
+            }
+        }
+        return notEnough;
+    }
+
     function calculatePercentage(numerator, denominator) {
         let result = 0;
         result = parseFloat((numerator / denominator * 100).toFixed(2));
