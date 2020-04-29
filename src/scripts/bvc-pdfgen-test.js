@@ -1063,6 +1063,11 @@ $(function () {
 
     // ID 20 MENTIONS PER MAIN CATEGORY
     function initialiseMostMentionedPerCategory(widget) {
+        if (widget["data"].length === 0) {
+            displayNoData(widget);
+            return;
+        }
+
         $("#" + widget["uniqueID"] + " .widget-wrapper").append(`<div class="most-mentioned-categories-content">
             <table>
                 <tbody>
@@ -1102,6 +1107,11 @@ $(function () {
     }
     // ID 21 SENTIMENT SPREAD
     function initialiseSentimentSpread(widget) {
+        if (widget["data"]["totalMentions"] === 0) {
+            displayNoData(widget);
+            return;
+        }
+
         $("#" + widget["uniqueID"] + " .widget-wrapper").append(`<div class="sentiment-spread-content">
                         <div class="pie-breakdown">
                             <div class="data-item">
@@ -1110,15 +1120,15 @@ $(function () {
                             </div>
                             <div class="data-item">
                                 <p class='grey'>POSITIVE</p>
-                                <p class='positive'>`+ uiIsSmallerThanOne(calculatePercentage(widget["data"]["positiveMentions"], widget["data"]["totalMentions"])) + `</p>
+                                <p class='positive'>`+ uiIsSmallerThanOne(calculatePercentage(widget["data"]["positiveMentions"], widget["data"]["totalMentions"])) + `%</p>
                             </div>
                             <div class="data-item">
                                 <p class='grey'>NEUTRAL</p>
-                                <p class='neutral'>`+ uiIsSmallerThanOne(calculatePercentage(widget["data"]["neutralMentions"], widget["data"]["totalMentions"])) + `</p>
+                                <p class='neutral'>`+ uiIsSmallerThanOne(calculatePercentage(widget["data"]["neutralMentions"], widget["data"]["totalMentions"])) + `%</p>
                             </div>
                             <div class="data-item">
                                 <p class='grey'>NEGATIVE</p>
-                                <p class='negative'>`+ uiIsSmallerThanOne(calculatePercentage(widget["data"]["negativeMentions"], widget["data"]["totalMentions"])) + `</p>
+                                <p class='negative'>`+ uiIsSmallerThanOne(calculatePercentage(widget["data"]["negativeMentions"], widget["data"]["totalMentions"])) + `%</p>
                             </div>
                         </div>
                         <div class='pie'>
@@ -1169,6 +1179,11 @@ $(function () {
 
     // ID 22 TOP POSITIVE CATEGORIES
     function initialiseTopPositiveCategories(widget) {
+        if (widget["data"].length === 0) {
+            displayNoData(widget);
+            return;
+        }
+
         let firstCategoryBaseAmount;
         let widgetId = widget["uniqueID"];
         let categorySubcategoryList = flattenList(widget["data"]["mentionedMainCategories"]);
@@ -1232,6 +1247,11 @@ $(function () {
 
     // ID 23 TOP NEGATIVE CATEGORIES
     function initialiseTopNegativeCategories(widget) {
+        if (widget["data"].length === 0) {
+            displayNoData(widget);
+            return;
+        }
+
         let firstCategoryBaseAmount;
         let widgetId = widget["uniqueID"];
         let categorySubcategoryList = flattenList(widget["data"]["mentionedMainCategories"]);
@@ -1295,13 +1315,18 @@ $(function () {
 
     // ID 24 SENTIMENT BY CATEGORY
     function initialiseSentimentByCategory(widget) {
+        if (widget["data"].length === 0) {
+            displayNoData(widget);
+            return;
+        }
+
         $("#" + widget["uniqueID"] + " .widget-wrapper").append(`<div class="sentiment-by-category-content">
                             <div class="rows">                                
                             </div>
                         </div>`);
 
         let widgetId = widget["uniqueID"];
-        let dataMentionedMainCategories = sortOnPolarity(widget["data"]);
+        let dataMentionedMainCategories = sortOnPolarity(widget["data"], widget["polarity"]);
         let $elements = [];
         for (let i = 0; i < dataMentionedMainCategories.length; i++) {
             let item = dataMentionedMainCategories[i];
@@ -1386,9 +1411,9 @@ $(function () {
     function getPolarity(polarity) {
         switch (polarity) {
             case 7:
-                return "Sentiment - Negative";
-            case 3:
                 return "Sentiment - Positive";
+            case 3:
+                return "Sentiment - Negative";
             case -1:
                 return "Mentioned";
             default:
