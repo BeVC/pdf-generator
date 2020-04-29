@@ -16,6 +16,10 @@ $(function () {
                     <div class="date">
                         from <span>`+ widget["beginEndDates"][0] + `</span> to <span>` + widget["beginEndDates"][1] + `</span>
                     </div>
+                    <div class="filter-block">
+                        <span>PERIOD: `+ getPeriod(widget["period"]) + `</span>
+                        <span>POLARITY: `+ getPolarity(widget["polarity"]) + `</span>
+                    </div>
                 </div>
                 <div class="widget-wrapper">
                 </div>
@@ -29,7 +33,15 @@ $(function () {
             if (widget["datePeriod"] !== -1 && widget["datePeriod"] !== undefined) {
                 $("#cd-content #" + widget["uniqueID"] + " .widget-header .date").css('display', 'inline-block');
                 $("#cd-content #" + widget["uniqueID"] + " .widget-header .date").show();
-
+            }
+            if (widget["period"] !== undefined || widget["polarity"] !== undefined) {
+                $("#cd-content #" + widget["uniqueID"] + " .widget-header .filter-block").show();
+                if (widget["period"] !== undefined) {
+                    $("#cd-content #" + widget["uniqueID"] + " .widget-header .filter-block span:first-of-type").show();
+                }
+                if (widget["polarity"] !== undefined) {
+                    $("#cd-content #" + widget["uniqueID"] + " .widget-header .filter-block span:nth-of-type(2)").show();
+                }
             }
         }
     }
@@ -110,9 +122,6 @@ $(function () {
                     break;
                 case 24:
                     initialiseSentimentByCategory(widget);
-                    break;
-                case 99:
-                    initialiseCoolPieChart(widget);
                     break;
             }
         }
@@ -1324,7 +1333,6 @@ $(function () {
                                     </div>
                                 </div>`;
 
-
             $elements.push(element);
         }
         $("#" + widgetId + " .sentiment-by-category-content .rows").append($elements);
@@ -1360,88 +1368,34 @@ $(function () {
                 return array;
         }
     }
-    // ID 99 JUST A TEST
-    function initialiseCoolPieChart(widget) {
-        $("#" + widget["uniqueID"] + " .widget-wrapper").append("<div id='piechartholder'></div");
-
-        Highcharts.chart("piechartholder", {
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
-                type: 'pie'
-            },
-            title: {
-                text: 'Browser market shares in January, 2018'
-            },
-            tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: true,
-                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
-                    }
-                },
-                series: {
-                    animation: false
-                }
-            },
-            responsive: {
-                rules: [{
-                    condition: {
-                        maxWidth: 500
-                    },
-                    chartOptions: {
-                        legend: {
-                            layout: 'vertical',
-                            align: 'right',
-                            verticalAlign: 'bottom'
-                        }
-                    }
-                }]
-            },
-            series: [{
-                name: 'Brands',
-                colorByPoint: true,
-                data: [{
-                    name: 'Chrome',
-                    y: 61.41,
-                    sliced: true,
-                    selected: true
-                }, {
-                    name: 'Internet Explorer',
-                    y: 11.84
-                }, {
-                    name: 'Firefox',
-                    y: 10.85
-                }, {
-                    name: 'Edge',
-                    y: 4.67
-                }, {
-                    name: 'Safari',
-                    y: 4.18
-                }, {
-                    name: 'Sogou Explorer',
-                    y: 1.64
-                }, {
-                    name: 'Opera',
-                    y: 1.6
-                }, {
-                    name: 'QQ',
-                    y: 1.2
-                }, {
-                    name: 'Other',
-                    y: 2.61
-                }]
-            }]
-        });
-    }
 
     // GENERAL FUNCTIONS
+    function getPeriod(period) {
+        switch (period) {
+            case 1:
+                return "Weekly";
+            case 2:
+                return "Monthly";
+            case 0:
+                return "Daily";
+            default:
+                return "";
+        }
+    }
+
+    function getPolarity(polarity) {
+        switch (polarity) {
+            case 7:
+                return "Sentiment - Negative";
+            case 3:
+                return "Sentiment - Positive";
+            case -1:
+                return "Mentioned";
+            default:
+                return "";
+        }
+    }
+
     function displayNoData(widget) {
         $("#cd-content #" + widget["uniqueID"] + " .widget-wrapper").hide();
         $("#cd-content #" + widget["uniqueID"] + " .no-data-in-chart").show();
@@ -1490,6 +1444,7 @@ $(function () {
         });
         return sum;
     }
+
     // CHART SPECIFIC FUNCTIONS
     function prepareRepartitionData(data, type) {
         let collection = [];
@@ -2018,15 +1973,15 @@ $(function () {
             if (filter.length === 1) {
                 // SET DATE AND Y, BASED ON POLARITYENUM
                 //if (this.polarity === PolarityDDLEnum.Mentioned) {
-                    newSerie.data.push({
-                        x: new Date(dataPoint.date.toString()).getTime(),
-                        y: filter[0].percentage,
-                        pos: filter[0].positive,
-                        neg: filter[0].negative,
-                        neut: filter[0].neutral,
-                        total: filter[0].total,
-                        polarity: this.polarity
-                    });
+                newSerie.data.push({
+                    x: new Date(dataPoint.date.toString()).getTime(),
+                    y: filter[0].percentage,
+                    pos: filter[0].positive,
+                    neg: filter[0].negative,
+                    neut: filter[0].neutral,
+                    total: filter[0].total,
+                    polarity: this.polarity
+                });
                 /*} else if (this.polarity === PolarityDDLEnum.SentimentNeg) {
                     newSeries.data.push({
                         x: new Date(dataPoint.date.toString()).getTime(),
@@ -2303,77 +2258,3 @@ $(function () {
     initialisewidgetContainers();
     selectWidgetType();
 });
-
-//(function () {
-//    //$("cd-content").append("<div>protaotsfsdfjsiosfkljsdskjfd</div>");
-
-//    //Highcharts.chart('container', {
-
-//    //    title: {
-//    //        text: 'Solar Employment Growth by Sector, 2010-2016'
-//    //    },
-
-//    //    subtitle: {
-//    //        text: 'Source: thesolarfoundation.com'
-//    //    },
-
-//    //    yAxis: {
-//    //        title: {
-//    //            text: 'Number of Employees'
-//    //        }
-//    //    },
-//    //    legend: {
-//    //        layout: 'vertical',
-//    //        align: 'right',
-//    //        verticalAlign: 'middle'
-//    //    },
-
-//    //    plotOptions: {
-//    //        series: {
-//    //            label: {
-//    //                connectorAllowed: false
-//    //            },
-//    //            pointStart: 2010,
-//    //            animation: false
-//    //        }
-//    //    },
-
-//    //    series: [{
-//    //        name: 'Installation',
-//    //        data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]
-//    //    }, {
-//    //        name: 'Manufacturing',
-//    //        data: [24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434]
-//    //    }, {
-//    //        name: 'Sales & Distribution',
-//    //        data: [11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387]
-//    //    }, {
-//    //        name: 'Project Development',
-//    //        data: [null, null, 7988, 12169, 15112, 22452, 34400, 34227]
-//    //    }, {
-//    //        name: 'Other',
-//    //        data: [12908, 5948, 8105, 11248, 8989, 11816, 18274, 18111]
-//    //    }],
-
-//    //    responsive: {
-//    //        rules: [{
-//    //            condition: {
-//    //                maxWidth: 500
-//    //            },
-//    //            chartOptions: {
-//    //                legend: {
-//    //                    layout: 'vertical',
-//    //                    align: 'right',
-//    //                    verticalAlign: 'bottom'
-//    //                }
-//    //            }
-//    //        }]
-//    //    },
-//    //    exporting: {
-//    //        enabled: false
-//    //    }
-
-//    //});
-
-//    //document.getElementById("testje").innerHTML = testObj["alpha"];
-//}());
