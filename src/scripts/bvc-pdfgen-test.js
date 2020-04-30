@@ -753,7 +753,7 @@ $(function () {
             if (i < 6) {
                 let subCategory = subCategoryCollection[i];
                 subCategory.isInactive = false;
-                let serie = initialiseIsaacLineChartData(subCategory, isaacSelectedCategoryEvolution);
+                let serie = initialiseIsaacLineChartData(subCategory, isaacSelectedCategoryEvolution, widget["polarity"]);
                 series.push(serie);
             }
         }
@@ -766,7 +766,7 @@ $(function () {
         $("#" + widgetId + " .sub-cat-list").append($elements);
 
         $("#" + widgetId + " .isaac-line-chart-content .chart-viewport #chart").attr("id", chartId);
-        let options = getIsaacLineChartOptions(chartId, series);
+        let options = getIsaacLineChartOptions(chartId, series, widget["polarity"]);
         let myChart = new Highcharts.chart(options);
 
         myChart.setSize(1480, 290);
@@ -1971,7 +1971,7 @@ $(function () {
         return collection;
     }
 
-    function initialiseIsaacLineChartData(subCategory, data) {
+    function initialiseIsaacLineChartData(subCategory, data, polarity) {
         let newSerie = {
             id: "",
             name: "",
@@ -1997,7 +1997,7 @@ $(function () {
             let filter = mostMentioned.items.filter(item => item.uniqueID === subCategory.id);
             if (filter.length === 1) {
                 // SET DATE AND Y, BASED ON POLARITYENUM
-                //if (this.polarity === PolarityDDLEnum.Mentioned) {
+                if (polarity === -1) {
                 newSerie.data.push({
                     x: new Date(dataPoint.date.toString()).getTime(),
                     y: filter[0].percentage,
@@ -2007,52 +2007,25 @@ $(function () {
                     total: filter[0].total,
                     polarity: this.polarity
                 });
-                /*} else if (this.polarity === PolarityDDLEnum.SentimentNeg) {
-                    newSeries.data.push({
+                } else if (polarity === 3) {
+                    newSerie.data.push({
                         x: new Date(dataPoint.date.toString()).getTime(),
-                        y: this.calculatePercentage(filter[0].total, filter[0].negative),
-                        pos: this.calculatePercentage(filter[0].total, filter[0].positive),
-                        neut: this.calculatePercentage(filter[0].total, filter[0].neutral),
+                        y: calculatePercentage(filter[0].negative, filter[0].total),
+                        pos: calculatePercentage(filter[0].positive, filter[0].total),
+                        neut: calculatePercentage(filter[0].neutral, filter[0].total),
                         total: filter[0].total,
-                        polarity: this.polarity
+                        polarity: polarity
                     });
-                } else if (this.polarity === PolarityDDLEnum.SentimentPos) {
-                    newSeries.data.push({
+                } else if (polarity === 7) {
+                    newSerie.data.push({
                         x: new Date(dataPoint.date.toString()).getTime(),
-                        y: this.calculatePercentage(filter[0].total, filter[0].positive),
-                        neg: this.calculatePercentage(filter[0].total, filter[0].negative),
-                        neut: this.calculatePercentage(filter[0].total, filter[0].neutral),
+                        y: calculatePercentage(filter[0].positive, filter[0].total),
+                        neg: calculatePercentage(filter[0].negative, filter[0].total),
+                        neut: calculatePercentage(filter[0].neutral, filter[0].total),
                         total: filter[0].total,
-                        polarity: this.polarity
+                        polarity: polarity
                     });
-                }*/
-
-
-
-                //if (this.polarity === PolarityDDLEnum.Mentioned) {
-                /*newSerie.data.push({
-                    x: new Date(dataPoint.date.toString()).getTime(),
-                    y: filter[0].total, pos: filter[0].positive,
-                    neg: filter[0].negative, neut: filter[0].neutral,
-                    polarity: -1
-                });
-                } else if (this.polarity === PolarityDDLEnum.SentimentNeg) {
-                        newSeries.data.push({
-                            x: new Date(dataPoint.date.toString()).getTime(),
-                            y: this.calculatePercentage(filter[0].total, filter[0].negative),
-                            pos: this.calculatePercentage(filter[0].total, filter[0].positive),
-                            neut: this.calculatePercentage(filter[0].total, filter[0].neutral),
-                            polarity: this.polarity
-                        });
-                } else if (this.polarity === PolarityDDLEnum.SentimentPos) {
-                        newSeries.data.push({
-                            x: new Date(dataPoint.date.toString()).getTime(),
-                            y: this.calculatePercentage(filter[0].total, filter[0].positive),
-                            neg: this.calculatePercentage(filter[0].total, filter[0].negative),
-                            neut: this.calculatePercentage(filter[0].total, filter[0].neutral),
-                            polarity: this.polarity
-                        });
-                }*/
+                }
             } else if (filter.length === 0) {
                 newSerie.data.push([new Date(dataPoint.date.toString()).getTime(), null]);
             }
@@ -2087,7 +2060,7 @@ $(function () {
         return $elements;
     }
 
-    function getIsaacLineChartOptions(chartId, series) {
+    function getIsaacLineChartOptions(chartId, series, polarity) {
         let options = {
             chart: {
                 renderTo: chartId,
@@ -2156,6 +2129,20 @@ $(function () {
             },
             series: series
         };
+
+        if (polarity === -1) {
+            options.yAxis.ceiling = 100;
+            options.yAxis.title.text = "Mentioned (%)";
+            options.yAxis.title.style.color = "black";
+        } else if (polarity === 3) {
+            options.yAxis.ceiling = 100;
+            options.yAxis.title.text = "Negative sentiment (%)";
+            options.yAxis.title.style.color = " #ff4c43";
+        } else if (polarity === 7) {
+            options.yAxis.ceiling = 100;
+            options.yAxis.title.text = "Positive sentiment (%)";
+            options.yAxis.title.style.color = "#25ce7d";
+        }
 
         return options;
     }
