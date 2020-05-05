@@ -742,6 +742,7 @@ $(function () {
 
         let series = [];
         let isaacSelectedCategoryEvolution = widget["data"];
+        let isChecked = widget["isChecked"];
 
         if (isaacSelectedCategoryEvolution.length < 2) {
             displayNoData(widget);
@@ -750,7 +751,7 @@ $(function () {
 
         let subCategoryCollection = mapSubCategories(isaacSelectedCategoryEvolution);
         for (let i = 0; i < subCategoryCollection.length; i++) {
-            if (i < 6) {
+            if (isChecked.findIndex(item => item === i) !== -1) {
                 let subCategory = subCategoryCollection[i];
                 subCategory.isInactive = false;
                 let serie = initialiseIsaacLineChartData(subCategory, isaacSelectedCategoryEvolution, widget["polarity"]);
@@ -2045,16 +2046,19 @@ $(function () {
                 className = "";
             }
 
-            let element = "<li>" +
-                "<div class='cbx-wrapper'>" +
-                "<div class='cbx'>" +
-                "<div id='" + item.id + "' class='cbx-inner " + className + "' style='background-color:" + item.color + "' data-item='" + JSON.stringify(item) + "'></div>" +
-                "</div>" +
-                "<span class='name'>" + item.name + "</span>" +
-                "</div>" +
-                "</li>";
+            // DO NOT SHOW INACTIVE SUBCATEGORIES
+            if (className === "") {
+                let element = "<li>" +
+                    "<div class='cbx-wrapper'>" +
+                    "<div class='cbx'>" +
+                    "<div id='" + item.id + "' class='cbx-inner " + className + "' style='background-color:" + item.color + "' data-item='" + JSON.stringify(item) + "'></div>" +
+                    "</div>" +
+                    "<span class='name'>" + item.name + "</span>" +
+                    "</div>" +
+                    "</li>";
 
-            $elements.push(element);
+                $elements.push(element);
+            }
         }
 
         return $elements;
@@ -2065,7 +2069,7 @@ $(function () {
             chart: {
                 renderTo: chartId,
                 type: "spline",
-                height: 290
+                height: "100%"
             },
             credits: {
                 enabled: false
@@ -2100,7 +2104,8 @@ $(function () {
                 series: {}
             },
             tooltip: {
-                useHTML: true,
+                enabled: false,
+                /*useHTML: true,
                 formatter: function () {
                     let tooltip = "<span style='background: " + this.series.color + ";' class='line-chart-tooltip'>";
                     //if (this.point.polarity === PolarityDDLEnum.Mentioned) {
@@ -2125,7 +2130,7 @@ $(function () {
                 },
                 borderWidth: 0,
                 backgroundColor: 0,
-                borderRadius: 100
+                borderRadius: 100*/
             },
             series: series
         };

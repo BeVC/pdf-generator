@@ -18,7 +18,7 @@ export class MyPageComponent implements OnInit {
         this.aJsonString = {
             dashboardName: "My Dashboard",
             widgets: [
-                /*{
+                {
                      title: "NPS Score",
                      id: 1,
                      uniqueID: "c10ab8d1-84d8-4b73-9948-666b4a1024c4",
@@ -28,7 +28,7 @@ export class MyPageComponent implements OnInit {
                          passives: 50,
                          promoters: 40
                      }
-                 },*/
+                 },
                 /*{
                     title: "NPS Second Score",
                     id: 1,
@@ -40,7 +40,7 @@ export class MyPageComponent implements OnInit {
                         promoters: 20
                     }
                 },*/
-                /*{
+                {
                     title: "My CES Score",
                     id: 2,
                     uniqueID: "6669f8bd-0096-4b6f-b48f-e29a03955bb5",
@@ -49,8 +49,8 @@ export class MyPageComponent implements OnInit {
                         agree: 42.45,
                         disagree: 56.55
                     }
-                },*/
-                /*{
+                },
+                {
                     title: "CSAT Score",
                     id: 3,
                     uniqueID: "29f8b5da-170d-4c64-928e-457bc8a337b2",
@@ -60,7 +60,7 @@ export class MyPageComponent implements OnInit {
                         unsatisfied: 28.57,
                         passive: 28.57
                     }
-                },*/
+                },
                 /*{
                     title: "General Response Rate",
                     id: 4,
@@ -2263,7 +2263,7 @@ export class MyPageComponent implements OnInit {
                         ]
                     }
                 },*/
-                {
+                /*{
                     title: "Sentiment by Category",
                     id: 24,
                     uniqueID: "fc0ecb90-c044-4fd0-8444-b071c347f4c1",
@@ -2919,7 +2919,7 @@ export class MyPageComponent implements OnInit {
                             uniqueID: '11f2c317-1629-4a82-9714-77014d233d02'
                         }
                     ]
-                }
+                }*/
                 /*{
                 title: "My Cool Piechart",
                 id: 99,
