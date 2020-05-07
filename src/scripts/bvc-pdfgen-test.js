@@ -30,18 +30,32 @@ $(function () {
                 </div>
             </div>`);
 
-            if (widget["datePeriod"] !== -1 && widget["datePeriod"] !== undefined) {
-                $("#cd-content #" + widget["uniqueID"] + " .widget-header .date").css('display', 'inline-block');
-                $("#cd-content #" + widget["uniqueID"] + " .widget-header .date").show();
+            if (widget["datePeriod"] === -1 || widget["datePeriod"] === undefined) {
+                $("#cd-content #" + widget["uniqueID"] + " .widget-header .date").hide();
             }
-            if (widget["period"] !== undefined || widget["polarity"] !== undefined) {
-                $("#cd-content #" + widget["uniqueID"] + " .widget-header .filter-block").show();
-                if (widget["period"] !== undefined) {
-                    $("#cd-content #" + widget["uniqueID"] + " .widget-header .filter-block span:first-of-type").show();
-                }
-                if (widget["polarity"] !== undefined) {
-                    $("#cd-content #" + widget["uniqueID"] + " .widget-header .filter-block span:nth-of-type(2)").show();
-                }
+
+            if (widget["period"] === undefined && widget["polarity"] === undefined) {
+                $("#cd-content #" + widget["uniqueID"] + " .widget-header .filter-block").hide();
+            }
+            if (widget["period"] === undefined) {
+                $("#cd-content #" + widget["uniqueID"] + " .widget-header .filter-block span:first-of-type").hide();
+            }
+            if (widget["polarity"] === undefined) {
+                $("#cd-content #" + widget["uniqueID"] + " .widget-header .filter-block span:nth-of-type(2)").hide();
+            }
+
+            if (widget["id"] === 16) {
+                $("#cd-content #" + widget["uniqueID"] + " .widget-header").css("flex-direction", "column");
+                $("#cd-content #" + widget["uniqueID"] + " .widget-header").css("justify-content", "center");
+                $("#cd-content #" + widget["uniqueID"] + " .widget-header").css("height", "80px");
+                $("#cd-content #" + widget["uniqueID"] + " .widget-header h2").css("align-self", "flex-start");
+                $("#cd-content #" + widget["uniqueID"] + " .widget-header h2").css("line-height", "20px");
+                $("#cd-content #" + widget["uniqueID"] + " .widget-header .date").css("align-self", "flex-start");
+                $("#cd-content #" + widget["uniqueID"] + " .widget-header .date").css("line-height", "20px");
+                $("#cd-content #" + widget["uniqueID"] + " .widget-header .date").css("margin-left", "0px");
+                $("#cd-content #" + widget["uniqueID"] + " .widget-header .filter-block").css("align-self", "flex-start");
+                $("#cd-content #" + widget["uniqueID"] + " .widget-header .filter-block").css("line-height", "20px");
+                $("#cd-content #" + widget["uniqueID"] + " .widget-header .filter-block").css("margin-left", "0px");
             }
         }
     }
@@ -442,7 +456,7 @@ $(function () {
 
         let myChart = new Highcharts.chart(options);
 
-        myChart.setSize(760, 290);
+        myChart.setSize(null, 290);
         myChart.series[0].setData(repartition, true);
     }
 
@@ -466,7 +480,7 @@ $(function () {
 
         let myChart = new Highcharts.chart(options);
 
-        myChart.setSize(760, 290);
+        myChart.setSize(null, 290);
         myChart.series[0].setData(repartition, true);
     }
 
@@ -490,7 +504,7 @@ $(function () {
 
         let myChart = new Highcharts.chart(options);
 
-        myChart.setSize(760, 290);
+        myChart.setSize(null, 290);
         myChart.series[0].setData(repartition, true);
     }
 
@@ -514,7 +528,7 @@ $(function () {
 
         let myChart = new Highcharts.chart(options);
 
-        myChart.setSize(760, 290);
+        myChart.setSize(null, 290);
         myChart.series[0].setData(repartition, true);
     }
 
@@ -544,7 +558,7 @@ $(function () {
         let options = getEvolutionChartOptions(chartId, "nps");
 
         let myChart = new Highcharts.chart(options);
-        myChart.setSize(760, 275);
+        myChart.setSize(null, 275);
         myChart.series[0].setData(chartData, true);
     }
 
@@ -580,6 +594,12 @@ $(function () {
 
     // WIDGET ID 13 EVOLUTION SCORE CSAT
     function initialiseEvolutionCsatScoreWidget(widget) {
+        /*let chartData = prepareEvolutionChartData(widget["data"], "csat");
+        if (chartData.length < 2) {
+            displayNoData(widget);
+            return;
+        }*/
+
         $("#" + widget["uniqueID"] + " .widget-wrapper").append(`<div class="evolution-csat-score-content">
                             <div id="chart"></div>
                             <div class="highchart-info" style="height:40px">
@@ -770,7 +790,7 @@ $(function () {
         let options = getIsaacLineChartOptions(chartId, series, widget["polarity"]);
         let myChart = new Highcharts.chart(options);
 
-        myChart.setSize(1480, 290);
+        myChart.setSize(null, 290);
 
     }
 
@@ -1563,6 +1583,7 @@ $(function () {
                 enabled: false
             },
             yAxis: {
+                tickInterval: 10,
                 title: {
                     text: "",
                     style: {
@@ -1737,7 +1758,8 @@ $(function () {
     function getEvolutionChartOptions(chartId, type) {
         let options = {
             tooltip: {
-                useHTML: true,
+                enabled: false
+                /*useHTML: true,
                 formatter: function () {
                     let tooltip = "<span style='background: " + this.series.color + ";' class='line-chart-tooltip'>" +
                         "<span class='text score'>" + this.y + "</span>" +
@@ -1747,7 +1769,7 @@ $(function () {
                 },
                 borderWidth: 0,
                 backgroundColor: 0,
-                borderRadius: 100
+                borderRadius: 100*/
             },
             chart: {
                 renderTo: chartId,
@@ -2069,7 +2091,7 @@ $(function () {
             chart: {
                 renderTo: chartId,
                 type: "spline",
-                height: "100%"
+                height: 290
             },
             credits: {
                 enabled: false
@@ -2104,7 +2126,7 @@ $(function () {
                 series: {}
             },
             tooltip: {
-                enabled: false,
+                enabled: false
                 /*useHTML: true,
                 formatter: function () {
                     let tooltip = "<span style='background: " + this.series.color + ";' class='line-chart-tooltip'>";

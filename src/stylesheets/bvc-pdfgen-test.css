@@ -317,7 +317,7 @@ a {
         }
 
         .widget-container .widget-header .date {
-            display: none;
+            /*display: none;*/
             margin-left: 25px;
             font-size: 13px;
             letter-spacing: 1px;
@@ -326,12 +326,12 @@ a {
         }
 
         .widget-container .widget-header .filter-block {
-            display: none;
+            /*display: none;*/
             margin-left: auto;
             margin-right: 25px;
         }
             .widget-container .widget-header .filter-block span {
-                display: none;
+                /*display: none;*/
                 font-size: 13px;
                 letter-spacing: 1px;
                 color: #1f2832;
@@ -1271,13 +1271,14 @@ a {
 
     /*WIDGET ISAAC LINE CHART*/
     .widget-container .isaac-line-chart-content {
-        height: 100%;
+        display: flex;
+        flex-direction: column;
     }
 
         .widget-container .isaac-line-chart-content .line-sub-categories {
-            width: 185px;
+            /*width: 185px;
             float: left;
-            overflow-y: auto;
+            overflow-y: auto;*/
             max-height: 290px;
         }
 
@@ -1290,20 +1291,28 @@ a {
                 color: #6a7889;
             }
 
-            .widget-container .isaac-line-chart-content .line-sub-categories .sub-cat-list.horizontal li {
+            /*.widget-container .isaac-line-chart-content .line-sub-categories .sub-cat-list.horizontal li {
                 float: left;
+            }*/
+
+            .widget-container .isaac-line-chart-content .line-sub-categories .sub-cat-list {
+                flex-wrap: wrap;
+                display: flex;
+                width: 100%;
             }
 
-            .widget-container .isaac-line-chart-content .line-sub-categories .sub-cat-list li {
-                display: block;
-                line-height: 40px;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                overflow: hidden;
-            }
+                .widget-container .isaac-line-chart-content .line-sub-categories .sub-cat-list li {
+                    width: 33%;
+                    /*display: block;*/
+                    line-height: 40px;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    overflow: hidden;
+                }
 
         .widget-container .isaac-line-chart-content .chart-viewport {
-            width: calc(100% - 215px);
+            width: 100%;
+            /*width: calc(100% - 215px);*/
             height: 290px;
             display: inline-block;
         }
