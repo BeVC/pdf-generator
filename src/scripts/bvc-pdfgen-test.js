@@ -558,7 +558,7 @@ $(function () {
         let options = getEvolutionChartOptions(chartId, "nps");
 
         let myChart = new Highcharts.chart(options);
-        myChart.setSize(null, 275);
+        myChart.setSize(760, 275);
         myChart.series[0].setData(chartData, true);
     }
 
@@ -750,6 +750,16 @@ $(function () {
 
     // WIDGET ID 16 ISAAC LINE CHART
     function initialiseIsaacLineChart(widget) {
+        //$("#" + widget["uniqueID"] + " .widget-wrapper").append(`<div class="isaac-line-chart-content">
+        //    <div class="line-sub-categories">
+        //        <div class="list-title">subcategories</div>
+        //        <ul class="sub-cat-list"></ul>
+        //    </div>
+        //    <div class="chart-viewport">
+        //        <div id="chart"></div>
+        //    </div>
+        //</div>`);
+
         $("#" + widget["uniqueID"] + " .widget-wrapper").append(`<div class="isaac-line-chart-content">
             <div class="line-sub-categories">
                 <div class="list-title">subcategories</div>
@@ -790,7 +800,7 @@ $(function () {
         let options = getIsaacLineChartOptions(chartId, series, widget["polarity"]);
         let myChart = new Highcharts.chart(options);
 
-        myChart.setSize(null, 290);
+        myChart.setSize(740, 290);
 
     }
 
