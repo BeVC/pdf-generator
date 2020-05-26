@@ -1468,13 +1468,23 @@ $(function () {
     }
 
     function calculatePercentage(numerator, denominator) {
-        let result = 0;
+        if (denominator === 0) {
+            return 0;
+        } else {
+            let result = parseFloat((numerator / denominator * 100).toFixed(2));
+            if (result > 100) {
+                result = 100.00;
+            }
+            return result;
+        }
+
+        /*let result = 0;
         result = parseFloat((numerator / denominator * 100).toFixed(2));
 
         if (result > 100) {
             result = 100.00;
         }
-        return result;
+        return result;*/
     }
 
     function calculatePercentageAlt(numerator, denominator1, denominator2) {

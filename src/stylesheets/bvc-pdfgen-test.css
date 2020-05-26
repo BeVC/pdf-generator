@@ -904,7 +904,7 @@ a {
         .widget-container .evolution-nps-score-content .highchart-info-1 {
             display: flex;
             justify-content: space-between;
-            flex-direction: row-reverse;
+            flex-direction: row;
             height: 100%;
             align-items: center;
         }
@@ -942,7 +942,7 @@ a {
         .widget-container .evolution-ces-score-content .highchart-info-1 {
             display: flex;
             justify-content: space-between;
-            flex-direction: row-reverse;
+            flex-direction: row;
             height: 100%;
             align-items: center;
         }
@@ -980,7 +980,7 @@ a {
         .widget-container .evolution-csat-score-content .highchart-info-1 {
             display: flex;
             justify-content: space-between;
-            flex-direction: row-reverse;
+            flex-direction: row;
             height: 100%;
             align-items: center;
         }
@@ -1018,7 +1018,7 @@ a {
         .widget-container .evolution-zero-to-ten-score-content .highchart-info-1 {
             display: flex;
             justify-content: space-between;
-            flex-direction: row-reverse;
+            flex-direction: row;
             height: 100%;
             align-items: center;
         }
