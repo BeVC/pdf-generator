@@ -919,10 +919,10 @@ a {
             float: right;
         }
 
-        .widget-container .evolution-nps-score-content .highchart-info-1 span:first-of-type {
+        /*.widget-container .evolution-nps-score-content .highchart-info-1 span:first-of-type {
             color: #20a7e0;
             margin-right: 5px;
-        }
+        }*/
 
     /*WIDGET EVOLUTION CES SCORE*/
     .widget-container .evolution-ces-score-content {
@@ -957,10 +957,10 @@ a {
             float: right;
         }
 
-        .widget-container .evolution-ces-score-content .highchart-info-1 span:first-of-type {
+        /*.widget-container .evolution-ces-score-content .highchart-info-1 span:first-of-type {
             color: #20a7e0;
             margin-right: 5px;
-        }
+        }*/
 
     /*WIDGET EVOLUTION CSAT SCORE*/
     .widget-container .evolution-csat-score-content {
@@ -995,10 +995,10 @@ a {
             float: right;
         }
 
-        .widget-container .evolution-csat-score-content .highchart-info-1 span:first-of-type {
+        /*.widget-container .evolution-csat-score-content .highchart-info-1 span:first-of-type {
             color: #20a7e0;
             margin-right: 5px;
-        }
+        }*/
 
     /*WIDGET EVOLUTION 0-10 SCORE*/
     .widget-container .evolution-zero-to-ten-score-content {
@@ -1035,10 +1035,10 @@ a {
             float: right;
         }
 
-        .widget-container .evolution-zero-to-ten-score-content .highchart-info-1 span:first-of-type {
+        /*.widget-container .evolution-zero-to-ten-score-content .highchart-info-1 span:first-of-type {
             color: #20a7e0;
             margin-right: 5px;
-        }
+        }*/
 
     /* WIDGET ISAAC PIE CHART */
     .widget-container .isaac-pie-chart-content {

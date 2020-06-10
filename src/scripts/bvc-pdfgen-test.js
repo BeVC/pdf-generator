@@ -1769,9 +1769,9 @@ $(function () {
     }
 
     function setEvolutionChartInfos(widgetId, value1, date1, value2, date2) {
-        let $elementOne = "<span>" + value1 + "</span><span>" + moment(date1).format("DD MMM YYYY") + "</span>";
+        let $elementOne = "<span>" + moment(date1).format("DD MMM YYYY") + "</span>";
         $("#" + widgetId + " .highchart-info-1 .p1").append($elementOne);
-        let $elementTwo = "<span>" + value2 + "</span><span>" + moment(date2).format("DD MMM YYYY") + "</span>";
+        let $elementTwo = "<span>" + moment(date2).format("DD MMM YYYY") + "</span>";
         $("#" + widgetId + " .highchart-info-1 .p2").append($elementTwo);
     }
 
