@@ -89,6 +89,18 @@ a {
     height: 90px;
 }
 
+
+/*@media print {
+    .widget-container {
+        page-break-after: always;
+    }
+}*/
+
+@media print {
+    .page-breaker {
+        page-break-before: always;
+    }
+}
 /*WIDGET GENERAL*/
 .donut {
     font-size: 90px;

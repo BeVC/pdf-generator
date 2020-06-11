@@ -1,5 +1,9 @@
 $(function () {
     var customDashboardData = testObj;
+    var A4PageHeightInPixels = 842;
+    var printPageMarginsTopBottomInPixels = 36;
+    var headerHeigthtInPixels;
+    var titleHeightInPixels;
 
     function setPDFTitle() {
         $("#pdf-title").text(customDashboardData["dashboardName"]);
@@ -139,6 +143,42 @@ $(function () {
                     break;
             }
         }
+    }
+
+    function calculatePageBreaks() {
+        currentHeightUsed = 0;
+
+        // get the header hight
+        pdfStartHeightInPixels = $(".header").height();
+        //console.log("header: " + pdfStartHeightInPixels);
+
+        // get the title height with margins
+        titleHeightInPixels = $(".title").outerHeight(true);
+        //console.log("title " + titleHeightInPixels);
+
+        let widgets = $(".widget-container");
+        //console.log("widget-container count: " + widgets.length);
+
+        currentHeightUsed = pdfStartHeightInPixels + titleHeightInPixels + printPageMarginsTopBottomInPixels;
+
+        // iterating to calculate currentHeightUsed
+        $(".widget-container").each(function (index) {
+            let tempResult = currentHeightUsed + $(this).outerHeight(true);
+            if (tempResult > A4PageHeightInPixels) {
+                $(this).addClass("page-breaker");
+                //let widget = widgets[index - 1];
+                //$("#" + widget.id + " .widget-container").addClass("page-breaker");
+                //widgets[index - 1].addClass("page-breaker");
+                currentHeightUsed = 0;
+                currentHeightUsed = printPageMarginsTopBottomInPixels + $(this).outerHeight(true);
+            } else {
+                currentHeightUsed = tempResult;
+            }
+        });
+
+        let widgets2 = $(".page-breaker");
+        console.log(widgets2.length);
+        //console.log("full current height test: " + currentHeightUsed);
     }
 
     // WIDGET ID 1 NPS SCORE
@@ -2262,8 +2302,10 @@ $(function () {
         return mergedItem;
     }
 
+
     //----- INIT -----//
     setPDFTitle();
     initialisewidgetContainers();
     selectWidgetType();
+    calculatePageBreaks();
 });
