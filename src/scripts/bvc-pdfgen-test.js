@@ -594,12 +594,6 @@ $(function () {
 
     // WIDGET ID 13 EVOLUTION SCORE CSAT
     function initialiseEvolutionCsatScoreWidget(widget) {
-        /*let chartData = prepareEvolutionChartData(widget["data"], "csat");
-        if (chartData.length < 2) {
-            displayNoData(widget);
-            return;
-        }*/
-
         $("#" + widget["uniqueID"] + " .widget-wrapper").append(`<div class="evolution-csat-score-content">
                             <div id="chart"></div>
                             <div class="highchart-info" style="height:40px">
@@ -750,16 +744,6 @@ $(function () {
 
     // WIDGET ID 16 ISAAC LINE CHART
     function initialiseIsaacLineChart(widget) {
-        //$("#" + widget["uniqueID"] + " .widget-wrapper").append(`<div class="isaac-line-chart-content">
-        //    <div class="line-sub-categories">
-        //        <div class="list-title">subcategories</div>
-        //        <ul class="sub-cat-list"></ul>
-        //    </div>
-        //    <div class="chart-viewport">
-        //        <div id="chart"></div>
-        //    </div>
-        //</div>`);
-
         $("#" + widget["uniqueID"] + " .widget-wrapper").append(`<div class="isaac-line-chart-content">
             <div class="line-sub-categories">
                 <div class="list-title">subcategories</div>
@@ -1477,14 +1461,6 @@ $(function () {
             }
             return result;
         }
-
-        /*let result = 0;
-        result = parseFloat((numerator / denominator * 100).toFixed(2));
-
-        if (result > 100) {
-            result = 100.00;
-        }
-        return result;*/
     }
 
     function calculatePercentageAlt(numerator, denominator1, denominator2) {
@@ -2147,32 +2123,6 @@ $(function () {
             },
             tooltip: {
                 enabled: false
-                /*useHTML: true,
-                formatter: function () {
-                    let tooltip = "<span style='background: " + this.series.color + ";' class='line-chart-tooltip'>";
-                    //if (this.point.polarity === PolarityDDLEnum.Mentioned) {
-                    tooltip = tooltip + "<span class='text'>POS: " + (this.point.pos / this.y * 100).toFixed(1) + "%</span>";
-                    tooltip = tooltip + "<span class='text'>NEU: " + (this.point.neut / this.y * 100).toFixed(1) + "%</span>";
-                    tooltip = tooltip + "<span class='text'>NEG: " + (this.point.neg / this.y * 100).toFixed(1) + "%</span>";
-                    //}
-                    //if (this.point.polarity === PolarityDDLEnum.SentimentNeg) {
-                    //	tooltip = tooltip + "<span class='text'>POS: " + this.point.pos + "%</span>";
-                    //	tooltip = tooltip + "<span class='text'>NEU: " + this.point.neut + "%</span>";
-                    //	tooltip = tooltip + "<span class='text'>NEG: " + this.point.y + "%</span>";
-                    //}
-                    //if (this.point.polarity === PolarityDDLEnum.SentimentPos) {
-                    //	tooltip = tooltip + "<span class='text'>POS: " + this.y + "%</span>";
-                    //	tooltip = tooltip + "<span class='text'>NEU: " + this.point.neut + "%</span>";
-                    //	tooltip = tooltip + "<span class='text'>NEG: " + this.point.neg + "%</span>";
-                    //}
-
-                    tooltip = tooltip + "</span>";
-
-                    return tooltip;
-                },
-                borderWidth: 0,
-                backgroundColor: 0,
-                borderRadius: 100*/
             },
             series: series
         };
