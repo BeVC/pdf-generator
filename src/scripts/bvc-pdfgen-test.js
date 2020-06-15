@@ -9,6 +9,12 @@ $(function () {
         $("#pdf-title").text(customDashboardData["dashboardName"]);
     }
 
+    function setMasterDates() {
+        $("#pdf-start .title").append(`<div class='masterdates'>
+from <span>`+ customDashboardData["masterDateRange"][0] + `</span> to <span>` + customDashboardData["masterDateRange"][1]+`</span>
+</div>`);
+    }
+
     function initialisewidgetContainers() {
         for (let i = 0; i < customDashboardData["widgets"].length; i++) {
             let widget = customDashboardData["widgets"][i];
@@ -2305,6 +2311,7 @@ $(function () {
 
     //----- INIT -----//
     setPDFTitle();
+    setMasterDates();
     initialisewidgetContainers();
     selectWidgetType();
     calculatePageBreaks();

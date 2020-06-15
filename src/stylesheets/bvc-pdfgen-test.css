@@ -70,7 +70,9 @@ a {
 
 .title {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    //justify-content: center;
     color: #2c3846;
     font-size: 22px;
     font-weight: bold;
@@ -83,7 +85,19 @@ a {
         text-align: center;
     }
 
+    .title .masterdates {
+        margin-top: 20px;
+        font-family: Arial;
+        font-size: 18px;
+        font-weight: 400;
+    }
+
+        .title .masterdates span {
+            font-weight: bold;
+        }
+
 .footer {
+    display: none;
     margin-top: 35px;
     background-color: #2c3846;
     height: 90px;
@@ -342,6 +356,7 @@ a {
             margin-left: auto;
             margin-right: 25px;
         }
+
             .widget-container .widget-header .filter-block span {
                 /*display: none;*/
                 font-size: 13px;
@@ -356,7 +371,8 @@ a {
     }
 
     .widget-container .no-data-in-chart {
-        height: calc(100% - 52px);
+        height: 100px;
+        max-height: 100px;
         padding: 20px;
     }
 
@@ -373,7 +389,7 @@ a {
                 font-family: Arial, HelveticaNeue;
                 font-size: 14px;
                 color: #a4adb8;
-                text-transform:uppercase;
+                text-transform: uppercase;
             }
     /*WIDGET NPS SCORE*/
     .widget-container .nps-score-content {
@@ -384,6 +400,7 @@ a {
             min-width: 80px;
             max-width: 140px;
         }
+
             .widget-container .nps-score-content .nps-result p:first-of-type {
                 color: #2c3847;
                 font-size: 60px;
@@ -931,7 +948,7 @@ a {
             float: right;
         }
 
-        /*.widget-container .evolution-nps-score-content .highchart-info-1 span:first-of-type {
+    /*.widget-container .evolution-nps-score-content .highchart-info-1 span:first-of-type {
             color: #20a7e0;
             margin-right: 5px;
         }*/
@@ -969,7 +986,7 @@ a {
             float: right;
         }
 
-        /*.widget-container .evolution-ces-score-content .highchart-info-1 span:first-of-type {
+    /*.widget-container .evolution-ces-score-content .highchart-info-1 span:first-of-type {
             color: #20a7e0;
             margin-right: 5px;
         }*/
@@ -1007,7 +1024,7 @@ a {
             float: right;
         }
 
-        /*.widget-container .evolution-csat-score-content .highchart-info-1 span:first-of-type {
+    /*.widget-container .evolution-csat-score-content .highchart-info-1 span:first-of-type {
             color: #20a7e0;
             margin-right: 5px;
         }*/
@@ -1047,7 +1064,7 @@ a {
             float: right;
         }
 
-        /*.widget-container .evolution-zero-to-ten-score-content .highchart-info-1 span:first-of-type {
+    /*.widget-container .evolution-zero-to-ten-score-content .highchart-info-1 span:first-of-type {
             color: #20a7e0;
             margin-right: 5px;
         }*/
