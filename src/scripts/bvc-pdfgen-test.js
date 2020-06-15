@@ -1,7 +1,7 @@
 $(function () {
     var customDashboardData = testObj;
     var A4PageHeightInPixels = 842;
-    var printPageMarginsTopBottomInPixels = 36;
+    var printPageMarginsTopBottomInPixels = 28;
     var headerHeigthtInPixels;
     var titleHeightInPixels;
 
@@ -11,8 +11,8 @@ $(function () {
 
     function setMasterDates() {
         $("#pdf-start .title").append(`<div class='masterdates'>
-from <span>`+ customDashboardData["masterDateRange"][0] + `</span> to <span>` + customDashboardData["masterDateRange"][1]+`</span>
-</div>`);
+            from <span>`+ customDashboardData["masterDateRange"][0] + `</span> to <span>` + customDashboardData["masterDateRange"][1]+`</span>
+        </div>`);
     }
 
     function initialisewidgetContainers() {
