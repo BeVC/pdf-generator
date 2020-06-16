@@ -11,7 +11,7 @@ $(function () {
 
     function setMasterDates() {
         $("#pdf-start .title").append(`<div class='masterdates'>
-            from <span>`+ customDashboardData["masterDateRange"][0] + `</span> to <span>` + customDashboardData["masterDateRange"][1]+`</span>
+            from <span>`+ customDashboardData["masterDateRange"][0] + `</span> to <span>` + customDashboardData["masterDateRange"][1] + `</span>
         </div>`);
     }
 
@@ -155,7 +155,7 @@ $(function () {
         currentHeightUsed = 0;
 
         // get the header hight
-        pdfStartHeightInPixels = $(".header").height();
+        pdfStartHeightInPixels = 0; //$(".header").height();
         //console.log("header: " + pdfStartHeightInPixels);
 
         // get the title height with margins
@@ -2063,15 +2063,15 @@ $(function () {
             if (filter.length === 1) {
                 // SET DATE AND Y, BASED ON POLARITYENUM
                 if (polarity === -1) {
-                newSerie.data.push({
-                    x: new Date(dataPoint.date.toString()).getTime(),
-                    y: filter[0].percentage,
-                    pos: filter[0].positive,
-                    neg: filter[0].negative,
-                    neut: filter[0].neutral,
-                    total: filter[0].total,
-                    polarity: this.polarity
-                });
+                    newSerie.data.push({
+                        x: new Date(dataPoint.date.toString()).getTime(),
+                        y: filter[0].percentage,
+                        pos: filter[0].positive,
+                        neg: filter[0].negative,
+                        neut: filter[0].neutral,
+                        total: filter[0].total,
+                        polarity: this.polarity
+                    });
                 } else if (polarity === 3) {
                     newSerie.data.push({
                         x: new Date(dataPoint.date.toString()).getTime(),
@@ -2314,5 +2314,8 @@ $(function () {
     setMasterDates();
     initialisewidgetContainers();
     selectWidgetType();
-    calculatePageBreaks();
+    setTimeout(() => {
+        calculatePageBreaks();
+    }, 200);
+
 });

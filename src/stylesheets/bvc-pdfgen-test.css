@@ -66,6 +66,7 @@ a {
 .header {
     background-color: #2c3846;
     height: 65px;
+    display: none;
 }
 
 .title {
