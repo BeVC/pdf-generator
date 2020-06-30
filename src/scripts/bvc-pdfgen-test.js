@@ -2316,6 +2316,6 @@ $(function () {
     selectWidgetType();
     setTimeout(() => {
         calculatePageBreaks();
-    }, 200);
+    }, 500);
 
 });
