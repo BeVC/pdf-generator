@@ -29,6 +29,8 @@ footer, header, hgroup, menu, nav, section {
 
 body {
     line-height: 1;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 ol, ul {
@@ -52,3 +54,233 @@ a {
     box-sizing: border-box;
 }
 
+/*GENERAL STYLING*/
+#pdf-start {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.header {
+    background-color: #2c3846;
+    height: 65px;
+    display: none;
+}
+
+.title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #2c3846;
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 35px;
+    margin-bottom: 35px;
+}
+
+    .title h2 {
+        font-family: Arial, HelveticaNeue;
+        text-align: center;
+    }
+
+    .title .masterdates {
+        margin-top: 20px;
+        font-family: Arial;
+        font-size: 18px;
+        font-weight: 400;
+    }
+
+        .title .masterdates span {
+            font-weight: bold;
+        }
+
+.footer {
+    display: none;
+    margin-top: 35px;
+    background-color: #2c3846;
+    height: 90px;
+}
+
+@media print {
+    .page-breaker {
+        page-break-before: always;
+    }
+}
+
+/*WIDGET GENERAL STYLING*/
+.widget-body {
+    background: white;
+    display: flex;
+    /*height: 100%;*/
+    flex-direction: column;
+    font-family: Arial;
+    font-size: 14px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 0px 99px #00000017;
+    border-radius: 10px;
+    flex: 1;
+    margin-bottom: 20px;
+}
+
+    .widget-body .widget-header {
+        font-size: 18px;
+        padding: 22px;
+        min-height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+        .widget-body .widget-header h2 {
+            color: #003161;
+            font-size: 18px;
+            font-family: 'Arial';
+            align-items: center;
+            display: inline-flex;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: calc(100% - 25px);
+            line-height: 20px;
+            font-weight: 600;
+        }
+
+        .widget-body .widget-header .date {
+            font-family: "Arial";
+            font-size: 12px;
+            margin-left: 25px;
+            display: inline-block;
+            width: 100%;
+            text-align: right;
+            vertical-align: middle;
+        }
+
+        .widget-body .widget-header .filter-block {
+        }
+
+    .widget-body .wrapper {
+        padding: 22px;
+        padding-top: 0;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        min-height: 0;
+    }
+
+    .widget-body .no-data-in-chart {
+        text-align: center;
+        height: 100px;
+        max-height: 100px;
+        padding: 20px;
+    }
+
+        .widget-body .no-data-in-chart div {
+            background: #f2f4f6;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+        }
+
+            .widget-body .no-data-in-chart div p {
+                font-family: Arial, HelveticaNeue;
+                font-size: 14px;
+                color: #a4adb8;
+                text-transform: uppercase;
+            }
+
+/*WIDGET NPS SCORE*/
+.wrapper .nps-score-bar {
+    display: flex;
+    align-items: center;
+    flex-grow: 1
+}
+
+    .wrapper .nps-score-bar .nps-result {
+        margin-right: 22px;
+    }
+
+        .wrapper .nps-score-bar .nps-result .metric {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+            .wrapper .nps-score-bar .nps-result .metric h1 {
+                font-size: 60px;
+                color: #003161;
+                font-family: 'Arial';
+                font-weight: 600;
+                font-style: normal;
+                line-height: 80%;
+                padding-bottom: 6px;
+                text-align: center;
+            }
+
+                .wrapper .nps-score-bar .nps-result .metric h1.minushundred {
+                    font-size: 50px;
+                    padding-right: 10px;
+                }
+
+            .wrapper .nps-score-bar .nps-result .metric p {
+                font-family: 'Arial';
+                font-size: 12px;
+                color: #ADADAD;
+            }
+
+    .wrapper .nps-score-bar .nps-bar {
+        width: 100%;
+        display: flex;
+        align-items: center;        
+    }
+
+        .wrapper .nps-score-bar .nps-bar .item {
+            border-left: none;
+            height: 64px;
+        }
+            .wrapper .nps-score-bar .nps-bar .item:first-child {
+                border-bottom-left-radius: 50px;
+                border-top-left-radius: 50px;
+            }
+            .wrapper .nps-score-bar .nps-bar .item:last-child {
+                border-bottom-right-radius: 50px;
+                border-top-right-radius: 50px;
+            }
+
+            .wrapper .nps-score-bar .nps-bar .item.nps-detractors {
+                background: transparent linear-gradient(270deg, #FF1E5D 0%, #FF6591 100%) 0% 0% no-repeat padding-box;
+            }
+
+            .wrapper .nps-score-bar .nps-bar .item.nps-passives {
+                background: transparent linear-gradient(270deg, #D3D3D3 0%, #939393 100%) 0% 0% no-repeat padding-box;
+                border-right: none;
+            }
+
+            .wrapper .nps-score-bar .nps-bar .item.nps-promoters {
+                background: transparent linear-gradient(270deg, #0DFF74 0%, #0FCE60 100%) 0% 0% no-repeat padding-box;
+            }
+
+            .wrapper .nps-score-bar .nps-bar .item h4 {
+                font-family: Arial;
+                font-weight: 600;
+                font-size: 24px;
+                padding: 13px 0 13px 13px;
+                color: white;
+                display:flex;
+                flex-direction:column;
+            }
+                .wrapper .nps-score-bar .nps-bar .item h4 span {
+                    font-size: 12px;
+                    padding-top: 2px;
+                    font-weight: 400;
+                    display: block;
+                    text-transform: capitalize;
+                }
+/*WIDGET CES SCORE*/
+/*WIDGET CSAT SCORE*/
+/*WIDGET GENERAL RESPONSE RATE*/
+/*WIDGET TEXT RESPONSE RATE*/
+/*WIDGET LAST RESPONSES*/
+/*WIDGET REPARTITION*/
+/*WIDGET EVOLUTION*/
