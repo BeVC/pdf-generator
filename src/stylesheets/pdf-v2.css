@@ -446,85 +446,85 @@ a {
                 border-right: 1px solid #d3d9df;
             }
 
-/*WIDGET TEXT RESPONSE RATE*/
-.wrapper .content .trr-chart {
-    float: left;
-    width: 50%;
-    text-align: center;
-}
-
-    .wrapper .content .trr-chart .trr-donut {
-        display: inline-block;
-    }
-
-.wrapper .content .result {
-    margin-top: 28px;
-    float: left;
-    width: 50%;
-}
-
-    .wrapper .content .result li {
-        color: black;
-        padding-bottom: 10px;
-        font-family: Arial, HelveticaNeue;
-        font-weight: 400;
-        font-size: 13.28px;
-        line-height: 13.28px;
+    /*WIDGET TEXT RESPONSE RATE*/
+    .wrapper .content .trr-chart {
+        float: left;
+        width: 50%;
         text-align: center;
-        text-transform: lowercase;
     }
 
-        .wrapper .content .result li span {
-            color: #006CFF;
+        .wrapper .content .trr-chart .trr-donut {
+            display: inline-block;
+        }
+
+    .wrapper .content .result {
+        margin-top: 28px;
+        float: left;
+        width: 50%;
+    }
+
+        .wrapper .content .result li {
+            color: black;
+            padding-bottom: 10px;
             font-family: Arial, HelveticaNeue;
-            font-weight: 700;
-            font-size: 14px;
-            line-height: 14px;
+            font-weight: 400;
+            font-size: 13.28px;
+            line-height: 13.28px;
+            text-align: center;
+            text-transform: lowercase;
         }
 
-        .wrapper .content .result li:last-child {
-            padding-bottom: 0;
-        }
+            .wrapper .content .result li span {
+                color: #006CFF;
+                font-family: Arial, HelveticaNeue;
+                font-weight: 700;
+                font-size: 14px;
+                line-height: 14px;
+            }
 
-/*WIDGET LAST RESPONSES*/
-.widget-body .content .lr-chart {
-    float: left;
-    width: 50%;
-    text-align: center;
-}
+            .wrapper .content .result li:last-child {
+                padding-bottom: 0;
+            }
 
-    .widget-body .content .lr-chart .lr-donut {
-        display: inline-block;
-    }
-
-.wrapper .content .result {
-    margin-top: 28px;
-    float: left;
-    width: 50%;
-}
-
-    .wrapper .content .result li {
-        color: black;
-        padding-bottom: 10px;
-        font-family: Arial, HelveticaNeue;
-        font-weight: 400;
-        font-size: 13.28px;
-        line-height: 13.28px;
+    /*WIDGET LAST RESPONSES*/
+    .wrapper .content .lr-chart {
+        float: left;
+        width: 50%;
         text-align: center;
-        text-transform: lowercase;
     }
 
-        .wrapper .content .result li span {
-            color: #006CFF;
-            font-family: Arial, HelveticaNeue;
-            font-weight: 700;
-            font-size: 14px;
-            line-height: 14px;
+        .wrapper .content .lr-chart .lr-donut {
+            display: inline-block;
         }
 
-        .wrapper .content .result li:last-child {
-            padding-bottom: 0;
+    .wrapper .content .result {
+        margin-top: 28px;
+        float: left;
+        width: 50%;
+    }
+
+        .wrapper .content .result li {
+            color: black;
+            padding-bottom: 10px;
+            font-family: Arial, HelveticaNeue;
+            font-weight: 400;
+            font-size: 13.28px;
+            line-height: 13.28px;
+            text-align: center;
+            text-transform: lowercase;
         }
+
+            .wrapper .content .result li span {
+                color: #006CFF;
+                font-family: Arial, HelveticaNeue;
+                font-weight: 700;
+                font-size: 14px;
+                line-height: 14px;
+            }
+
+            .wrapper .content .result li:last-child {
+                padding-bottom: 0;
+            }
 /*WIDGET REPARTITION*/
 /*WIDGET EVOLUTION*/
 /*WIDGET ISAAC PIE CHART*/
@@ -532,3 +532,98 @@ a {
 /*WIDGET DEPARTMENT RANKING*/
 /*WIDGET YES NO RESULTS*/
 /*WIDGET RECENT ANSWERS*/
+.wrapper .recent-answers-content {
+    display: flex;
+    flex-direction: column;
+    /*height: 100%;
+        overflow: auto;*/
+}
+
+    .wrapper .recent-answers-content .score-list.small li {
+        width: 100% !important;
+        float: none;
+    }
+
+        .wrapper .recent-answers-content .score-list.small li:nth-of-type(2n) {
+            margin-left: 0;
+        }
+
+        .wrapper .recent-answers-content .score-list.small li:nth-last-child(2):nth-child(odd) {
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+    .wrapper .recent-answers-content .score-list li {
+        font-size: 12px;
+        font-family: Arial, HelveticaNeue;
+        line-height: 40px;
+        color: #2c3847;
+        float: left;
+    }
+
+        .wrapper .recent-answers-content .score-list li:nth-of-type(n) {
+            margin: 0 25px 0 0;
+            width: calc(50% - 25px);
+        }
+
+        .wrapper .recent-answers-content .score-list li:nth-of-type(2n) {
+            margin: 0 10px 0 25px;
+            width: calc(50% - 35px);
+        }
+
+        .wrapper .recent-answers-content .score-list li span.score {
+            float: right;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            line-height: 22px;
+            text-align: center;
+            color: white;
+            margin-top: 13px;
+            position: relative;
+            font-size: 11px;
+        }
+
+            .wrapper .recent-answers-content .score-list li span.score:after {
+                content: "";
+                display: inline-block;
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-width: 3px 3px 0 3px;
+                border-color: #2c3847 transparent transparent transparent;
+                position: absolute;
+                bottom: -2px;
+                left: 8px;
+            }
+
+        .wrapper .recent-answers-content .score-list li span.green {
+            background: #25ce7d;
+        }
+
+            .wrapper .recent-answers-content .score-list li span.green:after {
+                border-color: #25ce7d transparent transparent transparent;
+            }
+
+        .wrapper .recent-answers-content .score-list li span.gray {
+            background: #ecedee;
+        }
+
+            .wrapper .recent-answers-content .score-list li span.gray:after {
+                border-color: #ecedee transparent transparent transparent;
+            }
+
+        .wrapper .recent-answers-content .score-list li span.red {
+            background: #ff4d4d;
+        }
+
+            .wrapper .recent-answers-content .score-list li span.red:after {
+                border-color: #ff4d4d transparent transparent transparent;
+            }
+
+        .wrapper .recent-answers-content .score-list li:last-child {
+            border: none;
+        }
+
+        .wrapper .recent-answers-content .score-list li:nth-last-child(2):nth-child(odd) {
+            border-bottom: none;
+        }

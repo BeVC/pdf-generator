@@ -129,7 +129,7 @@ $(function () {
                     //initialiseYesNoResultsWidget(widget);
                     break;
                 case 19:
-                    //initialiseRecentAnswersWidget(widget);
+                    initialiseRecentAnswersWidget(widget);
                     break;
                 case 20:
                     //initialiseMostMentionedPerCategory(widget);
@@ -376,6 +376,116 @@ $(function () {
     // WIDGET ID 17 DEPARTMENT RANKING
     // WIDGET ID 18 YES NO RESULT
     // WIDGET ID 19 RECENT ANSWERS
+    function initialiseRecentAnswersWidget(widget) {
+        $("#" + getWidgetUniqueID(widget) + " .wrapper").append(`<div class="recent-answers-content">
+            <ul class="score-list"></ul>
+        </div>`);
+
+        let widgetId = getWidgetUniqueID(widget);
+        let recentAnswers = prepareRecentAnswers(widget["data"]["items"]);
+        if (recentAnswers.length === 0) {
+            displayNoData(widget);
+            return;
+        }
+
+        let $elements = [];
+        for (let item of recentAnswers) {
+            let color = determineScoreColor(item.score, item.type);
+
+            let element = "<li><span>" + item.respondentParsedName + "</span><span class='score " + color + "'>" + item.score + "</span></li>";
+            $elements.push(element);
+        }
+        $("#" + widgetId + " .score-list").append($elements);
+    }
+
+    function prepareRecentAnswers(entries) {
+        for (let entry of entries) {
+
+            // GET SCORE VALUE AND TYPE
+            for (let answerQuestion of entry.answerQuestions) {
+                if (answerQuestion.question_HasNpsValueAnswer) {
+                    entry.score = answerQuestion.answer_Value;
+                    entry.type = "nps";
+                    break;
+                }
+                if (answerQuestion.question_HasCesScoreAnswer) {
+                    entry.score = answerQuestion.answer_Value;
+                    entry.type = "ces";
+                    break;
+                }
+                if (answerQuestion.question_HasCsatScoreAnswer) {
+                    entry.score = answerQuestion.answer_Value;
+                    entry.type = "csat";
+                    break;
+                }
+            }
+
+            // GET IDENTIFICATION OF RESPONDENT
+            entry.respondentParsedName = getRespondentName(entry);
+        }
+        return entries;
+    }
+
+    function getRespondentName(entry) {
+        if (entry === undefined) {
+            return "anonymous";
+        }
+        if ((entry.firstName === undefined || entry.firstName === "") && (entry.lastName === undefined || entry.lastName === "")) {
+            if (entry.email === undefined || entry.email === "") {
+                return "anonymous";
+            } else {
+                return entry.email;
+            }
+        } else {
+            if (entry.firstName === undefined || entry.firstName === "") {
+                return entry.lastName;
+            } else if (entry.lastName === undefined || entry.lastName === "") {
+                return entry.firstName;
+            } else {
+                return entry.firstName + " " + entry.lastName;
+            }
+        }
+    }
+
+    function determineScoreColor(score, type) {
+        let color = "";
+
+        if (type === "nps") {
+            if (score <= 6) {
+                return "red";
+            }
+            if (score >= 7 && score <= 8) {
+                return "gray";
+            }
+            if (score >= 9) {
+                return "green";
+            }
+        }
+
+        if (type === "ces") {
+            if (score <= 4) {
+                return "red";
+            }
+            if (score >= 5) {
+                return "green";
+            }
+        }
+
+        if (type === "csat") {
+            if (score < 3) {
+                return "red";
+            }
+            if (score === 3) {
+                return "gray";
+            }
+            if (score > 3) {
+                return "green";
+            }
+        }
+
+        return color;
+    }
+
 
     // GENERAL FUNCTIONS
     function getWidgetUniqueID(widget) {
