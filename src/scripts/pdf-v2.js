@@ -87,7 +87,7 @@ $(function () {
                     initialiseGeneralResponseRate(widget);
                     break;
                 case 5:
-                    //initialiseTextResponseRate(widget);
+                    initialiseTextResponseRate(widget);
                     break;
                 case 6:
                     //initialiseLastResponses(widget);
@@ -190,7 +190,7 @@ $(function () {
             return;
         }
 
-        $("#" + widget["uniqueID"] + " .wrapper").append(`<div class='nps-score-bar'>
+        $("#" + getWidgetUniqueID(widget) + " .wrapper").append(`<div class='nps-score-bar'>
             <div class='nps-result'>
                 <div class='metric'>
                     <h1>`+ widget["data"]["nps"] + `</h1>
@@ -241,7 +241,7 @@ $(function () {
             return;
         }
 
-        $("#" + widget["uniqueID"] + " .wrapper").append(`<div class='content'>
+        $("#" + getWidgetUniqueID(widget) + " .wrapper").append(`<div class='content'>
             <table>
                 <tbody>
                     <tr>
@@ -270,15 +270,55 @@ $(function () {
             </table>
         </div>`);
 
-        let widgetId = widget["uniqueID"];
-        //$("#" + widgetId + " .widget-wrapper").css("padding-top", "0px");
-        //$("#" + widgetId + " .widget-wrapper").css("padding-bottom", "0px");
+        let widgetId = getWidgetUniqueID(widget);
+        $("#" + widgetId + " .widget-wrapper").css("padding-top", "0px");
+        $("#" + widgetId + " .widget-wrapper").css("padding-bottom", "0px");
         $("#" + widgetId + " td:nth-child(2) .meter").css("width", calculatePercentage(widget["data"]["answers"], widget["data"]["respondents"]) + "%");
         $("#" + widgetId + " td:nth-child(2) .percentage").text(calculatePercentage(widget["data"]["answers"], widget["data"]["respondents"]) + "%");
         $("#" + widgetId + " td:nth-child(3) .meter").css("width", calculatePercentage(widget["data"]["unsubscribed"], widget["data"]["respondents"]) + "%");
         $("#" + widgetId + " td:nth-child(3) .percentage").text(calculatePercentage(widget["data"]["unsubscribed"], widget["data"]["respondents"]) + "%");
     }
     // WIDGET ID 5 TEXT RESPONSE RATE
+    function initialiseTextResponseRate(widget) {
+        $("#" + getWidgetUniqueID(widget) + " .wrapper").append(`<div class='content'>
+                        <div class="trr-chart">
+                            <div class="trr-donut donut">
+                                <div class="percent"></div>
+                                <div class="slice">
+                                    <div class="pie"></div>
+                                    <div class="pie fill"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="result">
+                            <li>
+                                <span></span> completed
+                            </li>
+                            <li>
+                                <span></span> texts completed
+                            </li>
+                        </ul>
+                    </div>`);
+
+        let widgetId = getWidgetUniqueID(widget);
+        let percentage = 0;
+        if (widget["data"]["answers"] > 0) {
+            percentage = calculatePercentage(widget["data"]["text"], widget["data"]["answers"]);
+        }
+        let degrees = 360 / 100 * percentage;
+        $("#" + widgetId + " .percent").text(percentage + "%");
+        $("#" + widgetId + " .slice div:first-child").css("transform", "rotate(" + degrees + "deg)");
+        if (degrees <= 180) {
+            $("#" + widgetId + " .trr-donut").removeClass("big");
+            $("#" + widgetId + " .trr-donut").addClass("small");
+        }
+        else {
+            $("#" + widgetId + " .trr-donut").removeClass("small");
+            $("#" + widgetId + " .trr-donut").addClass("big");
+        }
+        $("#" + widgetId + " .result li:first-child span:first-child").text(widget["data"]["answers"]);
+        $("#" + widgetId + " .result li:nth-child(2) span:first-child").text(widget["data"]["text"]);
+    }
     // WIDGET ID 6 LAST RESPONSES
     // WIDGET ID 7 REPARTITION NPS SCORE
     // WIDGET ID 8 REPARTITION CES SCORE
@@ -295,6 +335,9 @@ $(function () {
     // WIDGET ID 19 RECENT ANSWERS
 
     // GENERAL FUNCTIONS
+    function getWidgetUniqueID(widget) {
+        return widget["uniqueID"];
+    }
     function displayNoData(widget) {
         $("#cd-content #" + widget["uniqueID"] + " .wrapper").hide();
         $("#cd-content #" + widget["uniqueID"] + " .no-data-in-chart").show();
