@@ -232,17 +232,19 @@ a {
     .wrapper .nps-score-bar .nps-bar {
         width: 100%;
         display: flex;
-        align-items: center;        
+        align-items: center;
     }
 
         .wrapper .nps-score-bar .nps-bar .item {
             border-left: none;
             height: 64px;
         }
+
             .wrapper .nps-score-bar .nps-bar .item:first-child {
                 border-bottom-left-radius: 50px;
                 border-top-left-radius: 50px;
             }
+
             .wrapper .nps-score-bar .nps-bar .item:last-child {
                 border-bottom-right-radius: 50px;
                 border-top-right-radius: 50px;
@@ -267,9 +269,10 @@ a {
                 font-size: 24px;
                 padding: 13px 0 13px 13px;
                 color: white;
-                display:flex;
-                flex-direction:column;
+                display: flex;
+                flex-direction: column;
             }
+
                 .wrapper .nps-score-bar .nps-bar .item h4 span {
                     font-size: 12px;
                     padding-top: 2px;
@@ -280,7 +283,81 @@ a {
 /*WIDGET CES SCORE*/
 /*WIDGET CSAT SCORE*/
 /*WIDGET GENERAL RESPONSE RATE*/
+.wrapper .content {
+    display: flex;
+    height: 120px;
+}
+
+    .wrapper .content table {
+        height: 100%;
+        width: 100%;
+    }
+
+        .wrapper .content table tr td {
+            width: 33%;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+            .wrapper .content table tr td p:first-of-type {
+                font-family: Arial, HelveticaNeue;
+                color: #2c3847;
+                font-size: 25px;
+                line-height: 30px;
+                font-weight: 700;
+                letter-spacing: 0.63px;
+                margin-bottom: 5px;
+            }
+
+            .wrapper .content table tr td p:nth-of-type(2) {
+                font-family: Arial, HelveticaNeue;
+                color: #a4adb8;
+                font-size: 13px;
+                line-height: 13px;
+                font-weight: 400;
+                letter-spacing: 0.21px;
+                text-transform: uppercase;
+            }
+
+            .wrapper .content table tr td p:nth-of-type(3) {
+                font-family: Arial, HelveticaNeue;
+                color: #2c3847;
+                font-size: 13px;
+                line-height: 13px;
+                font-weight: 400;
+                letter-spacing: 0.21px;
+            }
+
+            .wrapper .content table tr td .progress {
+                height: 3px;
+                background: #d3dae2;
+                position: relative;
+                bottom: 0;
+                width: 56%;
+                border-radius: 3px;
+                margin: 15px auto;
+            }
+
+                .wrapper .content table tr td .progress .meter {
+                    background: #006CFF;
+                    height: 3px;
+                    display: inline-block;
+                    border-radius: 3px;
+                    position: absolute;
+                    width: 100%;
+                    left: 0;
+                }
+
+            .wrapper .content table tr td:not(:last-of-type) {
+                border-right: 1px solid #d3d9df;
+            }
+
 /*WIDGET TEXT RESPONSE RATE*/
 /*WIDGET LAST RESPONSES*/
 /*WIDGET REPARTITION*/
 /*WIDGET EVOLUTION*/
+/*WIDGET ISAAC PIE CHART*/
+/*WIDGET ISAAC LINE CHART*/
+/*WIDGET DEPARTMENT RANKING*/
+/*WIDGET YES NO RESULTS*/
+/*WIDGET RECENT ANSWERS*/

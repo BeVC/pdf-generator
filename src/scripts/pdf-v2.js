@@ -84,7 +84,7 @@ $(function () {
                     //initialiseCSATBar(widget);
                     break;
                 case 4:
-                    //initialiseGeneralResponseRate(widget);
+                    initialiseGeneralResponseRate(widget);
                     break;
                 case 5:
                     //initialiseTextResponseRate(widget);
@@ -232,10 +232,84 @@ $(function () {
         }
     }
 
+    // WIDGET ID 2 CES SCORE
+    // WIDGET ID 3 CSAT SCORE
+    // WIDGET ID 4 GENERAL RESPONSE RATE
+    function initialiseGeneralResponseRate(widget) {
+        if (widget["data"]["respondents"] === 0 && widget["data"]["answers"] === 0 && widget["data"]["unsubscribed"] === 0) {
+            displayNoData(widget);
+            return;
+        }
+
+        $("#" + widget["uniqueID"] + " .wrapper").append(`<div class='content'>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <p>` + widget["data"]["respondents"] + `</p>
+                            <p>Respondents</p>    
+                        </td>
+                        <td>
+                            <p>`+ widget["data"]["answers"] + `</p>
+                            <p>Answers</p>
+                            <div class="progress">
+                                <span class="meter"></span>
+                            </div>
+                            <p class="percentage"></p>
+                        </td>
+                        <td>
+                            <p>` + widget["data"]["unsubscribed"] + `</p>
+                            <p>Unsubscribed</p>
+                            <div class="progress">
+                                <span class="meter"></span>
+                            </div>
+                            <p class="percentage"></p>
+                        </td>
+                    </tr>
+                </tbody
+            </table>
+        </div>`);
+
+        let widgetId = widget["uniqueID"];
+        //$("#" + widgetId + " .widget-wrapper").css("padding-top", "0px");
+        //$("#" + widgetId + " .widget-wrapper").css("padding-bottom", "0px");
+        $("#" + widgetId + " td:nth-child(2) .meter").css("width", calculatePercentage(widget["data"]["answers"], widget["data"]["respondents"]) + "%");
+        $("#" + widgetId + " td:nth-child(2) .percentage").text(calculatePercentage(widget["data"]["answers"], widget["data"]["respondents"]) + "%");
+        $("#" + widgetId + " td:nth-child(3) .meter").css("width", calculatePercentage(widget["data"]["unsubscribed"], widget["data"]["respondents"]) + "%");
+        $("#" + widgetId + " td:nth-child(3) .percentage").text(calculatePercentage(widget["data"]["unsubscribed"], widget["data"]["respondents"]) + "%");
+    }
+    // WIDGET ID 5 TEXT RESPONSE RATE
+    // WIDGET ID 6 LAST RESPONSES
+    // WIDGET ID 7 REPARTITION NPS SCORE
+    // WIDGET ID 8 REPARTITION CES SCORE
+    // WIDGET ID 9 REPARTITION CSAT SCORE
+    // WIDGET ID 10 REPARTITION 0-10 SCORE
+    // WIDGET ID 11 EVOLUTION SCORE NPS
+    // WIDGET ID 12 EVOLUTION SCORE CES
+    // WIDGET ID 13 EVOLUTION SCORE CSAT
+    // WIDGET ID 14 EVOLUTION SCORE 0-10
+    // WIDGET ID 15 ISAAC PIE CHART
+    // WIDGET ID 16 ISAAC LINE CHART
+    // WIDGET ID 17 DEPARTMENT RANKING
+    // WIDGET ID 18 YES NO RESULT
+    // WIDGET ID 19 RECENT ANSWERS
+
     // GENERAL FUNCTIONS
     function displayNoData(widget) {
         $("#cd-content #" + widget["uniqueID"] + " .wrapper").hide();
         $("#cd-content #" + widget["uniqueID"] + " .no-data-in-chart").show();
+    }
+
+    function calculatePercentage(numerator, denominator) {
+        if (denominator === 0) {
+            return 0;
+        } else {
+            let result = parseFloat((numerator / denominator * 100).toFixed(2));
+            if (result > 100) {
+                result = 100.00;
+            }
+            return result;
+        }
     }
 
     // INITIALISATION
