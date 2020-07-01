@@ -225,7 +225,6 @@ a {
         background: #006CFF;
     }
 
-
 .percent {
     width: 100%;
     position: absolute;
@@ -448,23 +447,23 @@ a {
             }
 
 /*WIDGET TEXT RESPONSE RATE*/
-.widget-body .content .trr-chart {
+.wrapper .content .trr-chart {
     float: left;
     width: 50%;
     text-align: center;
 }
 
-    .widget-body .content .trr-chart .trr-donut {
+    .wrapper .content .trr-chart .trr-donut {
         display: inline-block;
     }
 
-.widget-body .content .result {
+.wrapper .content .result {
     margin-top: 28px;
     float: left;
     width: 50%;
 }
 
-    .widget-body .content .result li {
+    .wrapper .content .result li {
         color: black;
         padding-bottom: 10px;
         font-family: Arial, HelveticaNeue;
@@ -475,7 +474,7 @@ a {
         text-transform: lowercase;
     }
 
-        .widget-body .content .result li span {
+        .wrapper .content .result li span {
             color: #006CFF;
             font-family: Arial, HelveticaNeue;
             font-weight: 700;
@@ -483,10 +482,49 @@ a {
             line-height: 14px;
         }
 
-        .widget-body .content .result li:last-child {
+        .wrapper .content .result li:last-child {
             padding-bottom: 0;
         }
+
 /*WIDGET LAST RESPONSES*/
+.widget-body .content .lr-chart {
+    float: left;
+    width: 50%;
+    text-align: center;
+}
+
+    .widget-body .content .lr-chart .lr-donut {
+        display: inline-block;
+    }
+
+.wrapper .content .result {
+    margin-top: 28px;
+    float: left;
+    width: 50%;
+}
+
+    .wrapper .content .result li {
+        color: black;
+        padding-bottom: 10px;
+        font-family: Arial, HelveticaNeue;
+        font-weight: 400;
+        font-size: 13.28px;
+        line-height: 13.28px;
+        text-align: center;
+        text-transform: lowercase;
+    }
+
+        .wrapper .content .result li span {
+            color: #006CFF;
+            font-family: Arial, HelveticaNeue;
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 14px;
+        }
+
+        .wrapper .content .result li:last-child {
+            padding-bottom: 0;
+        }
 /*WIDGET REPARTITION*/
 /*WIDGET EVOLUTION*/
 /*WIDGET ISAAC PIE CHART*/

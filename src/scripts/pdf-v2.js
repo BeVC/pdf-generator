@@ -90,7 +90,7 @@ $(function () {
                     initialiseTextResponseRate(widget);
                     break;
                 case 6:
-                    //initialiseLastResponses(widget);
+                    initialiseLastResponses(widget);
                     break;
                 case 7:
                     //initialiseRepartitionNpsScore(widget);
@@ -278,6 +278,7 @@ $(function () {
         $("#" + widgetId + " td:nth-child(3) .meter").css("width", calculatePercentage(widget["data"]["unsubscribed"], widget["data"]["respondents"]) + "%");
         $("#" + widgetId + " td:nth-child(3) .percentage").text(calculatePercentage(widget["data"]["unsubscribed"], widget["data"]["respondents"]) + "%");
     }
+
     // WIDGET ID 5 TEXT RESPONSE RATE
     function initialiseTextResponseRate(widget) {
         $("#" + getWidgetUniqueID(widget) + " .wrapper").append(`<div class='content'>
@@ -319,7 +320,49 @@ $(function () {
         $("#" + widgetId + " .result li:first-child span:first-child").text(widget["data"]["answers"]);
         $("#" + widgetId + " .result li:nth-child(2) span:first-child").text(widget["data"]["text"]);
     }
+
     // WIDGET ID 6 LAST RESPONSES
+    function initialiseLastResponses(widget) {
+        $("#" + getWidgetUniqueID(widget) + " .wrapper").append(`<div class="content">
+                        <div class="lr-chart">
+                            <div class="lr-donut donut">
+                                <div class="percent"></div>
+                                <div class="slice">
+                                    <div class="pie"></div>
+                                    <div class="pie fill"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="result">
+                            <li>
+                                <span></span> last week
+                            </li>
+                            <li>
+                                <span></span> yesterday
+                            </li>
+                        </ul>
+                    </div>`);
+
+        let widgetId = getWidgetUniqueID(widget);
+        let percentage = 0;
+        if (widget["data"]["answers"] > 0) {
+            percentage = calculatePercentage(widget["data"]["lastweek"], widget["data"]["answers"]);
+        }
+        let degrees = 360 / 100 * percentage;
+        $("#" + widgetId + " .percent").text(percentage + "%");
+        $("#" + widgetId + " .slice div:first-child").css("transform", "rotate(" + degrees + "deg)");
+        if (degrees <= 180) {
+            $("#" + widgetId + " .lr-donut").removeClass("big");
+            $("#" + widgetId + " .lr-donut").addClass("small");
+        } else {
+            $("#" + widgetId + " .lr-donut").removeClass("small");
+            $("#" + widgetId + " .lr-donut").addClass("big");
+        }
+
+        $("#" + widgetId + " .result li:first-child span:first-child").text(widget["data"]["lastweek"]);
+        $("#" + widgetId + " .result li:nth-child(2) span:first-child").text(widget["data"]["yesterday"]);
+    }
+
     // WIDGET ID 7 REPARTITION NPS SCORE
     // WIDGET ID 8 REPARTITION CES SCORE
     // WIDGET ID 9 REPARTITION CSAT SCORE
