@@ -105,7 +105,7 @@ $(function () {
                     initialiseRepartitionZeroToTenScore(widget);
                     break;
                 case 11:
-                    //initialiseEvolutionNpsScoreWidget(widget);
+                    initialiseEvolutionNpsScoreWidget(widget);
                     break;
                 case 12:
                     //initialiseEvolutionCesScoreWidget(widget);
@@ -606,6 +606,29 @@ $(function () {
     }
 
     // WIDGET ID 11 EVOLUTION SCORE NPS
+    function initialiseEvolutionNpsScoreWidget(widget) {
+        let widgetId = getWidgetUniqueID(widget);
+        let chartData = prepareEvolutionData(widget["data"], "nps");
+
+        if (chartData.length < 2) {
+            displayNoData(widget);
+            return;
+        }
+
+        $("#" + widgetId + " .wrapper").append(`<div class="evolution-container">
+                <div id="evolution-`+ widgetId + `"></div>
+                <div class="highchart-info" style="height:40px">
+                    <div class="highchart-info-1">
+                        <p class="p1"></p>
+                        <p class="p2"></p>
+                    </div>
+                </div>
+            </div>`);
+
+        let options = getEvolutionChartOptions("evolution-" + widgetId, chartData);
+        let myChart = Highcharts.chart(options);
+    }
+
     // WIDGET ID 12 EVOLUTION SCORE CES
     // WIDGET ID 13 EVOLUTION SCORE CSAT
     // WIDGET ID 14 EVOLUTION SCORE 0-10
@@ -860,6 +883,19 @@ $(function () {
         return convertedData;
     }
 
+    function prepareEvolutionData(data, type) {
+        let collection = [];
+        for (let item of data) {
+            let value = (item.count ? item.count : 0);
+
+            collection.push({
+                x: moment.utc(item.date).valueOf(),
+                y: value
+            });
+        }
+        return collection/*.sort((a, b) => (a.x > b.x ? 0:1))*/;
+    }
+
     // HIGHCHARTS CHART OPTIONS
     function getSolidGaugeOptions(chartId, data, score, type) {
         let options = {
@@ -1103,6 +1139,96 @@ $(function () {
         //        }
         //    };
         //}
+
+        return options;
+    }
+
+    function getEvolutionChartOptions(chartId, data) {
+        let options = {
+            tooltip: {
+                enabled: false
+            },
+            chart: {
+                renderTo: chartId,
+                plotBackgroundColor: undefined,
+                plotBorderWidth: undefined,
+                plotShadow: false,
+                type: "spline",
+                spacing: [0, 0, 0, 0],
+                style: {
+                    fontFamily: "Arial"
+                },
+                height: 275
+            },
+            credits: {
+                enabled: false
+            },
+            title: {
+                text: "",
+                style: {
+                    display: "none"
+                }
+            },
+            subtitle: {
+                text: "",
+                style: {
+                    display: "none"
+                }
+            },
+            plotOptions: {
+                series: {
+                    animation: false,
+                    dataLabels: {
+                        enabled: false
+                    }
+                }
+            },
+            xAxis: {
+                labels: {
+                    enabled: false
+                },
+                minorTickLength: 0,
+                tickLength: 0,
+                lineWidth: 0
+            },
+            exporting: {
+                enabled: false
+            },
+            yAxis: {
+                title: {
+                    text: "",
+                    style: {
+                        display: "none"
+                    }
+                },
+                gridLineColor: "#f6f7f8",
+                tickLength: 0,
+                labels: {
+                    style: {
+                        fontFamily: "Arial",
+                        fontSize: "10px",
+                        color: "#aab2bc",
+                        fontWeight: 600
+                    }
+                }
+            },
+            series: [{
+                showInLegend: false,
+                color: "#1ca9e6",
+                dataLabels: {
+                    enabled: false,
+                    rotation: 0,
+                    color: "#222222",
+                    align: "center",
+                    y: -5,
+                    style: {
+                        fontSize: "12px",
+                        fontFamily: "Arial"
+                    }
+                },
+                data: data
+            }]
+        };
 
         return options;
     }

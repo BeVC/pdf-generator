@@ -692,6 +692,38 @@ a {
     height: 290px;
 }
 /*WIDGET EVOLUTION*/
+.wrapper .evolution-container {
+    display: flex;
+    flex-direction: column;
+    height: 300px;
+}
+
+    .wrapper .evolution-container div {
+        overflow: unset !important;
+    }
+
+    .wrapper .evolution-container .highchart-info {
+        height: 11px;
+    }
+
+    .wrapper .evolution-container .highchart-info-1 {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        height: 100%;
+        align-items: center;
+    }
+
+    .wrapper .evolution-container .highchart-info .p1 {
+        display: inline-block;
+        float: left;
+    }
+
+    .wrapper .evolution-container .highchart-info .p2 {
+        display: inline-block;
+        float: right;
+    }
+
 /*WIDGET ISAAC PIE CHART*/
 /*WIDGET ISAAC LINE CHART*/
 /*WIDGET DEPARTMENT RANKING*/
