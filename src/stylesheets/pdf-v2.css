@@ -305,7 +305,7 @@ a {
             padding-top: 12px;
             color: #ADADAD;
             text-align: center;
-            font-family: "SofiaProSoft";
+            font-family: Arial;
             font-size: 12px;
             line-height: 18px;
             text-transform: uppercase;
@@ -315,7 +315,7 @@ a {
             margin: 0 !important;
             color: #003261;
             text-align: center;
-            font-family: "SofiaProSoftRegular";
+            font-family: Arial;
             font-size: 18px;
             line-height: 18px;
         }
@@ -422,14 +422,14 @@ a {
                     text-transform: capitalize;
                 }
 /*WIDGET CES SCORE*/
-.wrapper .ces-score-bar {
+.wrapper .cescsat-score-bar {
     display: flex;
     flex-wrap: wrap;
     flex: 1;
     align-content: space-around;
 }
 
-    .wrapper .ces-score-bar .ces-gauge {
+    .wrapper .cescsat-score-bar .cescsat-gauge {
         flex: 1 1 120px;
         overflow: hidden;
         position: relative;
@@ -440,38 +440,60 @@ a {
         margin-bottom: 10px;
     }
 
-    .wrapper .ces-score-bar .ces-bars {
+        .wrapper .cescsat-score-bar .cescsat-gauge .left {
+            align-self: flex-end;
+            padding-top: 12px;
+            color: #ADADAD;
+            font-family: Arial;
+            font-size: 12px;
+            padding-bottom: 3px;
+            width: 60px;
+            text-align: right;
+        }
+
+        .wrapper .cescsat-score-bar .cescsat-gauge .right {
+            align-self: flex-end;
+            padding-top: 12px;
+            color: #ADADAD;
+            font-family: Arial;
+            font-size: 12px;
+            padding-bottom: 3px;
+            width: 60px;
+            text-align: left;
+        }
+
+    .wrapper .cescsat-score-bar .ces-bars {
         display: flex;
         flex-direction: column;
         justify-content: center;
         flex: 1 1 120px;
     }
 
-        .wrapper .ces-score-bar .ces-bars table tr td {
+        .wrapper .cescsat-score-bar .ces-bars table tr td {
             vertical-align: middle;
             padding: 6px 0;
         }
 
-            .wrapper .ces-score-bar .ces-bars table tr td:first-of-type {
+            .wrapper .cescsat-score-bar .ces-bars table tr td:first-of-type {
                 text-align: right;
             }
 
-                .wrapper .ces-score-bar .ces-bars table tr td:first-of-type span {
+                .wrapper .cescsat-score-bar .ces-bars table tr td:first-of-type span {
                     color: #ADADAD;
                     font-family: "Arial";
                     font-size: 12px;
                 }
 
-            .wrapper .ces-score-bar .ces-bars table tr td:nth-of-type(2) {
+            .wrapper .cescsat-score-bar .ces-bars table tr td:nth-of-type(2) {
                 padding-left: 6px;
                 padding-right: 6px;
             }
 
-            .wrapper .ces-score-bar .ces-bars table tr td:last-of-type {
+            .wrapper .cescsat-score-bar .ces-bars table tr td:last-of-type {
                 width: 100%;
             }
 
-                .wrapper .ces-score-bar .ces-bars table tr td:last-of-type .bar {
+                .wrapper .cescsat-score-bar .ces-bars table tr td:last-of-type .bar {
                     display: flex;
                     align-items: center;
                     height: 20px;
@@ -479,38 +501,40 @@ a {
                     width: 100%;
                 }
 
-                    .wrapper .ces-score-bar .ces-bars table tr td:last-of-type .bar .fill {
+                    .wrapper .cescsat-score-bar .ces-bars table tr td:last-of-type .bar .fill {
                         border-radius: 0 5px 5px 0;
                         height: 100%;
                     }
 
-                    .wrapper .ces-score-bar .ces-bars table tr td:last-of-type .bar span {
+                    .wrapper .cescsat-score-bar .ces-bars table tr td:last-of-type .bar span {
                         font-family: "Arial";
                         font-size: 14px;
                         padding-left: 5px;
                     }
 
-                    .wrapper .ces-score-bar .ces-bars table tr td:last-of-type .bar.neg {
+                    .wrapper .cescsat-score-bar .ces-bars table tr td:last-of-type .bar.neg .fill {
+                        background: transparent linear-gradient(90deg, #FD8FAE 0%, #FF1E5D 100%) 0% 0% no-repeat padding-box;
                     }
 
-                        .wrapper .ces-score-bar .ces-bars table tr td:last-of-type .bar.neg .fill {
-                            background: transparent linear-gradient(90deg, #FD8FAE 0%, #FF1E5D 100%) 0% 0% no-repeat padding-box;
-                        }
-
-                        .wrapper .ces-score-bar .ces-bars table tr td:last-of-type .bar.neg span {
-                            color: #FE215F;
-                        }
-
-                    .wrapper .ces-score-bar .ces-bars table tr td:last-of-type .bar.pos {
+                    .wrapper .cescsat-score-bar .ces-bars table tr td:last-of-type .bar.neg span {
+                        color: #FE215F;
                     }
 
-                        .wrapper .ces-score-bar .ces-bars table tr td:last-of-type .bar.pos .fill {
-                            background: transparent linear-gradient(90deg, #AAFFCE 0%, #0FCE60 100%) 0% 0% no-repeat padding-box;
-                        }
+                    .wrapper .cescsat-score-bar .ces-bars table tr td:last-of-type .bar.neut .fill {
+                        background: transparent linear-gradient(90deg, #D2D2D2 0%, #A6A6A6 100%) 0% 0% no-repeat padding-box;
+                    }
 
-                        .wrapper .ces-score-bar .ces-bars table tr td:last-of-type .bar.pos span {
-                            color: #15B700;
-                        }
+                    .wrapper .cescsat-score-bar .ces-bars table tr td:last-of-type .bar.neut span {
+                        color: #9E9E9E;
+                    }
+
+                    .wrapper .cescsat-score-bar .ces-bars table tr td:last-of-type .bar.pos .fill {
+                        background: transparent linear-gradient(90deg, #AAFFCE 0%, #0FCE60 100%) 0% 0% no-repeat padding-box;
+                    }
+
+                    .wrapper .cescsat-score-bar .ces-bars table tr td:last-of-type .bar.pos span {
+                        color: #15B700;
+                    }
 /*WIDGET CSAT SCORE*/
 /*WIDGET GENERAL RESPONSE RATE*/
 .wrapper .content {

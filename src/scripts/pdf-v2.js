@@ -81,7 +81,7 @@ $(function () {
                     initialiseCESBar(widget);
                     break;
                 case 3:
-                    //initialiseCSATBar(widget);
+                    initialiseCSATBar(widget);
                     break;
                 case 4:
                     initialiseGeneralResponseRate(widget);
@@ -241,8 +241,8 @@ $(function () {
 
         let widgetId = getWidgetUniqueID(widget);
 
-        $("#" + widgetId + " .wrapper").append(`<div class="ces-score-bar">
-                <div class="ces-gauge">
+        $("#" + widgetId + " .wrapper").append(`<div class="cescsat-score-bar">
+                <div class="cescsat-gauge">
                     <div id="cesContainer-`+ widgetId + `"></div>
                 </div>
                 <div class="ces-bars">
@@ -252,11 +252,11 @@ $(function () {
                                 <span>Disagree</span>
                             </td>
                             <td>
-                                <span></span>
+                                <span>`+ getVeryNegativeSVG() +`</span>
                             </td>
                             <td>
                                 <div class="bar neg">
-                                    <div class="fill neg" style="width: `+ widget["data"]["disagree"] + `%">
+                                    <div class="fill" style="width: `+ widget["data"]["disagree"] + `%">
                                     </div>
                                     <span>`+ widget["data"]["disagree"] + `%</span>
                                 </div>
@@ -267,11 +267,11 @@ $(function () {
                                 <span>Agree</span>
                             </td>
                             <td>
-                                <span></span>
+                                <span>`+ getVeryPositiveSVG() +`</span>
                             </td>
                             <td>
                                 <div class="bar pos">
-                                    <div class="fill neg" style="width: `+ widget["data"]["agree"] + `%">
+                                    <div class="fill" style="width: `+ widget["data"]["agree"] + `%">
                                     </div>
                                     <span>`+ widget["data"]["agree"] + `%</span>
                                 </div>
@@ -281,7 +281,18 @@ $(function () {
                 </div>
             </div>`);
         let data = getCesData(widget["data"]);
-        let options = getCESGaugeOptions("cesContainer-" + widgetId, data, widget["data"]["ces"].toFixed(2));
+        let options = getSolidGaugeOptions("cesContainer-" + widgetId, data, widget["data"]["ces"].toFixed(2), "CES");
+        options.yAxis[0].tickInterval = 14.3;
+        options.yAxis[0].stops = [
+            [0, '#fff'],
+            [0.143, "#FF1E5D"],
+            [0.286, "#FF775D"],
+            [0.429, "#FFC468"],
+            [0.572, "#FDFB7D"],
+            [0.715, "#C8F167"],
+            [0.858, "#87F167"],
+            [1, "#15B700"]
+        ];
         let myChart = Highcharts.chart(options);
     }
 
@@ -301,6 +312,98 @@ $(function () {
     }
 
     // WIDGET ID 3 CSAT SCORE
+    function initialiseCSATBar(widget) {
+        if (widget["data"]["csat"] === undefined || (widget["data"]["unsatisfied"] === 0 && widget["data"]["passive"] === 0 && widget["data"]["satisfied"] === 0)) {
+            displayNoData(widget);
+            return;
+        }
+
+        let widgetId = getWidgetUniqueID(widget);
+
+        $("#" + widgetId + " .wrapper").append(`<div class="cescsat-score-bar">
+                <div class="cescsat-gauge">
+                    <p class="left">Strongly disagree</p>
+                    <div id="csatContainer-`+ widgetId + `"></div>
+                    <p class="right">Strongly agree</p>
+                </div>
+                <div class="ces-bars">
+                    <table>
+                        <tr>
+                            <td>
+                                <span>Unsatisfied</span>
+                            </td>
+                            <td>
+                                <span>`+ getVeryNegativeSVG() + `</span>
+                            </td>
+                            <td>
+                                <div class="bar neg">
+                                    <div class="fill" style="width: `+ widget["data"]["unsatisfied"] + `%">
+                                    </div>
+                                    <span>`+ widget["data"]["unsatisfied"] + `%</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>Neutrals</span>
+                            </td>
+                            <td>
+                                <span>`+ getUnknownSVG() + `</span>
+                            </td>
+                            <td>
+                                <div class="bar neut">
+                                    <div class="fill" style="width: `+ widget["data"]["passive"] + `%">
+                                    </div>
+                                    <span>`+ widget["data"]["passive"] + `%</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>Satisfied</span>
+                            </td>
+                            <td>
+                                <span>`+ getVeryPositiveSVG() + `</span>
+                            </td>
+                            <td>
+                                <div class="bar pos">
+                                    <div class="fill" style="width: `+ widget["data"]["satisfied"] + `%">
+                                    </div>
+                                    <span>`+ widget["data"]["satisfied"] + `%</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>`);
+
+        let data = getCsatData(widget["data"]);
+        let options = getSolidGaugeOptions("csatContainer-" + widgetId, data, widget["data"]["csat"].toFixed(2), "CSAT");
+        options.yAxis[0].tickInterval = 20;
+        options.yAxis[0].stops = [
+            [0, '#fff'],
+            [0.2, "#FF1E5D"],
+            [0.4, "#FFC468"],
+            [0.6, "#FDFB7D"],
+            [0.8, "#C8F167"],
+            [1, "#15B700"]
+        ];
+        let myChart = Highcharts.chart(options);
+    }
+
+    function getCsatData(csatData) {
+        let data = [];
+        let border = 20;
+        let test = Math.round(csatData["csat"] / border);
+        data.push(csatData["csat"]);
+        for (let i = test; i > 0; i--) {
+            if (i * border < csatData["csat"]) {
+                data.push({ y: (i * border) });
+            }
+        }
+        return data;
+    }
+
     // WIDGET ID 4 GENERAL RESPONSE RATE
     function initialiseGeneralResponseRate(widget) {
         if (widget["data"]["respondents"] === 0 && widget["data"]["answers"] === 0 && widget["data"]["unsubscribed"] === 0) {
@@ -625,7 +728,7 @@ $(function () {
     }
 
     // HIGHCHARTS CHART OPTIONS
-    function getCESGaugeOptions(chartId, data, score) {
+    function getSolidGaugeOptions(chartId, data, score, type) {
         let options = {
             chart: {
                 renderTo: chartId,
@@ -672,7 +775,6 @@ $(function () {
                 max: 100,
                 lineWidth: 2,
                 lineColor: 'white',
-                tickInterval: 14.3,
                 labels: {
                     enabled: false,
                     distance: '105%',
@@ -682,17 +784,7 @@ $(function () {
                 tickLength: 70,
                 tickWidth: 3,
                 tickColor: 'white',
-                zIndex: 6,
-                stops: [
-                    [0, '#fff'],
-                    [0.143, "#FF1E5D"],
-                    [0.286, "#FF775D"],
-                    [0.429, "#FFC468"],
-                    [0.572, "#FDFB7D"],
-                    [0.715, "#C8F167"],
-                    [0.858, "#87F167"],
-                    [1, "#15B700"]
-                ]
+                zIndex: 6
             }, {
                 linkedTo: 0,
                 pane: 1,
@@ -709,7 +801,7 @@ $(function () {
                     formatter: function () {
                         return "<div class='solidgauge-score-wrapper'>" +
                             "<div class='solidgauge-score'>" +
-                            "<p class='metric'>CES</p>" +
+                            "<p class='metric'>" + type + "</p>" +
                             "<p class='score'>" + score + "</p>" +
                             "</div>" +
                             "<div class='thingy'></div>" +
@@ -728,6 +820,52 @@ $(function () {
         };
 
         return options;
+    }
+
+    // SVG
+    function getVeryPositiveSVG() {
+        return `<svg xmlns="http://www.w3.org/2000/svg" width="24.088" height="24.088" viewBox="0 0 24.088 24.088">
+                    <defs>
+                        <style>.apos{fill:none;}.bpos,.dpos{fill:#0FCE60;}.cpos,.dpos{stroke:none;}</style>
+                    </defs>
+                    <g class="apos" transform="translate(0 0)">
+                        <path class="cpos" d="M12.044,0h0a12.044,12.044,0,0,1,0,24.088h0A12.044,12.044,0,0,1,12.044,0Z"/>
+                        <path class="dpos" d="M 12.04394435882568 2.000003814697266 C 6.505695343017578 2.000003814697266 1.999994277954102 6.505693435668945 1.999994277954102 12.04394435882568 C 1.999994277954102 17.58219528198242 6.505695343017578 22.0878849029541 12.04410457611084 22.0878849029541 C 17.58235549926758 22.0878849029541 22.08804512023926 17.58219528198242 22.08804512023926 12.04394435882568 C 22.08804512023926 6.505693435668945 17.58235549926758 2.000003814697266 12.04410457611084 2.000003814697266 L 12.04394435882568 2.000003814697266 M 12.04394435882568 3.814697265625e-06 L 12.04410457611084 3.814697265625e-06 C 18.6957950592041 3.814697265625e-06 24.08804512023926 5.392253875732422 24.08804512023926 12.04394435882568 C 24.08804512023926 18.69563484191895 18.6957950592041 24.0878849029541 12.04410457611084 24.0878849029541 L 12.04394435882568 24.0878849029541 C 5.392253875732422 24.0878849029541 -5.7220458984375e-06 18.69563484191895 -5.7220458984375e-06 12.04394435882568 C -5.7220458984375e-06 5.392253875732422 5.392253875732422 3.814697265625e-06 12.04394435882568 3.814697265625e-06 Z"/>
+                    </g>
+                    <path class="bpos" d="M40.067,58.525a6.983,6.983,0,0,1-9.864,0,.568.568,0,0,0-.8.8,8.111,8.111,0,0,0,11.471,0,.568.568,0,1,0-.8-.8Z" transform="translate(-23.177 -43.403)"/>
+                    <path class="bpos" d="M27.029,37.736a.114.114,0,0,0,.058-.022.38.38,0,0,0,.042-.035c.277-.261.557-.518.838-.775a8.3,8.3,0,0,0,.782-.73c.452-.444.994-.821,1.022-1.5a1.406,1.406,0,0,0-1.233-1.437,1.822,1.822,0,0,0-1.515.8,1.827,1.827,0,0,0-1.523-.814,1.406,1.406,0,0,0-1.233,1.437c.028.681.569,1.058,1.022,1.5.528.518,1.09,1,1.626,1.511A.171.171,0,0,0,27.029,37.736Z" transform="translate(-19.621 -26.252)"/>
+                    <path class="bpos" d="M60.632,33.235a1.822,1.822,0,0,0-1.515.8,1.827,1.827,0,0,0-1.523-.814,1.406,1.406,0,0,0-1.233,1.437c.028.681.569,1.058,1.022,1.5.528.518,1.09,1,1.626,1.511a.169.169,0,0,0,.115.061.114.114,0,0,0,.058-.022.381.381,0,0,0,.042-.035c.277-.261.557-.518.838-.775a8.305,8.305,0,0,0,.782-.73c.452-.444.994-.821,1.022-1.5A1.405,1.405,0,0,0,60.632,33.235Z" transform="translate(-42.595 -26.252)"/>
+                </svg>`;
+    }
+    function getUnknownSVG() {
+        return `<svg xmlns="http://www.w3.org/2000/svg" width="24.088" height="24.088" viewBox="0 0 24.088 24.088">
+                    <defs>
+                        <style>.aneut{fill:none;}.bneut,.dneut{fill:#adadad;}.cneut,.dneut{stroke:none;}</style>
+                    </defs>
+                    <g class="aneut" transform="translate(0 0)">
+                        <path class="cneut" d="M12.044,0h0a12.044,12.044,0,0,1,0,24.088h0A12.044,12.044,0,0,1,12.044,0Z"/>
+                        <path class="dneut" d="M 12.04394435882568 2.000003814697266 C 6.505695343017578 2.000003814697266 1.999994277954102 6.505693435668945 1.999994277954102 12.04394435882568 C 1.999994277954102 17.58219528198242 6.505695343017578 22.0878849029541 12.04410457611084 22.0878849029541 C 17.58235549926758 22.0878849029541 22.08804512023926 17.58219528198242 22.08804512023926 12.04394435882568 C 22.08804512023926 6.505693435668945 17.58235549926758 2.000003814697266 12.04410457611084 2.000003814697266 L 12.04394435882568 2.000003814697266 M 12.04394435882568 3.814697265625e-06 L 12.04410457611084 3.814697265625e-06 C 18.6957950592041 3.814697265625e-06 24.08804512023926 5.392253875732422 24.08804512023926 12.04394435882568 C 24.08804512023926 18.69563484191895 18.6957950592041 24.0878849029541 12.04410457611084 24.0878849029541 L 12.04394435882568 24.0878849029541 C 5.392253875732422 24.0878849029541 -5.7220458984375e-06 18.69563484191895 -5.7220458984375e-06 12.04394435882568 C -5.7220458984375e-06 5.392253875732422 5.392253875732422 3.814697265625e-06 12.04394435882568 3.814697265625e-06 Z"/>
+                    </g>
+                    <g transform="translate(6.122 6.755)">
+                        <path class="bneut" d="M12.383,14.829a1.758,1.758,0,1,1,1.758-1.758A1.758,1.758,0,0,1,12.383,14.829Zm8.2-3.516a1.758,1.758,0,1,0,1.758,1.758A1.758,1.758,0,0,0,20.587,11.313Z" transform="translate(-10.625 -11.313)"/>
+                    </g>
+                    <rect class="bneut" width="10.132" height="1.267" rx="0.633" transform="translate(6.966 15.62)"/>
+                </svg>`;
+    }
+
+    function getVeryNegativeSVG() {
+        return `<svg xmlns="http://www.w3.org/2000/svg" width="24.088" height="24.088" viewBox="0 0 24.088 24.088">
+                    <defs>
+                        <style>.aneg{fill:none;}.bneg,.dneg{fill:#ff1e5d;}.cneg,.dneg{stroke:none;}</style>
+                    </defs>
+                    <g class="aneg">
+                        <path class="cneg" d="M12.044,0A12.044,12.044,0,1,1,0,12.044,12.044,12.044,0,0,1,12.044,0Z"/>
+                        <path class="dneg" d="M 12.04402446746826 2.000003814697266 C 6.50572395324707 2.000003814697266 1.999994277954102 6.505693435668945 1.999994277954102 12.04394435882568 C 1.999994277954102 17.58219528198242 6.50572395324707 22.0878849029541 12.04402446746826 22.0878849029541 C 17.58231353759766 22.0878849029541 22.08804512023926 17.58219528198242 22.08804512023926 12.04394435882568 C 22.08804512023926 6.505693435668945 17.58231353759766 2.000003814697266 12.04402446746826 2.000003814697266 M 12.04402446746826 3.814697265625e-06 C 18.69575500488281 3.814697265625e-06 24.08804512023926 5.392253875732422 24.08804512023926 12.04394435882568 C 24.08804512023926 18.69563484191895 18.69575500488281 24.0878849029541 12.04402446746826 24.0878849029541 C 5.392293930053711 24.0878849029541 -5.7220458984375e-06 18.69563484191895 -5.7220458984375e-06 12.04394435882568 C -5.7220458984375e-06 5.392253875732422 5.392293930053711 3.814697265625e-06 12.04402446746826 3.814697265625e-06 Z"/>
+                    </g>
+                    <path class="bneg" d="M10.76.163a7,7,0,0,1-9.8,0,.57.57,0,0,0-.8,0,.551.551,0,0,0,0,.787,8.061,8.061,0,0,0,5.7,2.327A8.061,8.061,0,0,0,11.558.95a.551.551,0,0,0,0-.787A.57.57,0,0,0,10.76.163Z" transform="translate(17.845 17.995) rotate(180)"/>
+                    <path class="bneg" d="M2.195,2.6A2.181,2.181,0,0,1,.643,1.952,2.181,2.181,0,0,1,0,.4,2.215,2.215,0,0,1,.036,0H4.353A2.215,2.215,0,0,1,4.39.4a2.181,2.181,0,0,1-.643,1.552A2.18,2.18,0,0,1,2.195,2.6Z" transform="translate(5.622 6.648) rotate(20)"/>
+                    <path class="bneg" d="M2.195,2.6A2.181,2.181,0,0,1,.643,1.952,2.181,2.181,0,0,1,0,.4,2.215,2.215,0,0,1,.036,0H4.353A2.214,2.214,0,0,1,4.39.4a2.181,2.181,0,0,1-.643,1.552A2.181,2.181,0,0,1,2.195,2.6Z" transform="translate(14.39 8.15) rotate(-20)"/>
+                </svg>`;
     }
 
     // INITIALISATION
