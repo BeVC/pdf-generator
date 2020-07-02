@@ -96,13 +96,13 @@ $(function () {
                     initialiseRepartitionNpsScore(widget);
                     break;
                 case 8:
-                    //initialiseRepartitionCesScore(widget);
+                    initialiseRepartitionCesScore(widget);
                     break;
                 case 9:
                     initialiseRepartitionCsatScore(widget);
                     break;
                 case 10:
-                    //initialiseRepartitionZeroToTenScore(widget);
+                    initialiseRepartitionZeroToTenScore(widget);
                     break;
                 case 11:
                     //initialiseEvolutionNpsScoreWidget(widget);
@@ -550,7 +550,25 @@ $(function () {
         let options = getRepartitionChartOptions("repartition-" + widgetId, data, "nps");
         let myChart = Highcharts.chart(options);
     }
+
     // WIDGET ID 8 REPARTITION CES SCORE
+    function initialiseRepartitionCesScore(widget) {
+        let widgetId = getWidgetUniqueID(widget);
+        let data = prepareRepartitionData(widget["data"], "ces");
+
+        if (notEnoughRepartition(data)) {
+            displayNoData(widget);
+            return;
+        }
+
+        $("#" + widgetId + " .wrapper").append(`<div class="repartition-container">
+                <div id="repartition-`+ widgetId + `"></div>
+            </div>`);
+
+        let options = getRepartitionChartOptions("repartition-" + widgetId, data, "ces");
+        let myChart = Highcharts.chart(options);
+    }
+
     // WIDGET ID 9 REPARTITION CSAT SCORE
     function initialiseRepartitionCsatScore(widget) {
         let widgetId = getWidgetUniqueID(widget);
@@ -568,7 +586,25 @@ $(function () {
         let options = getRepartitionChartOptions("repartition-" + widgetId, data, "csat");
         let myChart = Highcharts.chart(options);
     }
+
     // WIDGET ID 10 REPARTITION 0-10 SCORE
+    function initialiseRepartitionZeroToTenScore(widget) {
+        let widgetId = getWidgetUniqueID(widget);
+        let data = prepareRepartitionData(widget["data"]);
+
+        if (notEnoughRepartition(data)) {
+            displayNoData(widget);
+            return;
+        }
+
+        $("#" + widgetId + " .wrapper").append(`<div class="repartition-container">
+                <div id="repartition-`+ widgetId + `"></div>
+            </div>`);
+
+        let options = getRepartitionChartOptions("repartition-" + widgetId, data, "0to10");
+        let myChart = Highcharts.chart(options);
+    }
+
     // WIDGET ID 11 EVOLUTION SCORE NPS
     // WIDGET ID 12 EVOLUTION SCORE CES
     // WIDGET ID 13 EVOLUTION SCORE CSAT
