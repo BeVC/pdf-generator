@@ -421,7 +421,7 @@ a {
                     display: block;
                     text-transform: capitalize;
                 }
-/*WIDGET CES SCORE*/
+/*WIDGET CES/CSAT SCORE*/
 .wrapper .cescsat-score-bar {
     display: flex;
     flex-wrap: wrap;
@@ -535,7 +535,7 @@ a {
                     .wrapper .cescsat-score-bar .ces-bars table tr td:last-of-type .bar.pos span {
                         color: #15B700;
                     }
-/*WIDGET CSAT SCORE*/
+
 /*WIDGET GENERAL RESPONSE RATE*/
 .wrapper .content {
     display: flex;
@@ -686,6 +686,11 @@ a {
                 padding-bottom: 0;
             }
 /*WIDGET REPARTITION*/
+.wrapper .repartition-container {
+    /*display: flex;
+    flex:1;*/
+    height: 290px;
+}
 /*WIDGET EVOLUTION*/
 /*WIDGET ISAAC PIE CHART*/
 /*WIDGET ISAAC LINE CHART*/

@@ -99,7 +99,7 @@ $(function () {
                     //initialiseRepartitionCesScore(widget);
                     break;
                 case 9:
-                    //initialiseRepartitionCsatScore(widget);
+                    initialiseRepartitionCsatScore(widget);
                     break;
                 case 10:
                     //initialiseRepartitionZeroToTenScore(widget);
@@ -252,7 +252,7 @@ $(function () {
                                 <span>Disagree</span>
                             </td>
                             <td>
-                                <span>`+ getVeryNegativeSVG() +`</span>
+                                <span>`+ getVeryNegativeSVG() + `</span>
                             </td>
                             <td>
                                 <div class="bar neg">
@@ -267,7 +267,7 @@ $(function () {
                                 <span>Agree</span>
                             </td>
                             <td>
-                                <span>`+ getVeryPositiveSVG() +`</span>
+                                <span>`+ getVeryPositiveSVG() + `</span>
                             </td>
                             <td>
                                 <div class="bar pos">
@@ -549,10 +549,25 @@ $(function () {
 
         let options = getRepartitionChartOptions("repartition-" + widgetId, data, "nps");
         let myChart = Highcharts.chart(options);
-
     }
     // WIDGET ID 8 REPARTITION CES SCORE
     // WIDGET ID 9 REPARTITION CSAT SCORE
+    function initialiseRepartitionCsatScore(widget) {
+        let widgetId = getWidgetUniqueID(widget);
+        let data = prepareRepartitionData(widget["data"], "csat");
+
+        if (notEnoughRepartition(data)) {
+            displayNoData(widget);
+            return;
+        }
+
+        $("#" + widgetId + " .wrapper").append(`<div class="repartition-container">
+                <div id="repartition-`+ widgetId + `"></div>
+            </div>`);
+
+        let options = getRepartitionChartOptions("repartition-" + widgetId, data, "csat");
+        let myChart = Highcharts.chart(options);
+    }
     // WIDGET ID 10 REPARTITION 0-10 SCORE
     // WIDGET ID 11 EVOLUTION SCORE NPS
     // WIDGET ID 12 EVOLUTION SCORE CES
