@@ -93,7 +93,7 @@ $(function () {
                     initialiseLastResponses(widget);
                     break;
                 case 7:
-                    //initialiseRepartitionNpsScore(widget);
+                    initialiseRepartitionNpsScore(widget);
                     break;
                 case 8:
                     //initialiseRepartitionCesScore(widget);
@@ -534,6 +534,23 @@ $(function () {
     }
 
     // WIDGET ID 7 REPARTITION NPS SCORE
+    function initialiseRepartitionNpsScore(widget) {
+        let widgetId = getWidgetUniqueID(widget);
+        let data = prepareRepartitionData(widget["data"], "nps");
+
+        if (notEnoughRepartition(data)) {
+            displayNoData(widget);
+            return;
+        }
+
+        $("#" + widgetId + " .wrapper").append(`<div class="repartition-container">
+                <div id="repartition-`+ widgetId + `"></div>
+            </div>`);
+
+        let options = getRepartitionChartOptions("repartition-" + widgetId, data, "nps");
+        let myChart = Highcharts.chart(options);
+
+    }
     // WIDGET ID 8 REPARTITION CES SCORE
     // WIDGET ID 9 REPARTITION CSAT SCORE
     // WIDGET ID 10 REPARTITION 0-10 SCORE
@@ -696,7 +713,6 @@ $(function () {
         return color;
     }
 
-
     // GENERAL FUNCTIONS
     function getWidgetUniqueID(widget) {
         return widget["uniqueID"];
@@ -705,6 +721,16 @@ $(function () {
     function displayNoData(widget) {
         $("#cd-content #" + widget["uniqueID"] + " .wrapper").hide();
         $("#cd-content #" + widget["uniqueID"] + " .no-data-in-chart").show();
+    }
+
+    function notEnoughRepartition(repartition) {
+        let notEnough = true;
+        for (let i = 0; i < repartition.length; i++) {
+            if (repartition[i].y > 0) {
+                notEnough = false;
+            }
+        }
+        return notEnough;
     }
 
     function calculatePercentage(numerator, denominator) {
@@ -725,6 +751,62 @@ $(function () {
         } else {
             return (numerator * 100 / (denominator1 + denominator2)).toFixed(1);
         }
+    }
+
+    function prepareRepartitionData(data, metric) {
+        let colorPromoters = "#15B700";
+        let colorPassive = " #9E9E9E";
+        let colorDetractors = "#FE215F";
+        let blue = "#006CFF";
+        let convertedData = [];
+
+        for (let key in data) {
+            if (key === 'score0'
+                || key === 'score1'
+                || key === 'score2'
+                || key === 'score3'
+                || key === 'score4'
+                || key === 'score5'
+                || key === 'score6'
+                || key === 'score7'
+                || key === 'score8'
+                || key === 'score9'
+                || key === 'score10'
+            ) {
+                let item = { y: data[key], color: blue };
+                if (metric === "nps") {
+                    switch (key) {
+                        case 'score0': case 'score1': case 'score2': case 'score3': case 'score4': case 'score5': case 'score6': item.color = colorDetractors; break;
+                        case 'score7': case 'score8': item.color = colorPassive; break;
+                        case 'score9': case 'score10': item.color = colorPromoters; break;
+                    }
+                }
+
+                if (metric === "ces") {
+                    switch (key) {
+                        case 'score1': case 'score2': case 'score3': item.color = colorDetractors; break;
+                        case 'score4': item.color = colorPassive; break;
+                        case 'score5': case 'score6': case 'score7': item.color = colorPromoters; break;
+                    }
+                }
+
+                if (metric === "csat") {
+                    switch (key) {
+                        case 'score1': case 'score2': item.color = colorDetractors; break;
+                        case 'score3': item.color = colorPassive; break;
+                        case 'score4': case 'score5': item.color = colorPromoters; break;
+                    }
+                }
+
+                /*if (metric === "0to10") {
+
+                }*/
+
+                convertedData.push(item);
+            }
+        }
+
+        return convertedData;
     }
 
     // HIGHCHARTS CHART OPTIONS
@@ -822,6 +904,158 @@ $(function () {
         return options;
     }
 
+    function getRepartitionChartOptions(chartId, data, type) {
+        let options = {
+            chart: {
+                renderTo: chartId,
+                plotBackgroundColor: undefined,
+                plotBorderWidth: undefined,
+                plotShadow: false,
+                spacing: [0, 0, 0, 0],
+                style: {
+                    fontFamily: "Arial",
+                    fontWeight: 400
+                },
+                height: 290,
+                type: "column"
+            },
+            credits: {
+                enabled: false
+            },
+            title: {
+                text: "",
+                style: {
+                    display: "none"
+                }
+            },
+            subtitle: {
+                text: "",
+                style: {
+                    display: "none"
+                }
+            },
+            exporting: {
+                enabled: false
+            },
+            yAxis: {
+                tickInterval: 10,
+                title: {
+                    text: "",
+                    style: {
+                        display: "none"
+                    }
+                },
+                labels: {
+                    enabled: false
+                },
+                gridLineWidth: 0,
+                maxPadding: 0.4
+            },
+            tooltip: {
+                enabled: false
+            },
+            plotOptions: {
+                series: {
+                    groupPadding: 0.2,
+                    pointPadding: 0.0
+                }
+            },
+            series: [
+                {
+                    showInLegend: false,
+                    dataLabels: {
+                        rotation: 0,
+                        enabled: true,
+                        color: "#222222",
+                        align: "center",
+                        y: 0,
+                        format: "{y:.1f}%",
+                        style: {
+                            fontFamily: "Arial",
+                            fontWeight: 700,
+                            fontSize: "11px"
+                        }
+                    },
+                    data: data
+                }
+            ]
+        };
+
+        if (type === "nps" || type === "0to10") {
+            options["xAxis"] = {
+                categories: ["0", "1", "2", "3", "4", "5",
+                    "6", "7", "8", "9", "10"],
+                tickLength: 0,
+                lineColor: "#e0e0e0",
+                lineWidth: 3,
+                offset: 5,
+                labels: {
+                    style: {
+                        fontFamily: "Arial",
+                        fontSize: "12px",
+                        color: "#2c3846",
+                        fontWeight: 700
+                    }
+                }
+            };
+        }
+        if (type === "ces") {
+            options["xAxis"] = {
+                categories: ["1", "2", "3", "4", "5",
+                    "6", "7"],
+                tickLength: 0,
+                lineColor: "#e0e0e0",
+                lineWidth: 3,
+                offset: 5,
+                labels: {
+                    style: {
+                        fontFamily: "Arial",
+                        fontSize: "12px",
+                        color: "#2c3846",
+                        fontWeight: 700
+                    }
+                }
+            };
+        }
+        if (type === "csat") {
+            options["xAxis"] = {
+                categories: ["1", "2", "3", "4", "5"],
+                tickLength: 0,
+                lineColor: "#e0e0e0",
+                lineWidth: 3,
+                offset: 5,
+                labels: {
+                    style: {
+                        fontFamily: "Arial",
+                        fontSize: "12px",
+                        color: "#2c3846",
+                        fontWeight: 700
+                    }
+                }
+            };
+        }
+        //if (type === "0to10") {
+        //    options["xAxis"] = {
+        //        categories: ["0", "1", "2", "3", "4", "5",
+        //            "6", "7", "8", "9", "10"],
+        //        tickLength: 0,
+        //        lineColor: "#e0e0e0",
+        //        lineWidth: 3,
+        //        offset: 5,
+        //        labels: {
+        //            style: {
+        //                fontFamily: "Arial",
+        //                fontSize: "12px",
+        //                color: "#2c3846",
+        //                fontWeight: 700
+        //            }
+        //        }
+        //    };
+        //}
+
+        return options;
+    }
+
     // SVG
     function getVeryPositiveSVG() {
         return `<svg xmlns="http://www.w3.org/2000/svg" width="24.088" height="24.088" viewBox="0 0 24.088 24.088">
@@ -837,6 +1071,7 @@ $(function () {
                     <path class="bpos" d="M60.632,33.235a1.822,1.822,0,0,0-1.515.8,1.827,1.827,0,0,0-1.523-.814,1.406,1.406,0,0,0-1.233,1.437c.028.681.569,1.058,1.022,1.5.528.518,1.09,1,1.626,1.511a.169.169,0,0,0,.115.061.114.114,0,0,0,.058-.022.381.381,0,0,0,.042-.035c.277-.261.557-.518.838-.775a8.305,8.305,0,0,0,.782-.73c.452-.444.994-.821,1.022-1.5A1.405,1.405,0,0,0,60.632,33.235Z" transform="translate(-42.595 -26.252)"/>
                 </svg>`;
     }
+
     function getUnknownSVG() {
         return `<svg xmlns="http://www.w3.org/2000/svg" width="24.088" height="24.088" viewBox="0 0 24.088 24.088">
                     <defs>

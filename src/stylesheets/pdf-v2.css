@@ -763,7 +763,7 @@ a {
 
                         .wrapper .yes-no-results-content .chart li .bars .bar .fill.transparent .percentage {
                             color: #003161;
-                            font-size: rem-calc(14);
+                            font-size: 14px;
                             margin: 0 5px;
                         }
 
