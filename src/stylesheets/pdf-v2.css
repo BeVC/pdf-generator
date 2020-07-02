@@ -284,6 +284,51 @@ a {
         z-index: 1;
     }
 
+/*SOLIDGAUGE SCORE WRAPPER*/
+.solidgauge-score-wrapper {
+    position: relative;
+}
+
+    .solidgauge-score-wrapper .solidgauge-score {
+        background: #FFFFFF 0% 0% no-repeat padding-box;
+        box-shadow: 0px 0px 15px #0000001D;
+        width: 80px;
+        height: 80px;
+        border-top-left-radius: 50px;
+        border-top-right-radius: 50px;
+        border-bottom-left-radius: 50px;
+        border-bottom-right-radius: 50px;
+    }
+
+        .solidgauge-score-wrapper .solidgauge-score .metric {
+            margin: 0 !important;
+            padding-top: 12px;
+            color: #ADADAD;
+            text-align: center;
+            font-family: "SofiaProSoft";
+            font-size: 12px;
+            line-height: 18px;
+            text-transform: uppercase;
+        }
+
+        .solidgauge-score-wrapper .solidgauge-score .score {
+            margin: 0 !important;
+            color: #003261;
+            text-align: center;
+            font-family: "SofiaProSoftRegular";
+            font-size: 18px;
+            line-height: 18px;
+        }
+
+    .solidgauge-score-wrapper .thingy {
+        height: 40px;
+        position: absolute;
+        background-color: white;
+        width: 110px;
+        bottom: -10px;
+        left: -5px;
+    }
+
 /*WIDGET NPS SCORE*/
 .wrapper .nps-score-bar {
     display: flex;
@@ -377,6 +422,95 @@ a {
                     text-transform: capitalize;
                 }
 /*WIDGET CES SCORE*/
+.wrapper .ces-score-bar {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1;
+    align-content: space-around;
+}
+
+    .wrapper .ces-score-bar .ces-gauge {
+        flex: 1 1 120px;
+        overflow: hidden;
+        position: relative;
+        min-height: 114px !important;
+        max-height: 114px !important;
+        display: flex !important;
+        justify-content: center !important;
+        margin-bottom: 10px;
+    }
+
+    .wrapper .ces-score-bar .ces-bars {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex: 1 1 120px;
+    }
+
+        .wrapper .ces-score-bar .ces-bars table tr td {
+            vertical-align: middle;
+            padding: 6px 0;
+        }
+
+            .wrapper .ces-score-bar .ces-bars table tr td:first-of-type {
+                text-align: right;
+            }
+
+                .wrapper .ces-score-bar .ces-bars table tr td:first-of-type span {
+                    color: #ADADAD;
+                    font-family: "Arial";
+                    font-size: 12px;
+                }
+
+            .wrapper .ces-score-bar .ces-bars table tr td:nth-of-type(2) {
+                padding-left: 6px;
+                padding-right: 6px;
+            }
+
+            .wrapper .ces-score-bar .ces-bars table tr td:last-of-type {
+                width: 100%;
+            }
+
+                .wrapper .ces-score-bar .ces-bars table tr td:last-of-type .bar {
+                    display: flex;
+                    align-items: center;
+                    height: 20px;
+                    background-color: transparent;
+                    width: 100%;
+                }
+
+                    .wrapper .ces-score-bar .ces-bars table tr td:last-of-type .bar .fill {
+                        border-radius: 0 5px 5px 0;
+                        height: 100%;
+                    }
+
+                    .wrapper .ces-score-bar .ces-bars table tr td:last-of-type .bar span {
+                        font-family: "Arial";
+                        font-size: 14px;
+                        padding-left: 5px;
+                    }
+
+                    .wrapper .ces-score-bar .ces-bars table tr td:last-of-type .bar.neg {
+                    }
+
+                        .wrapper .ces-score-bar .ces-bars table tr td:last-of-type .bar.neg .fill {
+                            background: transparent linear-gradient(90deg, #FD8FAE 0%, #FF1E5D 100%) 0% 0% no-repeat padding-box;
+                        }
+
+                        .wrapper .ces-score-bar .ces-bars table tr td:last-of-type .bar.neg span {
+                            color: #FE215F;
+                        }
+
+                    .wrapper .ces-score-bar .ces-bars table tr td:last-of-type .bar.pos {
+                    }
+
+                        .wrapper .ces-score-bar .ces-bars table tr td:last-of-type .bar.pos .fill {
+                            background: transparent linear-gradient(90deg, #AAFFCE 0%, #0FCE60 100%) 0% 0% no-repeat padding-box;
+                        }
+
+                        .wrapper .ces-score-bar .ces-bars table tr td:last-of-type .bar.pos span {
+                            color: #15B700;
+                        }
 /*WIDGET CSAT SCORE*/
 /*WIDGET GENERAL RESPONSE RATE*/
 .wrapper .content {
@@ -536,7 +670,7 @@ a {
 .wrapper .yes-no-results-content .chart {
     display: flex;
     flex-direction: column;
-    padding-right:15px;
+    padding-right: 15px;
 }
 
     .wrapper .yes-no-results-content .chart li {

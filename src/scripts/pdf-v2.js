@@ -78,7 +78,7 @@ $(function () {
                     initialiseNPSBar(widget);
                     break;
                 case 2:
-                    //initialiseCESBar(widget);
+                    initialiseCESBar(widget);
                     break;
                 case 3:
                     //initialiseCSATBar(widget);
@@ -233,6 +233,73 @@ $(function () {
     }
 
     // WIDGET ID 2 CES SCORE
+    function initialiseCESBar(widget) {
+        if (widget["data"]["ces"] === undefined || (widget["data"]["disagree"] === 0 && widget["data"]["agree"] === 0)) {
+            displayNoData(widget);
+            return;
+        }
+
+        let widgetId = getWidgetUniqueID(widget);
+
+        $("#" + widgetId + " .wrapper").append(`<div class="ces-score-bar">
+                <div class="ces-gauge">
+                    <div id="cesContainer-`+ widgetId + `"></div>
+                </div>
+                <div class="ces-bars">
+                    <table>
+                        <tr>
+                            <td>
+                                <span>Disagree</span>
+                            </td>
+                            <td>
+                                <span></span>
+                            </td>
+                            <td>
+                                <div class="bar neg">
+                                    <div class="fill neg" style="width: `+ widget["data"]["disagree"] + `%">
+                                    </div>
+                                    <span>`+ widget["data"]["disagree"] + `%</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>Agree</span>
+                            </td>
+                            <td>
+                                <span></span>
+                            </td>
+                            <td>
+                                <div class="bar pos">
+                                    <div class="fill neg" style="width: `+ widget["data"]["agree"] + `%">
+                                    </div>
+                                    <span>`+ widget["data"]["agree"] + `%</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>`);
+        let data = getCesData(widget["data"]);
+        let options = getCESGaugeOptions("cesContainer-" + widgetId, data, widget["data"]["ces"].toFixed(2));
+        let myChart = Highcharts.chart(options);
+    }
+
+    function getCesData(cesData) {
+        let data = [];
+
+        let border = 14.3;
+        let percentage = (cesData["ces"] / 7) * 100;
+        let test = Math.round(percentage / border);
+        data.push(percentage);
+        for (let i = test; i > 0; i--) {
+            if (i * border < percentage) {
+                data.push({ y: (i * border) });
+            }
+        }
+        return data;
+    }
+
     // WIDGET ID 3 CSAT SCORE
     // WIDGET ID 4 GENERAL RESPONSE RATE
     function initialiseGeneralResponseRate(widget) {
@@ -555,6 +622,112 @@ $(function () {
         } else {
             return (numerator * 100 / (denominator1 + denominator2)).toFixed(1);
         }
+    }
+
+    // HIGHCHARTS CHART OPTIONS
+    function getCESGaugeOptions(chartId, data, score) {
+        let options = {
+            chart: {
+                renderTo: chartId,
+                type: 'solidgauge',
+                height: "60%",
+                width: 250,
+                spacing: [-50, 0, -50, 0]
+            },
+
+            title: {
+                text: ""
+            },
+
+            subtitle: {
+            },
+            credits: {
+                enabled: false
+            },
+            tooltip: {
+                enabled: false
+            },
+            pane: [{
+                startAngle: -90,
+                endAngle: 90,
+                background: [{ // Track for Move
+                    outerRadius: '100%',
+                    innerRadius: '65%',
+                    backgroundColor: "#DEDEDE",
+                    borderWidth: 0,
+                    shape: 'arc'
+                }],
+                size: '80%',
+                center: ['50%', '65%']
+            }, {
+                startAngle: -90,
+                endAngle: 90,
+                size: '80%',
+                center: ['50%', '65%'],
+                background: []
+            }],
+
+            yAxis: [{
+                min: 0,
+                max: 100,
+                lineWidth: 2,
+                lineColor: 'white',
+                tickInterval: 14.3,
+                labels: {
+                    enabled: false,
+                    distance: '105%',
+                    y: 0
+                },
+                minorTickWidth: 0,
+                tickLength: 70,
+                tickWidth: 3,
+                tickColor: 'white',
+                zIndex: 6,
+                stops: [
+                    [0, '#fff'],
+                    [0.143, "#FF1E5D"],
+                    [0.286, "#FF775D"],
+                    [0.429, "#FFC468"],
+                    [0.572, "#FDFB7D"],
+                    [0.715, "#C8F167"],
+                    [0.858, "#87F167"],
+                    [1, "#15B700"]
+                ]
+            }, {
+                linkedTo: 0,
+                pane: 1,
+                lineWidth: 5,
+                lineColor: 'white',
+                tickPositions: [],
+                zIndex: 6
+            }],
+            series: [{
+                animation: false,
+                dataLabels: {
+                    enabled: true,
+                    useHTML: true,
+                    formatter: function () {
+                        return "<div class='solidgauge-score-wrapper'>" +
+                            "<div class='solidgauge-score'>" +
+                            "<p class='metric'>CES</p>" +
+                            "<p class='score'>" + score + "</p>" +
+                            "</div>" +
+                            "<div class='thingy'></div>" +
+                            "</div>";
+                    },
+                    verticalAlign: "bottom",
+                    borderWidth: 0,
+                    y: 35
+                },
+                borderWidth: 0,
+                color: Highcharts.getOptions().colors[0],
+                radius: '100%',
+                innerRadius: '65%',
+                data: data
+            }]
+        };
+
+        return options;
     }
 
     // INITIALISATION
