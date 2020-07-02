@@ -126,7 +126,7 @@ $(function () {
                     //initialiseDepartmentRankingWidget(widget);
                     break;
                 case 18:
-                    //initialiseYesNoResultsWidget(widget);
+                    initialiseYesNoResultsWidget(widget);
                     break;
                 case 19:
                     initialiseRecentAnswersWidget(widget);
@@ -375,6 +375,46 @@ $(function () {
     // WIDGET ID 16 ISAAC LINE CHART
     // WIDGET ID 17 DEPARTMENT RANKING
     // WIDGET ID 18 YES NO RESULT
+    function initialiseYesNoResultsWidget(widget) {
+        if (isNaN(widget["data"]["yes"]) || isNaN(widget["data"]["no"])) {
+            displayNoData(widgtet);
+            return;
+        }
+
+        $("#" + getWidgetUniqueID(widget) + " .wrapper").append(`<div class="yes-no-results-content">
+            <ul class="chart">
+                <li>
+                    <div class="yesno">
+                        <span>Yes</span>
+                    </div>
+                    <div class="bars">
+                        <div class="bar">
+                            <div class="fill blue" style="width:` + calculatePercentageAlt(widget["data"]["yes"], widget["data"]["yes"], widget["data"]["no"]) + `%"></div>
+                            <div class="fill transparent">
+                                <span class="percentage">` + calculatePercentageAlt(widget["data"]["yes"], widget["data"]["yes"], widget["data"]["no"]) + `%</span>
+                                <span class="amount">(`+ widget["data"]["yes"] + `)</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                   <div class="yesno">
+                        <span>No</span>
+                    </div>
+                    <div class="bars">
+                        <div class="bar">
+                            <div class="fill blue" style="width:`+ calculatePercentageAlt(widget["data"]["no"], widget["data"]["yes"], widget["data"]["no"]) + `%"></div>
+                            <div class="fill transparent">
+                                <span class="percentage">`+ calculatePercentageAlt(widget["data"]["no"], widget["data"]["yes"], widget["data"]["no"]) + `%</span>
+                                <span class="amount">(`+ widget["data"]["no"] + `)</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>`);
+    }
+
     // WIDGET ID 19 RECENT ANSWERS
     function initialiseRecentAnswersWidget(widget) {
         $("#" + getWidgetUniqueID(widget) + " .wrapper").append(`<div class="recent-answers-content">
@@ -491,6 +531,7 @@ $(function () {
     function getWidgetUniqueID(widget) {
         return widget["uniqueID"];
     }
+
     function displayNoData(widget) {
         $("#cd-content #" + widget["uniqueID"] + " .wrapper").hide();
         $("#cd-content #" + widget["uniqueID"] + " .no-data-in-chart").show();
@@ -505,6 +546,14 @@ $(function () {
                 result = 100.00;
             }
             return result;
+        }
+    }
+
+    function calculatePercentageAlt(numerator, denominator1, denominator2) {
+        if (denominator1 === 0 && denominator2 === 0) {
+            return "0";
+        } else {
+            return (numerator * 100 / (denominator1 + denominator2)).toFixed(1);
         }
     }
 

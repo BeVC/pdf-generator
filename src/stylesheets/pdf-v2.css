@@ -31,6 +31,7 @@ body {
     line-height: 1;
     padding-left: 5px;
     padding-right: 5px;
+    //background-color: #00000008;
 }
 
 ol, ul {
@@ -113,8 +114,9 @@ a {
     flex-direction: column;
     font-family: Arial;
     font-size: 14px;
+    border: 1px solid #0000001A;
     background: #FFFFFF 0% 0% no-repeat padding-box;
-    box-shadow: 0px 0px 99px #00000017;
+    //box-shadow: 0px 0px 99px #00000017;
     border-radius: 10px;
     flex: 1;
     margin-bottom: 20px;
@@ -531,6 +533,97 @@ a {
 /*WIDGET ISAAC LINE CHART*/
 /*WIDGET DEPARTMENT RANKING*/
 /*WIDGET YES NO RESULTS*/
+.wrapper .yes-no-results-content .chart {
+    display: flex;
+    flex-direction: column;
+    padding-right:15px;
+}
+
+    .wrapper .yes-no-results-content .chart li {
+        display: flex;
+        align-items: center;
+    }
+
+        .wrapper .yes-no-results-content .chart li * {
+            display: flex;
+            align-items: center;
+        }
+
+        .wrapper .yes-no-results-content .chart li .yesno {
+            width: 40px;
+        }
+
+            .wrapper .yes-no-results-content .chart li .yesno span {
+                color: grey;
+                font-size: 12px;
+                font-family: "Arial";
+                margin: 0 12px;
+            }
+
+        .wrapper .yes-no-results-content .chart li .bars {
+            width: 100%;
+            flex: 1;
+            flex-direction: column;
+            position: relative;
+        }
+
+            .wrapper .yes-no-results-content .chart li .bars:before {
+                content: '';
+                width: 3px;
+                position: absolute;
+                height: 100%;
+                background: transparent linear-gradient(270deg, #00000000 0%, #000000 100%) 0% 0% no-repeat padding-box;
+                top: 0;
+                opacity: 0.1;
+                left: 0;
+            }
+
+            .wrapper .yes-no-results-content .chart li .bars .bar {
+                display: flex;
+                flex: 1;
+                width: 100%;
+            }
+
+                .wrapper .yes-no-results-content .chart li .bars .bar .fill {
+                    height: 20px;
+                    display: flex;
+                    border-radius: 0 5px 5px 0;
+                }
+
+                    .wrapper .yes-no-results-content .chart li .bars .bar .fill.blue {
+                        background: transparent linear-gradient(90deg, #BED9FD 0%, #006CFF 100%) 0% 0% no-repeat padding-box;
+                    }
+
+                    .wrapper .yes-no-results-content .chart li .bars .bar .fill.grey {
+                        background: #DBDBDB;
+                    }
+
+                    .wrapper .yes-no-results-content .chart li .bars .bar .fill.transparent {
+                        flex: 1;
+                        min-width: 58px;
+                    }
+
+                        .wrapper .yes-no-results-content .chart li .bars .bar .fill.transparent .percentage {
+                            color: #003161;
+                            font-size: rem-calc(14);
+                            margin: 0 5px;
+                        }
+
+                        .wrapper .yes-no-results-content .chart li .bars .bar .fill.transparent .amount {
+                            color: #ADADAD;
+                            margin-right: 5px;
+                        }
+
+                .wrapper .yes-no-results-content .chart li .bars .bar:first-of-type {
+                    padding-top: 10px;
+                    padding-bottom: 6px;
+                }
+
+                .wrapper .yes-no-results-content .chart li .bars .bar:nth-of-type(2) {
+                    padding-top: 0px;
+                    padding-bottom: 10px;
+                }
+
 /*WIDGET RECENT ANSWERS*/
 .wrapper .recent-answers-content {
     display: flex;
