@@ -627,6 +627,7 @@ $(function () {
 
         let options = getEvolutionChartOptions("evolution-" + widgetId, chartData);
         let myChart = Highcharts.chart(options);
+        setEvolutionChartInfos(widgetId, chartData[0]["x"], chartData[chartData.length - 1]["x"]);
     }
 
     // WIDGET ID 12 EVOLUTION SCORE CES
@@ -893,9 +894,15 @@ $(function () {
                 y: value
             });
         }
-        return collection/*.sort((a, b) => (a.x > b.x ? 0:1))*/;
+        return collection.sort((a, b) => a.x - b.x);
     }
 
+    function setEvolutionChartInfos(widgetId, date1, date2) {
+        let $elementOne = "<span>" + moment(date1).format("DD MMM YYYY") + "</span>";
+        $("#" + widgetId + " .highchart-info-1 .p1").append($elementOne);
+        let $elementTwo = "<span>" + moment(date2).format("DD MMM YYYY") + "</span>";
+        $("#" + widgetId + " .highchart-info-1 .p2").append($elementTwo);
+    }
     // HIGHCHARTS CHART OPTIONS
     function getSolidGaugeOptions(chartId, data, score, type) {
         let options = {
