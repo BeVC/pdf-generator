@@ -93,32 +93,36 @@ $(function () {
                     initialiseLastResponses(widget);
                     break;
                 case 7:
-                    initialiseRepartitionNpsScore(widget);
+                    //initialiseRepartitionNpsScore(widget);
+                    initialiseRepartitionChartScore(widget);
                     break;
                 case 8:
-                    initialiseRepartitionCesScore(widget);
+                    //initialiseRepartitionCesScore(widget);
+                    initialiseRepartitionChartScore(widget);
                     break;
                 case 9:
-                    initialiseRepartitionCsatScore(widget);
+                    //initialiseRepartitionCsatScore(widget);
+                    initialiseRepartitionChartScore(widget);
                     break;
                 case 10:
-                    initialiseRepartitionZeroToTenScore(widget);
+                    //initialiseRepartitionZeroToTenScore(widget);
+                    initialiseRepartitionChartScore(widget);
                     break;
                 case 11:
                     //initialiseEvolutionNpsScoreWidget(widget);
-                    initialiseEvolutionChartScoreWidget(widget);
+                    initialiseEvolutionChartScore(widget);
                     break;
                 case 12:
                     //initialiseEvolutionCesScoreWidget(widget);
-                    initialiseEvolutionChartScoreWidget(widget);
+                    initialiseEvolutionChartScore(widget);
                     break;
                 case 13:
                     //initialiseEvolutionCsatScoreWidget(widget);
-                    initialiseEvolutionChartScoreWidget(widget);
+                    initialiseEvolutionChartScore(widget);
                     break;
                 case 14:
                     //initialiseEvolutionZeroToTenScoreWidget(widget);
-                    initialiseEvolutionChartScoreWidget(widget);
+                    initialiseEvolutionChartScore(widget);
                     break;
                 case 15:
                     //initialiseIsaacPieChart(widget);
@@ -538,9 +542,27 @@ $(function () {
     }
 
     // WIDGET ID 7 REPARTITION NPS SCORE
-    function initialiseRepartitionNpsScore(widget) {
+    function initialiseRepartitionChartScore(widget) {
+        let type;
+        switch (widget["id"]) {
+            case 7:
+                type = "nps";
+                break;
+            case 8:
+                type = "ces";
+                break;
+            case 9:
+                type = "csat";
+                break;
+            case 10:
+                type = "0to10";
+                break;
+            default:
+                type = "nps";
+        }
+
         let widgetId = getWidgetUniqueID(widget);
-        let data = prepareRepartitionData(widget["data"], "nps");
+        let data = prepareRepartitionData(widget["data"], type);
 
         if (notEnoughRepartition(data)) {
             displayNoData(widget);
@@ -551,12 +573,12 @@ $(function () {
                 <div id="repartition-`+ widgetId + `"></div>
             </div>`);
 
-        let options = getRepartitionChartOptions("repartition-" + widgetId, data, "nps");
+        let options = getRepartitionChartOptions("repartition-" + widgetId, data, type);
         let myChart = Highcharts.chart(options);
     }
 
     // WIDGET ID 8 REPARTITION CES SCORE
-    function initialiseRepartitionCesScore(widget) {
+    /*function initialiseRepartitionCesScore(widget) {
         let widgetId = getWidgetUniqueID(widget);
         let data = prepareRepartitionData(widget["data"], "ces");
 
@@ -571,10 +593,10 @@ $(function () {
 
         let options = getRepartitionChartOptions("repartition-" + widgetId, data, "ces");
         let myChart = Highcharts.chart(options);
-    }
+    }*/
 
     // WIDGET ID 9 REPARTITION CSAT SCORE
-    function initialiseRepartitionCsatScore(widget) {
+    /*function initialiseRepartitionCsatScore(widget) {
         let widgetId = getWidgetUniqueID(widget);
         let data = prepareRepartitionData(widget["data"], "csat");
 
@@ -589,10 +611,10 @@ $(function () {
 
         let options = getRepartitionChartOptions("repartition-" + widgetId, data, "csat");
         let myChart = Highcharts.chart(options);
-    }
+    }*/
 
     // WIDGET ID 10 REPARTITION 0-10 SCORE
-    function initialiseRepartitionZeroToTenScore(widget) {
+    /*function initialiseRepartitionZeroToTenScore(widget) {
         let widgetId = getWidgetUniqueID(widget);
         let data = prepareRepartitionData(widget["data"]);
 
@@ -607,11 +629,11 @@ $(function () {
 
         let options = getRepartitionChartOptions("repartition-" + widgetId, data, "0to10");
         let myChart = Highcharts.chart(options);
-    }
+    }*/
 
     // WIDGET ID 11/12/13/14 EVOLUTION SCORE NPS / CES / CSAT / 0-10
     //function initialiseEvolutionNpsScoreWidget(widget) {
-    function initialiseEvolutionChartScoreWidget(widget) {
+    function initialiseEvolutionChartScore(widget) {
         let widgetId = getWidgetUniqueID(widget);
         let chartData = prepareEvolutionData(widget["data"]);
 
