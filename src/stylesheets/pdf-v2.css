@@ -727,6 +727,127 @@ a {
 /*WIDGET ISAAC PIE CHART*/
 /*WIDGET ISAAC LINE CHART*/
 /*WIDGET DEPARTMENT RANKING*/
+.wrapper .team-ranking-content {
+    display: flex;
+    flex-direction: column;
+}
+
+    .wrapper .team-ranking-content table {
+        font-family: Arial;
+        width: 100%;
+    }
+
+    .wrapper .team-ranking-content thead tr td {
+        font-size: 12px;
+        color: #ADADAD;
+        line-height: 40px;
+        text-transform: uppercase;
+    }
+
+        .wrapper .team-ranking-content thead tr td:first-of-type {
+            width: 7%;
+        }
+
+        .wrapper .team-ranking-content thead tr td:nth-of-type(3) {
+            width: 7%;
+        }
+
+        .wrapper .team-ranking-content thead tr td:nth-of-type(4) {
+            width: 7%;
+        }
+
+        .wrapper .team-ranking-content thead tr td:nth-of-type(5) {
+            width: 7%;
+        }
+
+    .wrapper .team-ranking-content table tbody tr {
+        height: 42px;
+    }
+
+        .wrapper .team-ranking-content table tbody tr:nth-child(odd) {
+            background-color: #F8F8F8;
+        }
+
+        .wrapper .team-ranking-content table tbody tr.first {
+            background-color: #efefef;
+        }
+
+            .wrapper .team-ranking-content table tbody tr.first td {
+                vertical-align: middle;                
+            }
+
+                .wrapper .team-ranking-content table tbody tr.first td:first-of-type {
+                    width: 7%;
+                    color: transparent;
+                }
+
+                .wrapper .team-ranking-content table tbody tr.first td:nth-of-type(2) .name {
+                    font-size: 13px;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                    color: #003161;
+                }
+
+                .wrapper .team-ranking-content table tbody tr.first td:nth-of-type(3) {
+                    text-transform: uppercase;
+                    width: 7%;
+                    color: #003161;
+                    font-size: 13px;
+                    font-family: Arial;
+                    font-weight: 900;
+                }
+
+                .wrapper .team-ranking-content table tbody tr.first td:nth-of-type(4) {
+                    width: 20%;
+                    color: #003161;
+                    font-size: 13px;
+                }
+
+                .wrapper .team-ranking-content table tbody tr.first td:nth-of-type(5) {
+                    width: 7%;
+                    color: #003161;
+                    font-size: 13px;
+                }
+
+        .wrapper .team-ranking-content table tbody tr:not(.first) td {
+            vertical-align: middle;
+        }
+            .wrapper .team-ranking-content table tbody tr:not(.first) td:first-of-type {
+                width: 7%;
+                padding-left: 12px;
+                font-size: 13px;
+                font-weight: 400;
+                color: #003161;
+            }
+            .wrapper .team-ranking-content table tbody tr:not(.first) td:nth-of-type(2) .name {
+                font-size: 13px;
+                font-weight: 400;
+                color: #003161;
+            }
+            .wrapper .team-ranking-content table tbody tr:not(.first) td:nth-of-type(2) .alias {
+                font-size: 13px;
+                text-transform: uppercase;
+                margin-left: 16px;
+                color: #003161;
+            }
+            .wrapper .team-ranking-content table tbody tr:not(.first) td:nth-of-type(3):nth-of-type(3) {
+                text-transform: uppercase;
+                width: 7%;
+                font-size: 13px;
+                font-family: Arial;
+                font-weight: 900;
+            }
+            .wrapper .team-ranking-content table tbody tr:not(.first) td:nth-of-type(4) {
+                width: 20%;
+                color: #003161;
+                font-size: 13px;
+            }
+            .wrapper .team-ranking-content table tbody tr:not(.first) td:nth-of-type(5) {
+                width: 7%;
+                color: #003161;
+                font-size: 13px;
+            }
+
 /*WIDGET YES NO RESULTS*/
 .wrapper .yes-no-results-content .chart {
     display: flex;

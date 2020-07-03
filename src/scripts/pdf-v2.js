@@ -93,35 +93,27 @@ $(function () {
                     initialiseLastResponses(widget);
                     break;
                 case 7:
-                    //initialiseRepartitionNpsScore(widget);
                     initialiseRepartitionChartScore(widget);
                     break;
                 case 8:
-                    //initialiseRepartitionCesScore(widget);
                     initialiseRepartitionChartScore(widget);
                     break;
                 case 9:
-                    //initialiseRepartitionCsatScore(widget);
                     initialiseRepartitionChartScore(widget);
                     break;
                 case 10:
-                    //initialiseRepartitionZeroToTenScore(widget);
                     initialiseRepartitionChartScore(widget);
                     break;
                 case 11:
-                    //initialiseEvolutionNpsScoreWidget(widget);
                     initialiseEvolutionChartScore(widget);
                     break;
                 case 12:
-                    //initialiseEvolutionCesScoreWidget(widget);
                     initialiseEvolutionChartScore(widget);
                     break;
                 case 13:
-                    //initialiseEvolutionCsatScoreWidget(widget);
                     initialiseEvolutionChartScore(widget);
                     break;
                 case 14:
-                    //initialiseEvolutionZeroToTenScoreWidget(widget);
                     initialiseEvolutionChartScore(widget);
                     break;
                 case 15:
@@ -131,13 +123,13 @@ $(function () {
                     //initialiseIsaacLineChart(widget);
                     break;
                 case 17:
-                    //initialiseDepartmentRankingWidget(widget);
+                    initialiseTeamRanking(widget);
                     break;
                 case 18:
-                    initialiseYesNoResultsWidget(widget);
+                    initialiseYesNoResults(widget);
                     break;
                 case 19:
-                    initialiseRecentAnswersWidget(widget);
+                    initialiseRecentAnswers(widget);
                     break;
                 case 20:
                     //initialiseMostMentionedPerCategory(widget);
@@ -541,7 +533,7 @@ $(function () {
         $("#" + widgetId + " .result li:nth-child(2) span:first-child").text(widget["data"]["yesterday"]);
     }
 
-    // WIDGET ID 7 REPARTITION NPS SCORE
+    // WIDGET ID 7/8/9/10 REPARTITION SCORE NPS / CES / CSAT / 0-10
     function initialiseRepartitionChartScore(widget) {
         let type;
         switch (widget["id"]) {
@@ -575,64 +567,9 @@ $(function () {
 
         let options = getRepartitionChartOptions("repartition-" + widgetId, data, type);
         let myChart = Highcharts.chart(options);
-    }
-
-    // WIDGET ID 8 REPARTITION CES SCORE
-    /*function initialiseRepartitionCesScore(widget) {
-        let widgetId = getWidgetUniqueID(widget);
-        let data = prepareRepartitionData(widget["data"], "ces");
-
-        if (notEnoughRepartition(data)) {
-            displayNoData(widget);
-            return;
-        }
-
-        $("#" + widgetId + " .wrapper").append(`<div class="repartition-container">
-                <div id="repartition-`+ widgetId + `"></div>
-            </div>`);
-
-        let options = getRepartitionChartOptions("repartition-" + widgetId, data, "ces");
-        let myChart = Highcharts.chart(options);
-    }*/
-
-    // WIDGET ID 9 REPARTITION CSAT SCORE
-    /*function initialiseRepartitionCsatScore(widget) {
-        let widgetId = getWidgetUniqueID(widget);
-        let data = prepareRepartitionData(widget["data"], "csat");
-
-        if (notEnoughRepartition(data)) {
-            displayNoData(widget);
-            return;
-        }
-
-        $("#" + widgetId + " .wrapper").append(`<div class="repartition-container">
-                <div id="repartition-`+ widgetId + `"></div>
-            </div>`);
-
-        let options = getRepartitionChartOptions("repartition-" + widgetId, data, "csat");
-        let myChart = Highcharts.chart(options);
-    }*/
-
-    // WIDGET ID 10 REPARTITION 0-10 SCORE
-    /*function initialiseRepartitionZeroToTenScore(widget) {
-        let widgetId = getWidgetUniqueID(widget);
-        let data = prepareRepartitionData(widget["data"]);
-
-        if (notEnoughRepartition(data)) {
-            displayNoData(widget);
-            return;
-        }
-
-        $("#" + widgetId + " .wrapper").append(`<div class="repartition-container">
-                <div id="repartition-`+ widgetId + `"></div>
-            </div>`);
-
-        let options = getRepartitionChartOptions("repartition-" + widgetId, data, "0to10");
-        let myChart = Highcharts.chart(options);
-    }*/
+    }   
 
     // WIDGET ID 11/12/13/14 EVOLUTION SCORE NPS / CES / CSAT / 0-10
-    //function initialiseEvolutionNpsScoreWidget(widget) {
     function initialiseEvolutionChartScore(widget) {
         let widgetId = getWidgetUniqueID(widget);
         let chartData = prepareEvolutionData(widget["data"]);
@@ -660,8 +597,141 @@ $(function () {
     // WIDGET ID 15 ISAAC PIE CHART
     // WIDGET ID 16 ISAAC LINE CHART
     // WIDGET ID 17 DEPARTMENT RANKING
+    function initialiseTeamRanking(widget) {
+        let widgetId = widget["uniqueID"];
+
+        if (widget["data"]["list"].length === 0) {
+            displayNoData(widget);
+            return;
+        }
+
+        $("#" + widget["uniqueID"] + " .wrapper").append(`<div class="team-ranking-content">
+            <table class="team-ranking-table">
+                <thead>
+                    <tr>
+                        <td>rank</td>
+                        <td>units</td>
+                        <td></td>
+                        <td>respondents</td>
+                        <td>answers</td>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>`);
+
+        $("#" + widgetId + " .team-ranking-table thead tr td:nth-child(3)").text(getType(widget["data"]["list"][0]));
+
+        let relevantTeams = filterRelevantTeams(widget["data"]["list"]);
+        let $elements = [];
+        for (var i = 0; i < relevantTeams.length; i++) {
+            let item = relevantTeams[i];
+            let element = "<tr class='" + teamIsRoot(item) + "'>" +
+                "<td>" + i + "</td>" +
+                "<td>" +
+                "<span class='name'>" + item.name + "</span>" +
+                buildAliasSpan(item) +
+                "</td>" +
+                buildScoreTD(item) +
+                "<td>" + item.recipients + "</td>" +
+                buildTotalSubmittedTD(item) +
+                "</tr>";
+
+            $elements.push(element);
+        }
+        $("#" + widgetId + " .team-ranking-table tbody").append($elements);
+    }
+
+    function getType(team) {
+        if (team.nps) {
+            return "nps";
+        }
+        if (team.ces) {
+            return "ces";
+        }
+        if (team.csat) {
+            return "csat";
+        }
+    }
+
+    function filterRelevantTeams(teams) {
+        let collection = [];
+
+        for (let team of teams) {
+            if (team.type === "bu" && team.parent_UniqueID === undefined) {
+                collection.push(team);
+                continue;
+            }
+            if (team.nps !== undefined && team.type !== "bu") {
+                collection.push(team);
+                continue;
+            }
+            if (team.ces !== undefined && team.type !== "bu") {
+                collection.push(team);
+                continue;
+            }
+            if (team.csat !== undefined && team.type !== "bu") {
+                collection.push(team);
+                continue;
+            }
+        }
+
+        return collection;
+    }
+
+    function teamIsRoot(team) {
+        if (team.type === "bu" && team.parent_UniqueID === undefined) {
+            return "first";
+        } else {
+            return "";
+        }
+    }
+
+    function buildAliasSpan(team) {
+        if (team.parent_UniqueID !== undefined && team.alias !== undefined) {
+            return "<span class='alias'>" + team.alias + "</span>";
+        } else {
+            return "";
+        }
+    }
+
+    function buildScoreTD(team) {
+        let type;
+        let score;
+
+        if (team.nps !== undefined) {
+            type = "nps";
+            score = team.nps.nps;
+        }
+        if (team.ces !== undefined) {
+            type = "ces";
+            score = team.ces.ces;
+        }
+        if (team.csat !== undefined) {
+            type = "csat";
+            score = team.csat.csat;
+        }
+
+        return "<td class='" + type + "'>" + score + "</td>";
+    }
+
+    function buildTotalSubmittedTD(team) {
+        let totalSubmitted;
+        if (team.nps) {
+            totalSubmitted = team.nps.totalSubmitted;
+        }
+        if (team.ces) {
+            totalSubmitted = team.ces.totalSubmitted;
+        }
+        if (team.csat) {
+            totalSubmitted = team.csat.totalSubmitted;
+        }
+
+        return "<td>" + totalSubmitted + "</td>";
+    }
+
     // WIDGET ID 18 YES NO RESULT
-    function initialiseYesNoResultsWidget(widget) {
+    function initialiseYesNoResults(widget) {
         if (isNaN(widget["data"]["yes"]) || isNaN(widget["data"]["no"])) {
             displayNoData(widgtet);
             return;
@@ -702,7 +772,7 @@ $(function () {
     }
 
     // WIDGET ID 19 RECENT ANSWERS
-    function initialiseRecentAnswersWidget(widget) {
+    function initialiseRecentAnswers(widget) {
         $("#" + getWidgetUniqueID(widget) + " .wrapper").append(`<div class="recent-answers-content">
             <ul class="score-list"></ul>
         </div>`);
