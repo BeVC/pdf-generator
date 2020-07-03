@@ -146,6 +146,19 @@ $(function () {
                 case 24:
                     //initialiseSentimentByCategory(widget);
                     break;
+                // ISAAC V2
+                case 29:
+                    initialiseMentionsPerArea(widget);
+                    break;
+                case 30:
+                    //initialiseSentimentSpreadV2(widget);
+                    break;
+                case 31:
+                    //initialiseTopPositiveCategoriesV2(widget);
+                    break;
+                case 32:
+                    //initialiseTopNegativeCategoriesV2(widget);
+                    break;
             }
         }
     }
@@ -881,6 +894,19 @@ $(function () {
 
         return color;
     }
+
+    // WIDGET ID 29 MENTIONS PER AREA
+    function initialiseMentionsPerArea(widget) {
+        let widgetId = getWidgetUniqueID(widget);
+
+        $("#" + widgetId + " .wrapper").append(`<div class="sentiment-spread-content">
+
+            </div>`);
+    }
+
+    // WIDGET ID 30 SENTIMENT SPREAD V2
+    // WIDGET ID 31 TOP POSITIVE CATEGORIES V2
+    // WIDGET ID 32 TOP NEGATIVE CATEGORIES V2
 
     // GENERAL FUNCTIONS
     function getWidgetUniqueID(widget) {
