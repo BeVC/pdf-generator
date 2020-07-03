@@ -105,16 +105,20 @@ $(function () {
                     initialiseRepartitionZeroToTenScore(widget);
                     break;
                 case 11:
-                    initialiseEvolutionNpsScoreWidget(widget);
+                    //initialiseEvolutionNpsScoreWidget(widget);
+                    initialiseEvolutionChartScoreWidget(widget);
                     break;
                 case 12:
                     //initialiseEvolutionCesScoreWidget(widget);
+                    initialiseEvolutionChartScoreWidget(widget);
                     break;
                 case 13:
                     //initialiseEvolutionCsatScoreWidget(widget);
+                    initialiseEvolutionChartScoreWidget(widget);
                     break;
                 case 14:
                     //initialiseEvolutionZeroToTenScoreWidget(widget);
+                    initialiseEvolutionChartScoreWidget(widget);
                     break;
                 case 15:
                     //initialiseIsaacPieChart(widget);
@@ -605,10 +609,11 @@ $(function () {
         let myChart = Highcharts.chart(options);
     }
 
-    // WIDGET ID 11 EVOLUTION SCORE NPS
-    function initialiseEvolutionNpsScoreWidget(widget) {
+    // WIDGET ID 11/12/13/14 EVOLUTION SCORE NPS / CES / CSAT / 0-10
+    //function initialiseEvolutionNpsScoreWidget(widget) {
+    function initialiseEvolutionChartScoreWidget(widget) {
         let widgetId = getWidgetUniqueID(widget);
-        let chartData = prepareEvolutionData(widget["data"], "nps");
+        let chartData = prepareEvolutionData(widget["data"]);
 
         if (chartData.length < 2) {
             displayNoData(widget);
@@ -630,9 +635,6 @@ $(function () {
         setEvolutionChartInfos(widgetId, chartData[0]["x"], chartData[chartData.length - 1]["x"]);
     }
 
-    // WIDGET ID 12 EVOLUTION SCORE CES
-    // WIDGET ID 13 EVOLUTION SCORE CSAT
-    // WIDGET ID 14 EVOLUTION SCORE 0-10
     // WIDGET ID 15 ISAAC PIE CHART
     // WIDGET ID 16 ISAAC LINE CHART
     // WIDGET ID 17 DEPARTMENT RANKING
