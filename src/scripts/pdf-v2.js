@@ -148,10 +148,10 @@ $(function () {
                     break;
                 // ISAAC V2
                 case 29:
-                    initialiseMentionsPerArea(widget);
+                    //initialiseMentionsPerArea(widget);
                     break;
                 case 30:
-                    //initialiseSentimentSpreadV2(widget);
+                    initialiseSentimentSpreadV2(widget);
                     break;
                 case 31:
                     //initialiseTopPositiveCategoriesV2(widget);
@@ -580,7 +580,7 @@ $(function () {
 
         let options = getRepartitionChartOptions("repartition-" + widgetId, data, type);
         let myChart = Highcharts.chart(options);
-    }   
+    }
 
     // WIDGET ID 11/12/13/14 EVOLUTION SCORE NPS / CES / CSAT / 0-10
     function initialiseEvolutionChartScore(widget) {
@@ -608,7 +608,11 @@ $(function () {
     }
 
     // WIDGET ID 15 ISAAC PIE CHART
+    // old isaac, should not display on V2
+
     // WIDGET ID 16 ISAAC LINE CHART
+    // old isaac, should not display on V2
+
     // WIDGET ID 17 DEPARTMENT RANKING
     function initialiseTeamRanking(widget) {
         let widgetId = widget["uniqueID"];
@@ -896,15 +900,101 @@ $(function () {
     }
 
     // WIDGET ID 29 MENTIONS PER AREA
-    function initialiseMentionsPerArea(widget) {
+    // WIDGET ID 30 SENTIMENT SPREAD V2
+    function initialiseSentimentSpreadV2(widget) {
         let widgetId = getWidgetUniqueID(widget);
+        let widgetData = widget["data"];
+
+        if (getTotalMentions(widgetData) === 0) {
+            displayNoData(widget);
+            return;
+        }
 
         $("#" + widgetId + " .wrapper").append(`<div class="sentiment-spread-content">
-
+                <div class="chart">
+                    <div id="sentiment-`+ widgetId + `"></div>
+                </div>
+                <div class="data">
+                    <div class="row">
+                        <div class="data-item">
+                            <span class="grey">VERY POSITIVE</span>
+                            <span class="veryPositive">`+ getSentiment("VeryPositive", widgetData) + `%</span>
+                        </div>
+                        <div class="data-item">
+                            <span class="grey">POSITIVE</span>
+                            <span class="positive">`+ getSentiment("Positive", widgetData) + `%</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="data-item">
+                            <span class="grey">VERY NEGATIVE</span>
+                            <span class="veryNegative">`+ getSentiment("VeryNegative", widgetData) + `%</span>
+                        </div>
+                        <div class="data-item">
+                            <span class="grey">NEGATIVE</span>
+                            <span class="negative">`+ getSentiment("Negative", widgetData) + `%</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="data-item">
+                            <span class="grey">UNKNOWN</span>
+                            <span class="neutral">`+ getSentiment("Neutral", widgetData) + `%</span>
+                        </div>
+                    </div>
+                </div>
             </div>`);
+
+        let data = prepareSentimentSpreadData(widgetData);
+        let options = getSentimentSpreadOptions("sentiment-" + widgetId, getTotalMentions(widgetData), data);
+        let myChart = Highcharts.chart(options);
     }
 
-    // WIDGET ID 30 SENTIMENT SPREAD V2
+    function getTotalMentions(data) {
+        let total = 0;
+
+        if (data) {
+            data.forEach(sent => total += sent["amount"]);
+        }
+
+        return total;
+    }
+
+    function getSentiment(polarity, data) {
+        let result = data.find(sen => sen["polarity"] === polarity);
+        if (result) {
+            return result["percentage"];
+        } else {
+            return 0;
+        }
+    }
+
+    function prepareSentimentSpreadData(data) {
+        let dataCol = [];
+
+        data.forEach(item => {
+            dataCol.push({
+                name: item["polarity"],
+                y: item["percentage"],
+                color: getPolarityColor(item["polarity"]),
+                dataLabels: {
+                    enabled: false
+                }
+            });
+        });
+
+        return dataCol;
+    }
+
+    function getPolarityColor(polarity) {
+        switch (polarity) {
+            case "VeryPositive": return '#28AF53';
+            case "Positive": return '#94D52C';
+            case "Neutral": return '#eaecee';
+            case "Negative": return '#FF861E';
+            case "VeryNegative": return '#FA1D5B';
+        }
+    }
+
     // WIDGET ID 31 TOP POSITIVE CATEGORIES V2
     // WIDGET ID 32 TOP NEGATIVE CATEGORIES V2
 
@@ -1353,6 +1443,76 @@ $(function () {
                         fontFamily: "Arial"
                     }
                 },
+                data: data
+            }]
+        };
+
+        return options;
+    }
+
+    function getSentimentSpreadOptions(chartId, totalMentions, data) {
+        let options = {
+            chart: {
+                renderTo: chartId,
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: "pie",
+                margin: 0,
+                height: 230,
+                style: {
+                    fontFamily: "Arial"
+                }
+            },
+            title: {
+                text: "<span class='grey'>MENTIONS</span>",
+                align: 'center',
+
+                verticalAlign: 'middle',
+                y: 5,
+                style: {
+                    fontSize: 12
+                }
+            },
+            subtitle: {
+                text: "<span class='amount'>" + totalMentions + "</span>",
+                align: 'center',
+                verticalAlign: 'middle',
+                y: 25,
+                style: {
+                    fontSize: 18,
+                    color: '#003161'
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            exporting: {
+                enabled: false
+            },
+            marker: {
+                enabled: false
+            },
+            tooltip: {
+                enabled: false,
+                style: {
+                    display: "none"
+                }
+            },
+            plotOptions: {
+                pie: {
+                    dataLabels: {
+                        enabled: false
+                    },
+                    allowPointSelect: false
+                }
+            },
+            series: [{
+                enableMouseTracking: false,
+                animation: true,
+                colorByPoint: true,
+                borderWidth: 0,
+                innerSize: "60%",
                 data: data
             }]
         };

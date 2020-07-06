@@ -773,7 +773,7 @@ a {
         }
 
             .wrapper .team-ranking-content table tbody tr.first td {
-                vertical-align: middle;                
+                vertical-align: middle;
             }
 
                 .wrapper .team-ranking-content table tbody tr.first td:first-of-type {
@@ -812,6 +812,7 @@ a {
         .wrapper .team-ranking-content table tbody tr:not(.first) td {
             vertical-align: middle;
         }
+
             .wrapper .team-ranking-content table tbody tr:not(.first) td:first-of-type {
                 width: 7%;
                 padding-left: 12px;
@@ -819,17 +820,20 @@ a {
                 font-weight: 400;
                 color: #003161;
             }
+
             .wrapper .team-ranking-content table tbody tr:not(.first) td:nth-of-type(2) .name {
                 font-size: 13px;
                 font-weight: 400;
                 color: #003161;
             }
+
             .wrapper .team-ranking-content table tbody tr:not(.first) td:nth-of-type(2) .alias {
                 font-size: 13px;
                 text-transform: uppercase;
                 margin-left: 16px;
                 color: #003161;
             }
+
             .wrapper .team-ranking-content table tbody tr:not(.first) td:nth-of-type(3):nth-of-type(3) {
                 text-transform: uppercase;
                 width: 7%;
@@ -837,11 +841,13 @@ a {
                 font-family: Arial;
                 font-weight: 900;
             }
+
             .wrapper .team-ranking-content table tbody tr:not(.first) td:nth-of-type(4) {
                 width: 20%;
                 color: #003161;
                 font-size: 13px;
             }
+
             .wrapper .team-ranking-content table tbody tr:not(.first) td:nth-of-type(5) {
                 width: 7%;
                 color: #003161;
@@ -1039,5 +1045,64 @@ a {
 
 /*WIDGET MENTIONS PER AREA*/
 /*WIDGET SENTIMENT SPREAD V2*/
+.wrapper .sentiment-spread-content {
+    display: flex;
+    align-items: center;
+}
+
+    .wrapper .sentiment-spread-content .chart {
+       flex:1;
+    }
+
+    .wrapper .sentiment-spread-content .data {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        flex:1;
+    }
+
+        .wrapper .sentiment-spread-content .data .row {
+            display: flex;
+        }
+
+            .wrapper .sentiment-spread-content .data .row .data-item {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                margin: 10px;
+            }
+
+                .wrapper .sentiment-spread-content .data .row .data-item span.grey {
+                    font-size: 12px;
+                    text-transform: uppercase;
+                    font-family: Arial;
+                    margin-bottom: 2px;
+                }
+
+                .wrapper .sentiment-spread-content .data .row .data-item span.veryPositive {
+                    font-size: 18px;
+                    color: #28AF53;
+                }
+
+                .wrapper .sentiment-spread-content .data .row .data-item span.positive {
+                    font-size: 18px;
+                    color: #94D52C;
+                }
+
+                .wrapper .sentiment-spread-content .data .row .data-item span.neutral {
+                    font-size: 18px;
+                    color: #595959;
+                }
+
+                .wrapper .sentiment-spread-content .data .row .data-item span.negative {
+                    font-size: 18px;
+                    color: #FF861E;
+                }
+
+                .wrapper .sentiment-spread-content .data .row .data-item span.veryNegative {
+                    font-size: 18px;
+                    color: #FA1D5B;
+                }
+
 /*WIDGET TOP POSITIVE CATEGORIES V2*/
 /*WIDGET TOP NEGATIVE CATEGORIES V2*/
