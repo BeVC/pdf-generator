@@ -159,6 +159,9 @@ $(function () {
                 case 32:
                     initialiseTopCategoriesV2(widget, false);
                     break;
+                case 33:
+                    initialiseSentimentMainCategoriesV2(widget);
+                    break;
             }
         }
     }
@@ -1138,6 +1141,175 @@ $(function () {
         if (side === "right") {
             return !isPositive ? "grey" : "green";
         }
+    }
+
+    // WIDGET ID 33 SENTIMENT MAIN CATEGORIES V2
+    function initialiseSentimentMainCategoriesV2(widget) {
+        let widgetId = getWidgetUniqueID(widget);
+        let widgetData = widget["data"];
+
+        if (widgetData.length === 0) {
+            displayNoData(widget);
+            return;
+        }
+
+        $("#" + widgetId + " .wrapper").append(`<div class="sentiment-main-categories">
+                `+ buildSentimentList(widgetData).join("") + `
+            </div>`);
+    }
+
+    function buildSentimentList(widgetData) {
+        let $elements = [];
+
+        for (let item of widgetData) {
+            let element = `<div class="row">
+                                <div class="category">
+                                    <span>`+ item["categoryName"] + `</span>
+                                    <span>(`+ item["numberOfMentions"] + `)</span>
+                                </div>
+                                <div class="sentiment-bar">
+                                    <span class="`+ getSLClass(item["sentiments"], "left") + `">` + getCorrectSentimentPercentage(item["sentiments"], "left") + `%</span>
+                                    <div class="fill-container very-pos" style="`+ isBarVisible(item["sentiments"], "vpn") + `,width:`+ getPercentageByPolarity(item["sentiments"], 'vp') + `%">
+                                        <div class="fill"></div>
+                                    </div>
+                                    <div class="fill-container pos" style="`+ isBarVisible(item["sentiments"], "p") + `,width:`+ getPercentageByPolarity(item["sentiments"], 'p') + `%">
+                                        <div class="fill"></div>
+                                    </div>
+                                    <div class="fill-container unknown" style="`+ isBarVisible(item["sentiments"], "u") + `,width:`+ getPercentageByPolarity(item["sentiments"], 'u') + `%">
+                                        <div class="fill"></div>
+                                    </div>
+                                    <div class="fill-container neg" style="`+ isBarVisible(item["sentiments"], "n") + `,width:`+ getPercentageByPolarity(item["sentiments"], 'n') + `%">
+                                        <div class="fill"></div>
+                                    </div>
+                                    <div class="fill-container very-neg" style="`+ isBarVisible(item["sentiments"],"vn") + `,width:` + getPercentageByPolarity(item["sentiments"], 'vn') + `%">
+                                        <div class="fill"></div>
+                                    </div>
+                                    <span class="`+ getSLClass(item["sentiments"], "right") + `">` + getCorrectSentimentPercentage(item["sentiments"], "right") + `%</span>
+                                </div>
+                            </div>`;
+
+            $elements.push(element);
+        }
+
+        return $elements;
+    }
+
+    function getPercentageByPolarity(sentiments, polarity) {
+        switch (polarity) {
+            case "vp":
+                return (sentiments.find(item => item.polarity === "VeryPositive").percentage).toFixed(2);
+            case "p":
+                return (sentiments.find(item => item.polarity === "Positive").percentage).toFixed(2);
+            case "u":
+                return (sentiments.find(item => item.polarity === "Neutral").percentage).toFixed(2);
+            case "n":
+                return (sentiments.find(item => item.polarity === "Negative").percentage).toFixed(2);
+            case "vn":
+                return (sentiments.find(item => item.polarity === "VeryNegative").percentage).toFixed(2);
+            default:
+                return "0";
+        }
+    }
+
+    function getCorrectSentimentPercentage(sentiments, direction) {
+        let percentage = 0;
+        if (direction === 'left') {
+            percentage = sentiments.find(item => item.polarity === "VeryPositive").percentage + sentiments.find(item => item.polarity === "Positive").percentage;
+        } else {
+            percentage = sentiments.find(item => item.polarity === "VeryNegative").percentage + sentiments.find(item => item.polarity === "Negative").percentage;
+        }
+        return percentage.toFixed(2);
+    }
+
+    function getSLClass(sentiments, direction) {
+        let sentiment = determinePolarity(sentiments, direction);
+
+        let result = "none";
+        if (sentiment !== undefined && sentiments.length > 1) {
+            switch (sentiment) {
+                case "VeryPositive":
+                    result = "very-pos";
+                    break;
+                case "Positive":
+                    result = "pos";
+                    break;
+                case "Neutral":
+                    result = "unknown";
+                    break;
+                case "Negative":
+                    result = "neg";
+                    break;
+                case "VeryNegative":
+                    result = "very-neg";
+                    break;
+                default:
+                    result = "none";
+            }
+        }
+
+        return result;
+    }
+
+    function determinePolarity(sentiments, direction) {
+        let sentiment;
+        if (direction === "left") {
+            if (sentiments.find(item => item.polarity === "VeryPositive") !== undefined) {
+                sentiment = "VeryPositive";
+            } else if (sentiments.find(item => item.polarity === "Positive") !== undefined) {
+                sentiment = "Positive";
+            } else if (sentiments.find(item => item.polarity === "Neutral") !== undefined) {
+                sentiment = "Neutral";
+            } else if (sentiments.find(item => item.polarity === "Negative") !== undefined) {
+                sentiment = "Negative";
+            } else if (sentiments.find(item => item.polarity === "VeryNegative") !== undefined) {
+                sentiment = "VeryNegative";
+            }
+        } else {
+            if (sentiments.find(item => item.polarity === "VeryNegative") !== undefined) {
+                sentiment = "VeryNegative";
+            } else if (sentiments.find(item => item.polarity === "Negative") !== undefined) {
+                sentiment = "Negative";
+            } else if (sentiments.find(item => item.polarity === "Neutral") !== undefined) {
+                sentiment = "Neutral";
+            } else if (sentiments.find(item => item.polarity === "Positive") !== undefined) {
+                sentiment = "Positive";
+            } else if (sentiments.find(item => item.polarity === "VeryPositive") !== undefined) {
+                sentiment = "VeryPositive";
+            }
+        }
+
+        return sentiment;
+    }
+
+    function isBarVisible(sentiments, polarity) {
+        let item;
+        switch (polarity) {
+            case "vp":
+                item = sentiments.find(item => item.polarity === "VeryPositive");
+                break;
+            case "p":
+                item = sentiments.find(item => item.polarity === "Positive");
+                break;
+            case "u":
+                item = sentiments.find(item => item.polarity === "Neutral");
+                break;
+            case "n":
+                item = sentiments.find(item => item.polarity === "Negative");
+                break;
+            case "vn":
+                item = sentiments.find(item => item.polarity === "VeryNegative");
+                break;
+            default:
+                return false;
+        }
+
+        if (item === undefined) {
+            return "display:none";
+        }
+        if (item.percentage === 0) {
+            return "display:none";
+        }
+        return "";
     }
 
     // GENERAL FUNCTIONS

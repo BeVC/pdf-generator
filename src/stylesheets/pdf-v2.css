@@ -1337,4 +1337,141 @@ a {
                             border: 1px solid #ff1e5d;
                             color: #ff1e5d;
                         }
-/*WIDGET TOP NEGATIVE CATEGORIES V2*/
+
+/*WIDGET SENTIMENT MAIN CATEGORIES V2*/
+.wrapper .sentiment-main-categories {
+    flex-direction: column;
+}
+
+    .wrapper .sentiment-main-categories .row {
+        display: flex;
+        height: 45px;
+        align-items: center;
+        margin-left: 15px;
+    }
+
+        .wrapper .sentiment-main-categories .row .category {
+            width: 25%;
+            height: 20px;
+            display: flex;
+        }
+
+            .wrapper .sentiment-main-categories .row .category span {
+                font-size: 14px;
+                line-height: 18px;
+            }
+
+                .wrapper .sentiment-main-categories .row .category span:first-of-type {
+                    font-family: Arial;
+                    color: #003161;
+                    max-width: 80%;
+                    overflow: hidden;
+                    font-weight: 600;
+                }
+
+                .wrapper .sentiment-main-categories .row .category span:last-of-type {
+                    font-family: Arial;
+                    color: #ADADAD;
+                    margin-left: 5px;
+                }
+
+    .wrapper .sentiment-main-categories .sentiment-bar {
+        display: flex;
+        flex: 1;
+        height: 20px;
+    }
+
+        .wrapper .sentiment-main-categories .sentiment-bar span {
+            font-family: Arial;
+            font-size: 14px;
+            line-height: 18px;
+            min-width: 52px;
+        }
+
+            .wrapper .sentiment-main-categories .sentiment-bar span.none {
+                color: white;
+            }
+
+            .wrapper .sentiment-main-categories .sentiment-bar span.very-pos {
+                color: #28AF53;
+            }
+
+            .wrapper .sentiment-main-categories .sentiment-bar span.pos {
+                color: #94D52C;
+            }
+
+            .wrapper .sentiment-main-categories .sentiment-bar span.unknown {
+                color: #D9D9D9;
+            }
+
+            .wrapper .sentiment-main-categories .sentiment-bar span.neg {
+                color: #FF861E;
+            }
+
+            .wrapper .sentiment-main-categories .sentiment-bar span.very-neg {
+                color: #FC4A73;
+            }
+
+            .wrapper .sentiment-main-categories .sentiment-bar span:first-of-type {
+                margin-right: 6px;
+            }
+
+            .wrapper .sentiment-main-categories .sentiment-bar span:last-of-type {
+                margin-left: 6px;
+            }
+
+        .wrapper .sentiment-main-categories .sentiment-bar .fill-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+            .wrapper .sentiment-main-categories .sentiment-bar .fill-container.very-pos {
+                background-color: #28AF53;
+            }
+
+            .wrapper .sentiment-main-categories .sentiment-bar .fill-container.pos {
+                background-color: #94D52C;
+            }
+
+            .wrapper .sentiment-main-categories .sentiment-bar .fill-container.unknown {
+                background-color: #D9D9D9;
+            }
+
+            .wrapper .sentiment-main-categories .sentiment-bar .fill-container.neg {
+                background-color: #FF861E;
+            }
+
+            .wrapper .sentiment-main-categories .sentiment-bar .fill-container.very-neg {
+                background-color: #FC4A73;
+            }
+
+            .wrapper .sentiment-main-categories .sentiment-bar .fill-container:first-of-type {
+                border-top-left-radius: 5px;
+                border-bottom-left-radius: 5px;
+            }
+
+            .wrapper .sentiment-main-categories .sentiment-bar .fill-container:last-of-type {
+                border-top-right-radius: 5px;
+                border-bottom-right-radius: 5px;
+            }
+
+        .wrapper .sentiment-main-categories .sentiment-bar .fill {
+            height: 20px;
+            margin-top: auto;
+        }
+
+    .wrapper .sentiment-main-categories .row:not(:last-of-type) {
+        border-bottom: 1px solid #E7E7E7;
+    }
+
+    .wrapper .sentiment-main-categories .row.isFirst {
+        margin-left: 0px;
+    }
+
+        .wrapper .sentiment-main-categories .row.isFirst .category {
+            width: 250px;
+        }
+
+            .wrapper .sentiment-main-categories .row.isFirst .category span:first-of-type {
+                font-family: Arial;
+            }
