@@ -148,7 +148,7 @@ $(function () {
                     break;
                 // ISAAC V2
                 case 29:
-                    //initialiseMentionsPerArea(widget);
+                    initialiseMentionsPerArea(widget);
                     break;
                 case 30:
                     initialiseSentimentSpreadV2(widget);
@@ -900,12 +900,51 @@ $(function () {
     }
 
     // WIDGET ID 29 MENTIONS PER AREA
+    function initialiseMentionsPerArea(widget) {
+        let widgetId = getWidgetUniqueID(widget);
+
+        if (widget["data"].length === 0) {
+            displayNoData(widget);
+            return;
+        }
+
+        $("#" + widgetId + " .wrapper").append(`<div class="mentions-area-content">
+                <table>                    
+                </table>
+            </div>`);
+
+        let totalMentions = getTotalMentions(widget["data"], "count");
+
+        let $elements = [];
+        for (let i = 0; i < widget["data"].length; i++) {
+            let item = widget["data"][i];
+            let element = `<tr>
+                            <td>
+                                <span class="grey">`+ item["count"] + `</span>
+                            </td>
+                            <td>
+                                <span class="name">`+ item["area"]["name"] + `</span>
+                            </td>
+                            <td>
+                                <div class="bar">
+                                    <div class="fill" style="width: `+ calculatePercentage(item["count"], totalMentions) +`%"></div>
+                                </div>
+                            </td>
+                        </tr>`;
+
+            $elements.push(element);
+        }
+
+        $("#" + widgetId + " .mentions-area-content table").append($elements);
+    }
+      
+
     // WIDGET ID 30 SENTIMENT SPREAD V2
     function initialiseSentimentSpreadV2(widget) {
         let widgetId = getWidgetUniqueID(widget);
         let widgetData = widget["data"];
 
-        if (getTotalMentions(widgetData) === 0) {
+        if (getTotalMentions(widgetData,"amount") === 0) {
             displayNoData(widget);
             return;
         }
@@ -945,18 +984,8 @@ $(function () {
             </div>`);
 
         let data = prepareSentimentSpreadData(widgetData);
-        let options = getSentimentSpreadOptions("sentiment-" + widgetId, getTotalMentions(widgetData), data);
+        let options = getSentimentSpreadOptions("sentiment-" + widgetId, getTotalMentions(widgetData,"amount"), data);
         let myChart = Highcharts.chart(options);
-    }
-
-    function getTotalMentions(data) {
-        let total = 0;
-
-        if (data) {
-            data.forEach(sent => total += sent["amount"]);
-        }
-
-        return total;
     }
 
     function getSentiment(polarity, data) {
@@ -1112,6 +1141,16 @@ $(function () {
         $("#" + widgetId + " .highchart-info-1 .p1").append($elementOne);
         let $elementTwo = "<span>" + moment(date2).format("DD MMM YYYY") + "</span>";
         $("#" + widgetId + " .highchart-info-1 .p2").append($elementTwo);
+    }
+
+    function getTotalMentions(data, property) {
+        let total = 0;
+
+        if (data) {
+            data.forEach(sent => total += sent[property]);
+        }
+
+        return total;
     }
     // HIGHCHARTS CHART OPTIONS
     function getSolidGaugeOptions(chartId, data, score, type) {

@@ -1044,6 +1044,77 @@ a {
         }
 
 /*WIDGET MENTIONS PER AREA*/
+.wrapper .mentions-area-content{
+
+}
+
+.wrapper .mentions-area-content table{
+    display:flex;
+    border-collapse: separate;
+    width: 100%;
+    flex-flow:column;
+}
+    .wrapper .mentions-area-content table tbody{
+        width: 100%;
+        color: #003161;
+    }
+
+    .wrapper .mentions-area-content table tr{
+        font-size: 14px;
+    }
+
+    .wrapper .mentions-area-content table tr td{
+        vertical-align:middle;
+        padding: 5px 0;
+    }
+
+        .wrapper .mentions-area-content table tr td:first-of-type {
+            min-width: 60px;
+        }
+        .wrapper .mentions-area-content table tr td:nth-of-type(2) {
+            color: #003161;
+            min-width: 150px;
+        }
+        .wrapper .mentions-area-content table tr td:not(:last-of-type) {
+            padding-right: 10px;
+        }
+        .wrapper .mentions-area-content table tr td:last-of-type {
+            position: relative;
+            width: 100%;
+        }
+            .wrapper .mentions-area-content table tr td:last-of-type:before {
+                content: "";
+                width: 5px;
+                position: absolute;
+                height: 100%;
+                background: transparent linear-gradient(270deg, #00000000 0%, #000000 100%) 0% 0% no-repeat padding-box;
+                top: 0;
+                opacity: 0.1;
+                left: 0;
+            }
+
+        .wrapper .mentions-area-content table tr td .grey{
+            color: #ADADAD;
+            font-family: Arial;
+        }
+        .wrapper .mentions-area-content table tr td .name{
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .wrapper .mentions-area-content table tr td .bar {
+            height: 20px;
+            background-color: #efefef;
+            width: 100%;
+        }
+
+            .wrapper .mentions-area-content table tr td .bar .fill {
+                background: transparent linear-gradient(90deg, #bed9fd 0%, #006cff 100%) 0% 0% no-repeat padding-box;
+                border-radius: 0px 3px 3px 0px;
+                height: 100%;
+            }
+
 /*WIDGET SENTIMENT SPREAD V2*/
 .wrapper .sentiment-spread-content {
     display: flex;
