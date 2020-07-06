@@ -1044,76 +1044,81 @@ a {
         }
 
 /*WIDGET MENTIONS PER AREA*/
-.wrapper .mentions-area-content{
-
+.wrapper .mentions-area-content {
 }
 
-.wrapper .mentions-area-content table{
-    display:flex;
-    border-collapse: separate;
-    width: 100%;
-    flex-flow:column;
-}
-    .wrapper .mentions-area-content table tbody{
+    .wrapper .mentions-area-content table {
+        display: flex;
+        border-collapse: separate;
         width: 100%;
-        color: #003161;
+        flex-flow: column;
     }
 
-    .wrapper .mentions-area-content table tr{
-        font-size: 14px;
-    }
-
-    .wrapper .mentions-area-content table tr td{
-        vertical-align:middle;
-        padding: 5px 0;
-    }
-
-        .wrapper .mentions-area-content table tr td:first-of-type {
-            min-width: 60px;
-        }
-        .wrapper .mentions-area-content table tr td:nth-of-type(2) {
+        .wrapper .mentions-area-content table tbody {
+            width: 100%;
             color: #003161;
-            min-width: 150px;
         }
-        .wrapper .mentions-area-content table tr td:not(:last-of-type) {
-            padding-right: 10px;
+
+        .wrapper .mentions-area-content table tr {
+            font-size: 14px;
         }
-        .wrapper .mentions-area-content table tr td:last-of-type {
-            position: relative;
-            width: 100%;
-        }
-            .wrapper .mentions-area-content table tr td:last-of-type:before {
-                content: "";
-                width: 5px;
-                position: absolute;
-                height: 100%;
-                background: transparent linear-gradient(270deg, #00000000 0%, #000000 100%) 0% 0% no-repeat padding-box;
-                top: 0;
-                opacity: 0.1;
-                left: 0;
+
+            .wrapper .mentions-area-content table tr td {
+                vertical-align: middle;
+                padding: 5px 0;
             }
 
-        .wrapper .mentions-area-content table tr td .grey{
-            color: #ADADAD;
-            font-family: Arial;
-        }
-        .wrapper .mentions-area-content table tr td .name{
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
+                .wrapper .mentions-area-content table tr td:first-of-type {
+                    min-width: 60px;
+                }
 
-        .wrapper .mentions-area-content table tr td .bar {
-            height: 20px;
-            background-color: #efefef;
-            width: 100%;
-        }
+                .wrapper .mentions-area-content table tr td:nth-of-type(2) {
+                    color: #003161;
+                    min-width: 150px;
+                }
 
-            .wrapper .mentions-area-content table tr td .bar .fill {
-                background: transparent linear-gradient(90deg, #bed9fd 0%, #006cff 100%) 0% 0% no-repeat padding-box;
-                border-radius: 0px 3px 3px 0px;
-                height: 100%;
-            }
+                .wrapper .mentions-area-content table tr td:not(:last-of-type) {
+                    padding-right: 10px;
+                }
+
+                .wrapper .mentions-area-content table tr td:last-of-type {
+                    position: relative;
+                    width: 100%;
+                }
+
+                    .wrapper .mentions-area-content table tr td:last-of-type:before {
+                        content: "";
+                        width: 5px;
+                        position: absolute;
+                        height: 100%;
+                        background: transparent linear-gradient(270deg, #00000000 0%, #000000 100%) 0% 0% no-repeat padding-box;
+                        top: 0;
+                        opacity: 0.1;
+                        left: 0;
+                    }
+
+                .wrapper .mentions-area-content table tr td .grey {
+                    color: #ADADAD;
+                    font-family: Arial;
+                }
+
+                .wrapper .mentions-area-content table tr td .name {
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .wrapper .mentions-area-content table tr td .bar {
+                    height: 20px;
+                    background-color: #efefef;
+                    width: 100%;
+                }
+
+                    .wrapper .mentions-area-content table tr td .bar .fill {
+                        background: transparent linear-gradient(90deg, #bed9fd 0%, #006cff 100%) 0% 0% no-repeat padding-box;
+                        border-radius: 0px 3px 3px 0px;
+                        height: 100%;
+                    }
 
 /*WIDGET SENTIMENT SPREAD V2*/
 .wrapper .sentiment-spread-content {
@@ -1122,14 +1127,14 @@ a {
 }
 
     .wrapper .sentiment-spread-content .chart {
-       flex:1;
+        flex: 1;
     }
 
     .wrapper .sentiment-spread-content .data {
         display: flex;
         flex-wrap: wrap;
         flex-direction: column;
-        flex:1;
+        flex: 1;
     }
 
         .wrapper .sentiment-spread-content .data .row {
@@ -1176,4 +1181,160 @@ a {
                 }
 
 /*WIDGET TOP POSITIVE CATEGORIES V2*/
+.wrapper .top-categories-content {
+}
+
+    .wrapper .top-categories-content ul {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+        .wrapper .top-categories-content ul li {
+            display: flex;
+            border-bottom: 1px solid #EFEFEF;
+            height: 36px;
+            align-items: center;
+        }
+
+            .wrapper .top-categories-content ul li .name {
+                display: flex;
+                color: #003161;
+                width: 30%;
+            }
+
+                .wrapper .top-categories-content ul li .name .path {
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    font-weight: 600;
+                }
+
+                .wrapper .top-categories-content ul li .name .amount {
+                    margin: 0 4px;
+                    color: #ADADAD;
+                }
+
+            .wrapper .top-categories-content ul li.empty {
+                height: 25px
+            }
+
+                .wrapper .top-categories-content ul li.empty .name {
+                    color: #ADADAD;
+                    text-transform: uppercase;
+                    letter-spacing: 0.6px;
+                    font-size: 12px;
+                }
+
+            .wrapper .top-categories-content ul li:first-of-type .graph:before {
+                content: "";
+                width: 100%;
+                position: absolute;
+                height: 5px;
+                background: transparent linear-gradient(0deg, #00000000 0%, #000000 100%) 0% 0% no-repeat padding-box;
+                top: 0;
+                opacity: 0.1;
+                left: 0;
+            }
+
+            .wrapper .top-categories-content ul li:last-of-type {
+                border-bottom: none;
+            }
+
+                .wrapper .top-categories-content ul li:last-of-type .graph:after {
+                    content: "";
+                    width: 100%;
+                    position: absolute;
+                    height: 5px;
+                    background: transparent linear-gradient(180deg, #00000000 0%, #000000 100%) 0% 0% no-repeat padding-box;
+                    bottom: 0;
+                    opacity: 0.1;
+                    left: 0;
+                }
+
+            .wrapper .top-categories-content ul li .graph {
+                display: flex;
+                width: 70%;
+                height: 100%;
+                padding: 0 5px;
+                position: relative;
+            }
+
+                .wrapper .top-categories-content ul li .graph .side {
+                    display: flex;
+                    align-items: center;
+                    width: 100%;
+                    height: 100%;
+                }
+
+                    .wrapper .top-categories-content ul li .graph .side.left {
+                        background: #ff1e5d08;
+                        justify-content: flex-end;
+                        border-right: 1px solid #ADADAD;
+                        border-left: 1px solid #EFEFEF;
+                    }
+
+                        .wrapper .top-categories-content ul li .graph .side.left .bar .fill {
+                            border-radius: 5px 0px 0px 5px;
+                            justify-content: flex-end;
+                        }
+
+                    .wrapper .top-categories-content ul li .graph .side.right {
+                        display: flex;
+                        background: #15b70008;
+                        border-right: 1px solid #EFEFEF;
+                    }
+
+                        .wrapper .top-categories-content ul li .graph .side.right .bar .fill {
+                            border-radius: 0px 5px 5px 0px;
+                        }
+
+                .wrapper .top-categories-content ul li .graph .bar {
+                    height: 20px;
+                    display: flex;
+                    flex: 1;
+                }
+
+                    .wrapper .top-categories-content ul li .graph .bar .fill {
+                        display: flex;
+                    }
+
+                        .wrapper .top-categories-content ul li .graph .bar .fill.green {
+                            background: transparent linear-gradient(90deg, #aaffce 0%, #0fce60 100%) 0% 0% no-repeat padding-box;
+                        }
+
+                        .wrapper .top-categories-content ul li .graph .bar .fill.red {
+                            background: transparent linear-gradient(270deg, #ffbace 0%, #ff1e5d 100%) 0% 0% no-repeat padding-box;
+                        }
+
+                        .wrapper .top-categories-content ul li .graph .bar .fill.grey {
+                            background: #dbdbdb;
+                        }
+
+                        .wrapper .top-categories-content ul li .graph .bar .fill.transparent {
+                            flex: 1;
+                            min-width: 58px;
+                        }
+
+                    .wrapper .top-categories-content ul li .graph .bar .percentage-block {
+                        margin: 0 4px;
+                        border-radius: 5px;
+                        font-size: 12px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        height: 100%;
+                        padding: 0 4px;
+                        white-space: nowrap;
+                    }
+
+                        .wrapper .top-categories-content ul li .graph .bar .percentage-block.green {
+                            border: 1px solid #28af53;
+                            color: #28af53;
+                        }
+
+                        .wrapper .top-categories-content ul li .graph .bar .percentage-block.red {
+                            border: 1px solid #ff1e5d;
+                            color: #ff1e5d;
+                        }
 /*WIDGET TOP NEGATIVE CATEGORIES V2*/

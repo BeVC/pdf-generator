@@ -154,10 +154,10 @@ $(function () {
                     initialiseSentimentSpreadV2(widget);
                     break;
                 case 31:
-                    //initialiseTopPositiveCategoriesV2(widget);
+                    initialiseTopCategoriesV2(widget, true);
                     break;
                 case 32:
-                    //initialiseTopNegativeCategoriesV2(widget);
+                    initialiseTopCategoriesV2(widget, false);
                     break;
             }
         }
@@ -927,7 +927,7 @@ $(function () {
                             </td>
                             <td>
                                 <div class="bar">
-                                    <div class="fill" style="width: `+ calculatePercentage(item["count"], totalMentions) +`%"></div>
+                                    <div class="fill" style="width: `+ calculatePercentage(item["count"], totalMentions) + `%"></div>
                                 </div>
                             </td>
                         </tr>`;
@@ -937,14 +937,13 @@ $(function () {
 
         $("#" + widgetId + " .mentions-area-content table").append($elements);
     }
-      
 
     // WIDGET ID 30 SENTIMENT SPREAD V2
     function initialiseSentimentSpreadV2(widget) {
         let widgetId = getWidgetUniqueID(widget);
         let widgetData = widget["data"];
 
-        if (getTotalMentions(widgetData,"amount") === 0) {
+        if (getTotalMentions(widgetData, "amount") === 0) {
             displayNoData(widget);
             return;
         }
@@ -984,7 +983,7 @@ $(function () {
             </div>`);
 
         let data = prepareSentimentSpreadData(widgetData);
-        let options = getSentimentSpreadOptions("sentiment-" + widgetId, getTotalMentions(widgetData,"amount"), data);
+        let options = getSentimentSpreadOptions("sentiment-" + widgetId, getTotalMentions(widgetData, "amount"), data);
         let myChart = Highcharts.chart(options);
     }
 
@@ -1024,8 +1023,122 @@ $(function () {
         }
     }
 
-    // WIDGET ID 31 TOP POSITIVE CATEGORIES V2
-    // WIDGET ID 32 TOP NEGATIVE CATEGORIES V2
+    // WIDGET ID 31/32 TOP POSITIVE/NEGATIVE CATEGORIES V2
+    function initialiseTopCategoriesV2(widget, isPositive) {
+        let widgetId = getWidgetUniqueID(widget);
+        let widgetData = widget["data"];
+        let stretchMultiplier = determineStretchMultiplier(widgetData);
+
+
+        if (widgetData.length === 0) {
+            displayNoData(widget);
+            return;
+        }
+
+        $("#" + widgetId + " .wrapper").append(`<div class="top-categories-content">
+                <ul class="chart">
+                    <li class="empty">
+                        <div class="name">
+                            <span class="path">category</span>
+                        </div>
+                        <div class="graph">
+                            <div class="left side"></div>
+                            <div class="right side"></div>
+                        </div>
+                    </li>
+                    `+ buildListElements(widgetData, isPositive, stretchMultiplier).join("") + `
+                    <li class="empty">
+                        <div class="name">
+                        </div>
+                        <div class="graph">
+                            <div class="left side"></div>
+                            <div class="right side"></div>
+                        </div>
+                    </li>
+                </ul>
+            </div>`);
+    }
+
+    function buildListElements(widgetData, isPositive, stretchMultiplier) {
+        let $elements = [];
+        for (let item of widgetData) {
+            let element = `<li>
+                    <div class="name">
+                        <span class="path">`+ parsePathToString(item["path"]) + `</span>  
+                        <span class="amount">(`+ getAmount(item, isPositive) + `)</span>
+                    </div>
+                    <div class="graph">
+                        <div class="left side">
+                            <div class="bar">
+                                <div class="fill transparent">
+                                    <div class="percentage-block red" style="`+ getDisplayState(isPositive, "left") + `">
+                                        <span>`+ (item["negativePercentage"] * 100).toFixed(2) + `%</span>
+                                    </div>
+                                </div>
+                                <div class="fill `+ getClass(isPositive, "left") + `" style="width:` + item["negativePercentage"] * 100 * stretchMultiplier + `%">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="right side">
+                            <div class="bar">
+                                <div class="fill `+ getClass(isPositive, "right") + `" style="width: ` + item["positivePercentage"] * 100 * stretchMultiplier + `%">
+                                </div>
+                                <div class="fill transparent">
+                                    <div class="percentage-block green" style="`+ getDisplayState(isPositive, "right") + `">
+                                        <span>`+ (item["positivePercentage"] * 100).toFixed(2) + `%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>`;
+
+            $elements.push(element);
+        }
+
+        return $elements;
+    }
+
+    function determineStretchMultiplier(data) {
+        let negativeMax = Math.max.apply(Math, data.map(function (o) { return o.negativePercentage; }));
+        let positiveMax = Math.max.apply(Math, data.map(function (o) { return o.positivePercentage; }));
+        let maxPercentage = negativeMax > positiveMax ? negativeMax : positiveMax;
+        let stretchMultiplier = 1 / maxPercentage;
+        return stretchMultiplier;
+    }
+
+    function parsePathToString(paths) {
+        let pathString = "";
+        paths.forEach(element => {
+            pathString += element.name + '';
+            if (element !== paths[paths.length - 1]) {
+                pathString += '/';
+            }
+        });
+        return pathString;
+    }
+
+    function getAmount(data, isPositive) {
+        return isPositive ? data["positiveAmount"] : data["negativeAmount"];
+    }
+
+    function getDisplayState(state, side) {
+        if (state && side === "left") {
+            return "display:none";
+        }
+        if (!state && side === "right") {
+            return "display: none";
+        }
+    }
+
+    function getClass(isPositive, side) {
+        if (side === "left") {
+            return isPositive ? "grey" : "red";
+        }
+        if (side === "right") {
+            return !isPositive ? "grey" : "green";
+        }
+    }
 
     // GENERAL FUNCTIONS
     function getWidgetUniqueID(widget) {
@@ -1111,11 +1224,6 @@ $(function () {
                         case 'score4': case 'score5': item.color = colorPromoters; break;
                     }
                 }
-
-                /*if (metric === "0to10") {
-
-                }*/
-
                 convertedData.push(item);
             }
         }
@@ -1377,24 +1485,6 @@ $(function () {
                 }
             };
         }
-        //if (type === "0to10") {
-        //    options["xAxis"] = {
-        //        categories: ["0", "1", "2", "3", "4", "5",
-        //            "6", "7", "8", "9", "10"],
-        //        tickLength: 0,
-        //        lineColor: "#e0e0e0",
-        //        lineWidth: 3,
-        //        offset: 5,
-        //        labels: {
-        //            style: {
-        //                fontFamily: "Arial",
-        //                fontSize: "12px",
-        //                color: "#2c3846",
-        //                fontWeight: 700
-        //            }
-        //        }
-        //    };
-        //}
 
         return options;
     }
