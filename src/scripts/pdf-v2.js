@@ -1555,6 +1555,7 @@ $(function () {
                     fontWeight: 400
                 },
                 height: 290,
+                width: 1000,
                 type: "column"
             },
             credits: {
@@ -1691,7 +1692,8 @@ $(function () {
                 style: {
                     fontFamily: "Arial"
                 },
-                height: 275
+                height: 275,
+                width: 900
             },
             credits: {
                 enabled: false
