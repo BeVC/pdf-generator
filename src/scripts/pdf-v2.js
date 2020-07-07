@@ -27,6 +27,7 @@ $(function () {
                         from <span>`+ widget["beginEndDates"][0] + `</span> tot <span>` + widget["beginEndDates"][1] + `</span>
                     </div>
                     <div class='filter-block'>
+                        <span>PERIOD: `+ getPeriod(widget["period"]) + `</span>
                     </div>
                 </div>
                 <div class='wrapper'>
@@ -43,29 +44,9 @@ $(function () {
                 $("#cd-content #" + widget["uniqueID"] + " .widget-header .date").hide();
             }
 
-            /*if (widget["period"] === undefined && widget["polarity"] === undefined) {
-                $("#cd-content #" + widget["uniqueID"] + " .widget-header .filter-block").hide();
-            }
             if (widget["period"] === undefined) {
                 $("#cd-content #" + widget["uniqueID"] + " .widget-header .filter-block span:first-of-type").hide();
             }
-            if (widget["polarity"] === undefined) {
-                $("#cd-content #" + widget["uniqueID"] + " .widget-header .filter-block span:nth-of-type(2)").hide();
-            }
-
-            if (widget["id"] === 16) {
-                $("#cd-content #" + widget["uniqueID"] + " .widget-header").css("flex-direction", "column");
-                $("#cd-content #" + widget["uniqueID"] + " .widget-header").css("justify-content", "center");
-                $("#cd-content #" + widget["uniqueID"] + " .widget-header").css("height", "80px");
-                $("#cd-content #" + widget["uniqueID"] + " .widget-header h2").css("align-self", "flex-start");
-                $("#cd-content #" + widget["uniqueID"] + " .widget-header h2").css("line-height", "20px");
-                $("#cd-content #" + widget["uniqueID"] + " .widget-header .date").css("align-self", "flex-start");
-                $("#cd-content #" + widget["uniqueID"] + " .widget-header .date").css("line-height", "20px");
-                $("#cd-content #" + widget["uniqueID"] + " .widget-header .date").css("margin-left", "0px");
-                $("#cd-content #" + widget["uniqueID"] + " .widget-header .filter-block").css("align-self", "flex-start");
-                $("#cd-content #" + widget["uniqueID"] + " .widget-header .filter-block").css("line-height", "20px");
-                $("#cd-content #" + widget["uniqueID"] + " .widget-header .filter-block").css("margin-left", "0px");
-            }*/
         }
     }
 
@@ -1328,6 +1309,19 @@ $(function () {
     }
 
     // GENERAL FUNCTIONS
+    function getPeriod(period) {
+        switch (period) {
+            case 1:
+                return "Weekly";
+            case 2:
+                return "Monthly";
+            case 0:
+                return "Daily";
+            default:
+                return "";
+        }
+    }
+
     function getWidgetUniqueID(widget) {
         return widget["uniqueID"];
     }

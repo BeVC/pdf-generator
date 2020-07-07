@@ -156,7 +156,16 @@ a {
         }
 
         .widget-body .widget-header .filter-block {
+            margin-left: auto;
         }
+
+            .widget-body .widget-header .filter-block span {
+                font-size: 13px;
+                letter-spacing: 1px;
+                color: #1f2832;
+                font-family: Arial,HelveticaNeue;
+                font-weight: bold;
+            }
 
     .widget-body .wrapper {
         padding: 22px;
