@@ -1209,15 +1209,15 @@ $(function () {
     function getPercentageByPolarity(sentiments, polarity) {
         switch (polarity) {
             case "vp":
-                return (sentiments.find(item => item.polarity === "VeryPositive").percentage).toFixed(2);
+                return (sentiments.find(item => item.polarity === "VeryPositive").percentage*100).toFixed(2);
             case "p":
-                return (sentiments.find(item => item.polarity === "Positive").percentage).toFixed(2);
+                return (sentiments.find(item => item.polarity === "Positive").percentage*100).toFixed(2);
             case "u":
-                return (sentiments.find(item => item.polarity === "Neutral").percentage).toFixed(2);
+                return (sentiments.find(item => item.polarity === "Neutral").percentage*100).toFixed(2);
             case "n":
-                return (sentiments.find(item => item.polarity === "Negative").percentage).toFixed(2);
+                return (sentiments.find(item => item.polarity === "Negative").percentage*100).toFixed(2);
             case "vn":
-                return (sentiments.find(item => item.polarity === "VeryNegative").percentage).toFixed(2);
+                return (sentiments.find(item => item.polarity === "VeryNegative").percentage*100).toFixed(2);
             default:
                 return "0";
         }
