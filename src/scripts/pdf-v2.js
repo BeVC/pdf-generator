@@ -1168,25 +1168,37 @@ $(function () {
                                     <span>(`+ item["numberOfMentions"] + `)</span>
                                 </div>
                                 <div class="sentiment-bar">
-                                    <span class="`+ getSLClass(item["sentiments"], "left") + `">` + getCorrectSentimentPercentage(item["sentiments"], "left") + `%</span>
-                                    <div class="fill-container very-pos" style="`+ isBarVisible(item["sentiments"], "vpn") + `,width:`+ getPercentageByPolarity(item["sentiments"], 'vp') + `%">
+                                    <span class="`+ getSLClass(item["sentiments"], "left") + `">` + getCorrectSentimentPercentage(item["sentiments"], "left") + `%</span>`
+
+            if (isBarVisible(item["sentiments"], "vp")) {
+                element += `<div class="fill-container very-pos" style="width:` + getPercentageByPolarity(item["sentiments"], 'vp') + `%">
                                         <div class="fill"></div>
-                                    </div>
-                                    <div class="fill-container pos" style="`+ isBarVisible(item["sentiments"], "p") + `,width:`+ getPercentageByPolarity(item["sentiments"], 'p') + `%">
+                                    </div>`;
+            }
+            if (isBarVisible(item["sentiments"], "p")) {
+                element += `<div class="fill-container pos" style="width:` + getPercentageByPolarity(item["sentiments"], 'p') + `%">
                                         <div class="fill"></div>
-                                    </div>
-                                    <div class="fill-container unknown" style="`+ isBarVisible(item["sentiments"], "u") + `,width:`+ getPercentageByPolarity(item["sentiments"], 'u') + `%">
+                                    </div>`;
+            }
+            if (isBarVisible(item["sentiments"], "u")) {
+                element += `<div class="fill-container unknown" style="width:` + getPercentageByPolarity(item["sentiments"], 'u') + `%">
                                         <div class="fill"></div>
-                                    </div>
-                                    <div class="fill-container neg" style="`+ isBarVisible(item["sentiments"], "n") + `,width:`+ getPercentageByPolarity(item["sentiments"], 'n') + `%">
+                                    </div>`;
+            }
+            if (isBarVisible(item["sentiments"], "n")) {
+                element += `<div class="fill-container neg" style="width:` + getPercentageByPolarity(item["sentiments"], 'n') + `%">
                                         <div class="fill"></div>
-                                    </div>
-                                    <div class="fill-container very-neg" style="`+ isBarVisible(item["sentiments"],"vn") + `,width:` + getPercentageByPolarity(item["sentiments"], 'vn') + `%">
+                                    </div>`;
+            }
+            if (isBarVisible(item["sentiments"], "vn")) {
+                element += `<div class="fill-container very-neg" style="width:` + getPercentageByPolarity(item["sentiments"], 'vn') + `%">
                                         <div class="fill"></div>
-                                    </div>
-                                    <span class="`+ getSLClass(item["sentiments"], "right") + `">` + getCorrectSentimentPercentage(item["sentiments"], "right") + `%</span>
-                                </div>
-                            </div>`;
+                                    </div>`;
+            }
+
+            element += `<span class="` + getSLClass(item["sentiments"], "right") + `">` + getCorrectSentimentPercentage(item["sentiments"], "right") + `%</span>
+                            </div>
+                        </div>`;
 
             $elements.push(element);
         }
@@ -1304,12 +1316,15 @@ $(function () {
         }
 
         if (item === undefined) {
-            return "display:none";
+            //return "display:none; ";
+            return false;
         }
         if (item.percentage === 0) {
-            return "display:none";
+            //return "display:none; ";
+            return false;
         }
-        return "";
+        //return "";
+        return true;
     }
 
     // GENERAL FUNCTIONS
