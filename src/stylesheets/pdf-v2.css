@@ -1124,17 +1124,18 @@ a {
 .wrapper .sentiment-spread-content {
     display: flex;
     align-items: center;
+    justify-content:flex-start;
 }
 
     .wrapper .sentiment-spread-content .chart {
-        flex: 1;
+       width: 50%;
     }
 
     .wrapper .sentiment-spread-content .data {
         display: flex;
         flex-wrap: wrap;
         flex-direction: column;
-        flex: 1;
+        width: 50%
     }
 
         .wrapper .sentiment-spread-content .data .row {

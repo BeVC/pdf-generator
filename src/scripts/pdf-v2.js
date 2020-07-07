@@ -1776,6 +1776,7 @@ $(function () {
                 type: "pie",
                 margin: 0,
                 height: 230,
+                width: 400,
                 style: {
                     fontFamily: "Arial"
                 }
