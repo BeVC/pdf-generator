@@ -318,10 +318,8 @@ $(function () {
         let widgetId = getWidgetUniqueID(widget);
 
         $("#" + widgetId + " .wrapper").append(`<div class="cescsat-score-bar">
-                <div class="cescsat-gauge">
-                    <p class="left">Strongly disagree</p>
-                    <div id="csatContainer-`+ widgetId + `"></div>
-                    <p class="right">Strongly agree</p>
+                <div class="cescsat-gauge">                  
+                    <div id="csatContainer-`+ widgetId + `"></div>                   
                 </div>
                 <div class="ces-bars">
                     <table>
@@ -563,6 +561,9 @@ $(function () {
             </div>`);
 
         let options = getRepartitionChartOptions("repartition-" + widgetId, data, type);
+        if (widget["id"] === 9) {
+            options.chart.width = 680;
+        }
         let myChart = Highcharts.chart(options);
     }
 
@@ -1415,7 +1416,7 @@ $(function () {
     function prepareEvolutionData(data, type) {
         let collection = [];
         for (let item of data) {
-            let value = (item.count ? item.count : 0);
+            let value = (item.csat ? item.csat : 0) + (item.ces ? item.ces : 0) + (item.nps ? item.nps : 0) + (item.count ? item.count : 0);
 
             collection.push({
                 x: moment.utc(item.date).valueOf(),
@@ -1549,7 +1550,7 @@ $(function () {
                     fontWeight: 400
                 },
                 height: 290,
-                width: 1000,
+                width: 900,
                 type: "column"
             },
             credits: {
@@ -1682,7 +1683,7 @@ $(function () {
                 plotBorderWidth: undefined,
                 plotShadow: false,
                 type: "spline",
-                spacing: [0, 0, 0, 0],
+                //spacing: [0, 0, 0, 0],
                 style: {
                     fontFamily: "Arial"
                 },

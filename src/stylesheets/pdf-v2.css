@@ -449,28 +449,6 @@ a {
         margin-bottom: 10px;
     }
 
-        .wrapper .cescsat-score-bar .cescsat-gauge .left {
-            align-self: flex-end;
-            padding-top: 12px;
-            color: #ADADAD;
-            font-family: Arial;
-            font-size: 12px;
-            padding-bottom: 3px;
-            width: 60px;
-            text-align: right;
-        }
-
-        .wrapper .cescsat-score-bar .cescsat-gauge .right {
-            align-self: flex-end;
-            padding-top: 12px;
-            color: #ADADAD;
-            font-family: Arial;
-            font-size: 12px;
-            padding-bottom: 3px;
-            width: 60px;
-            text-align: left;
-        }
-
     .wrapper .cescsat-score-bar .ces-bars {
         display: flex;
         flex-direction: column;
