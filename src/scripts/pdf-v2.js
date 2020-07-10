@@ -187,31 +187,39 @@ $(function () {
             return;
         }
 
-        $("#" + getWidgetUniqueID(widget) + " .wrapper").append(`<div class='nps-score-bar'>
+        let npsBar = `<div class='nps-score-bar'>
             <div class='nps-result'>
                 <div class='metric'>
                     <h1>`+ widget["data"]["nps"] + `</h1>
                     <p>NPS</p>                    
                 </div>
             </div>
-            <div class='nps-bar'>
-                <div class='item nps-detractors' style="width:`+ widget["data"]["detractors"] + `%">
+            <div class='nps-bar'>`;
+        if (widget["data"]["detractors"] > 0) {
+            npsBar += `<div class='item nps-detractors' style="width:` + widget["data"]["detractors"] + `%">
                     <h4>
                         `+ widget["data"]["detractors"] + `%<span>Detractors</span>
                     </h4>
-                </div>
-                <div class='item nps-passives' style="width:`+ widget["data"]["passive"] + `%">
+                </div>`;
+        }
+        if (widget["data"]["passive"] > 0) {
+            npsBar += `<div class='item nps-passives' style="width:` + widget["data"]["passive"] + `%">
                     <h4>
                         `+ widget["data"]["passive"] + `%<span>Passives</span>
                     </h4>
-                </div>
-                <div class='item nps-promoters' style="width:`+ widget["data"]["promoters"] + `%">
+                </div>`;
+        }
+        if (widget["data"]["promoters"] > 0) {
+            npsBar += `<div class='item nps-promoters' style="width:` + widget["data"]["promoters"] + `%">
                     <h4>
                         `+ widget["data"]["promoters"] + `%<span>Promoters</span>
                     </h4>
-                </div>
-            </div>
-        </div>`);
+                </div>`;
+        }
+        npsBar += `</div>
+        </div>`;
+
+        $("#" + getWidgetUniqueID(widget) + " .wrapper").append(npsBar);
 
         if (widget["data"]["nps"] <= -100) {
             $("#" + widget["uniqueID"] + " .wrapper .nps-score-bar .nps-result h1").addClass("minushundred");
@@ -975,7 +983,7 @@ $(function () {
     function getSentiment(polarity, data) {
         let result = data.find(sen => sen["polarity"] === polarity);
         if (result) {
-            return result["percentage"];
+            return result["percentage"].toFixed(2);
         } else {
             return 0;
         }
@@ -1191,15 +1199,15 @@ $(function () {
     function getPercentageByPolarity(sentiments, polarity) {
         switch (polarity) {
             case "vp":
-                return (sentiments.find(item => item.polarity === "VeryPositive").percentage*100).toFixed(2);
+                return (sentiments.find(item => item.polarity === "VeryPositive").percentage * 100).toFixed(2);
             case "p":
-                return (sentiments.find(item => item.polarity === "Positive").percentage*100).toFixed(2);
+                return (sentiments.find(item => item.polarity === "Positive").percentage * 100).toFixed(2);
             case "u":
-                return (sentiments.find(item => item.polarity === "Neutral").percentage*100).toFixed(2);
+                return (sentiments.find(item => item.polarity === "Neutral").percentage * 100).toFixed(2);
             case "n":
-                return (sentiments.find(item => item.polarity === "Negative").percentage*100).toFixed(2);
+                return (sentiments.find(item => item.polarity === "Negative").percentage * 100).toFixed(2);
             case "vn":
-                return (sentiments.find(item => item.polarity === "VeryNegative").percentage*100).toFixed(2);
+                return (sentiments.find(item => item.polarity === "VeryNegative").percentage * 100).toFixed(2);
             default:
                 return "0";
         }
