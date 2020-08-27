@@ -983,7 +983,7 @@ $(function () {
     function getSentiment(polarity, data) {
         let result = data.find(sen => sen["polarity"] === polarity);
         if (result) {
-            return result["percentage"].toFixed(2);
+            return (result["percentage"]*100).toFixed(2);
         } else {
             return 0;
         }
@@ -1220,7 +1220,7 @@ $(function () {
         } else {
             percentage = sentiments.find(item => item.polarity === "VeryNegative").percentage + sentiments.find(item => item.polarity === "Negative").percentage;
         }
-        return percentage.toFixed(2);
+        return (percentage*100).toFixed(2);
     }
 
     function getSLClass(sentiments, direction) {
