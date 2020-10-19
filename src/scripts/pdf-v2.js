@@ -1103,7 +1103,7 @@ $(function () {
     function parsePathToString(paths) {
         let pathString = "";
         paths.forEach(element => {
-            pathString += element.name + '';
+            pathString += element.catName + '';
             if (element !== paths[paths.length - 1]) {
                 pathString += '/';
             }
@@ -1154,7 +1154,7 @@ $(function () {
         for (let item of widgetData) {
             let element = `<div class="row">
                                 <div class="category">
-                                    <span>`+ item["categoryName"] + `</span>
+                                    <span>`+ item["catName"] + `</span>
                                     <span>(`+ item["numberOfMentions"] + `)</span>
                                 </div>
                                 <div class="sentiment-bar">

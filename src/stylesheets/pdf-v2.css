@@ -1059,7 +1059,8 @@ a {
 
                 .wrapper .mentions-area-content table tr td:nth-of-type(2) {
                     color: #003161;
-                    min-width: 150px;
+                    min-width: 250px;
+                    min-width: 250px;
                 }
 
                 .wrapper .mentions-area-content table tr td:not(:last-of-type) {
