@@ -1103,7 +1103,7 @@ $(function () {
     function parsePathToString(paths) {
         let pathString = "";
         paths.forEach(element => {
-            pathString += element.catName + '';
+            pathString += element.catName || element.name + '';
             if (element !== paths[paths.length - 1]) {
                 pathString += '/';
             }
@@ -1154,7 +1154,7 @@ $(function () {
         for (let item of widgetData) {
             let element = `<div class="row">
                                 <div class="category">
-                                    <span>`+ item["catName"] + `</span>
+                                    <span>`+ getCategoryName(item) + `</span>
                                     <span>(`+ item["numberOfMentions"] + `)</span>
                                 </div>
                                 <div class="sentiment-bar">
@@ -1194,6 +1194,15 @@ $(function () {
         }
 
         return $elements;
+    }
+
+    function getCategoryName(item) {
+        return item["catName"] || item["categoryName"];
+
+        /*if (item["catName"] !== undefined) {
+            return item["catName"];
+        }
+        if(item["categoryName"] !== undefined)*/
     }
 
     function getPercentageByPolarity(sentiments, polarity) {
