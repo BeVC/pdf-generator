@@ -13,7 +13,7 @@ $(function () {
 
     function setMasterDates() {
         $("#pdf-start .title").append(`<div class='masterdates'>
-            from <span>`+ customDashboardData["masterDateRange"][0] + `</span> to <span>` + customDashboardData["masterDateRange"][1] + `</span>
+            `+ getTranslation(customDashboardData["translations"], 0, "FROM") + ` <span>` + customDashboardData["masterDateRange"][0] + `</span> ` + getTranslation(customDashboardData["translations"], 0, "TO") + ` <span>` + customDashboardData["masterDateRange"][1] + `</span>
         </div>`);
     }
 
@@ -24,10 +24,10 @@ $(function () {
                 <div class='widget-header'>
                     <h2>`+ widget["name"] + `</h2>
                     <div class='date'>
-                        from <span>`+ widget["beginEndDates"][0] + `</span> tot <span>` + widget["beginEndDates"][1] + `</span>
+                        `+ getTranslation(customDashboardData["translations"], 0, "FROM") + ` <span>` + widget["beginEndDates"][0] + `</span> ` + getTranslation(customDashboardData["translations"], 0, "TO") + ` <span>` + widget["beginEndDates"][1] + `</span>
                     </div>
                     <div class='filter-block'>
-                        <span>PERIOD: `+ getPeriod(widget["period"]) + `</span>
+                        <span>`+ getTranslation(customDashboardData["translations"], 0, "CDPERIOD") + `: ` + getPeriod(widget["period"]) + `</span>
                     </div>
                 </div>
                 <div class='wrapper'>
@@ -35,7 +35,7 @@ $(function () {
                 </div>
                 <div class="no-data-in-chart" style="display:none">
                     <div>
-                        <p>not enough data</p>
+                        <p>`+ getTranslation(customDashboardData["translations"], 0, "NOT_ENOUGH_DATA") + `</p>
                     </div>
                 </div>
             </div>`);
@@ -191,28 +191,28 @@ $(function () {
             <div class='nps-result'>
                 <div class='metric'>
                     <h1>`+ widget["data"]["nps"] + `</h1>
-                    <p>NPS</p>                    
+                    <p>`+ getTranslation(customDashboardData["translations"], widget["id"], "NPS") + `</p>                    
                 </div>
             </div>
             <div class='nps-bar'>`;
         if (widget["data"]["detractors"] > 0) {
             npsBar += `<div class='item nps-detractors' style="width:` + widget["data"]["detractors"] + `%">
                     <h4>
-                        `+ widget["data"]["detractors"] + `%<span>Detractors</span>
+                        `+ widget["data"]["detractors"] + `%<span>` + getTranslation(customDashboardData["translations"], widget["id"], "DETRACTORS") + `</span>
                     </h4>
                 </div>`;
         }
         if (widget["data"]["passive"] > 0) {
             npsBar += `<div class='item nps-passives' style="width:` + widget["data"]["passive"] + `%">
                     <h4>
-                        `+ widget["data"]["passive"] + `%<span>Passives</span>
+                        `+ widget["data"]["passive"] + `%<span>` + getTranslation(customDashboardData["translations"], widget["id"], "PASSIVES") + `</span>
                     </h4>
                 </div>`;
         }
         if (widget["data"]["promoters"] > 0) {
             npsBar += `<div class='item nps-promoters' style="width:` + widget["data"]["promoters"] + `%">
                     <h4>
-                        `+ widget["data"]["promoters"] + `%<span>Promoters</span>
+                        `+ widget["data"]["promoters"] + `%<span>` + getTranslation(customDashboardData["translations"], widget["id"], "PROMOTERS") + `</span>
                     </h4>
                 </div>`;
         }
@@ -254,7 +254,7 @@ $(function () {
                     <table>
                         <tr>
                             <td>
-                                <span>Disagree</span>
+                                <span>`+ getTranslation(customDashboardData["translations"], widget["id"], "DISAGREE") + `</span>
                             </td>
                             <td>
                                 <span>`+ getVeryNegativeSVG() + `</span>
@@ -269,7 +269,7 @@ $(function () {
                         </tr>
                         <tr>
                             <td>
-                                <span>Agree</span>
+                                <span>`+ getTranslation(customDashboardData["translations"], widget["id"], "AGREE") + `</span>
                             </td>
                             <td>
                                 <span>`+ getVeryPositiveSVG() + `</span>
@@ -286,7 +286,7 @@ $(function () {
                 </div>
             </div>`);
         let data = getCesData(widget["data"]);
-        let options = getSolidGaugeOptions("cesContainer-" + widgetId, data, widget["data"]["ces"].toFixed(2), "CES");
+        let options = getSolidGaugeOptions("cesContainer-" + widgetId, data, widget["data"]["ces"].toFixed(2), getTranslation(customDashboardData["translations"], widget["id"], "CES"));
         options.yAxis[0].tickInterval = 14.3;
         options.yAxis[0].stops = [
             [0, '#fff'],
@@ -333,7 +333,7 @@ $(function () {
                     <table>
                         <tr>
                             <td>
-                                <span>Unsatisfied</span>
+                                <span>`+ getTranslation(customDashboardData["translations"], widget["id"], "UNSATISFIED") + `</span>
                             </td>
                             <td>
                                 <span>`+ getVeryNegativeSVG() + `</span>
@@ -348,7 +348,7 @@ $(function () {
                         </tr>
                         <tr>
                             <td>
-                                <span>Neutrals</span>
+                                <span>`+ getTranslation(customDashboardData["translations"], widget["id"], "NEUTRALS") + `</span>
                             </td>
                             <td>
                                 <span>`+ getUnknownSVG() + `</span>
@@ -363,7 +363,7 @@ $(function () {
                         </tr>
                         <tr>
                             <td>
-                                <span>Satisfied</span>
+                                <span>`+ getTranslation(customDashboardData["translations"], widget["id"], "SATISFIED") + `</span>
                             </td>
                             <td>
                                 <span>`+ getVeryPositiveSVG() + `</span>
@@ -381,7 +381,7 @@ $(function () {
             </div>`);
 
         let data = getCsatData(widget["data"]);
-        let options = getSolidGaugeOptions("csatContainer-" + widgetId, data, widget["data"]["csat"].toFixed(2), "CSAT");
+        let options = getSolidGaugeOptions("csatContainer-" + widgetId, data, widget["data"]["csat"].toFixed(2), getTranslation(customDashboardData["translations"], widget["id"],"CSAT"));
         options.yAxis[0].tickInterval = 20;
         options.yAxis[0].stops = [
             [0, '#fff'],
@@ -420,11 +420,11 @@ $(function () {
                     <tr>
                         <td>
                             <p>` + widget["data"]["respondents"] + `</p>
-                            <p>Respondents</p>    
+                            <p>`+ getTranslation(customDashboardData["translations"], widget["id"], "RESPONDENTS") + `</p>    
                         </td>
                         <td>
                             <p>`+ widget["data"]["answers"] + `</p>
-                            <p>Answers</p>
+                            <p>`+ getTranslation(customDashboardData["translations"], widget["id"], "ANSWERS") + `</p>
                             <div class="progress">
                                 <span class="meter"></span>
                             </div>
@@ -432,7 +432,7 @@ $(function () {
                         </td>
                         <td>
                             <p>` + widget["data"]["unsubscribed"] + `</p>
-                            <p>Unsubscribed</p>
+                            <p>`+ getTranslation(customDashboardData["translations"], widget["id"], "UNSUBSCRIBED") + `</p>
                             <div class="progress">
                                 <span class="meter"></span>
                             </div>
@@ -466,10 +466,10 @@ $(function () {
                         </div>
                         <ul class="result">
                             <li>
-                                <span></span> completed
+                                <span></span> `+ getTranslation(customDashboardData["translations"], widget["id"], "COMPLETED_SMALL") + `
                             </li>
                             <li>
-                                <span></span> texts completed
+                                <span></span> `+ getTranslation(customDashboardData["translations"], widget["id"], "TEXT_COMPLETED") + `
                             </li>
                         </ul>
                     </div>`);
@@ -508,10 +508,10 @@ $(function () {
                         </div>
                         <ul class="result">
                             <li>
-                                <span></span> last week
+                                <span></span> `+ getTranslation(customDashboardData["translations"], widget["id"], "LAST_WEEK") + `
                             </li>
                             <li>
-                                <span></span> yesterday
+                                <span></span> `+ getTranslation(customDashboardData["translations"], widget["id"], "+YESTERDAY") + `
                             </li>
                         </ul>
                     </div>`);
@@ -619,11 +619,11 @@ $(function () {
             <table class="team-ranking-table">
                 <thead>
                     <tr>
-                        <td>rank</td>
-                        <td>units</td>
+                        <td>`+ getTranslation(customDashboardData["translations"], widget["id"], "RANK") + `</td>
+                        <td>`+ getTranslation(customDashboardData["translations"], widget["id"], "DEPARTMENTS") + `</td>
                         <td></td>
-                        <td>respondents</td>
-                        <td>answers</td>
+                        <td>`+ getTranslation(customDashboardData["translations"], widget["id"], "RESPONDENTS") + `</td>
+                        <td>`+ getTranslation(customDashboardData["translations"], widget["id"], "ANSWERS") + `</td>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -654,13 +654,13 @@ $(function () {
 
     function getType(team) {
         if (team.nps) {
-            return "nps";
+            return getTranslation(customDashboardData["translations"], 17, "NPS");
         }
         if (team.ces) {
-            return "ces";
+            return getTranslation(customDashboardData["translations"], 17, "CES");
         }
         if (team.csat) {
-            return "csat";
+            return getTranslation(customDashboardData["translations"], 17, "CSAT");
         }
     }
 
@@ -751,7 +751,7 @@ $(function () {
             <ul class="chart">
                 <li>
                     <div class="yesno">
-                        <span>Yes</span>
+                        <span>`+ getTranslation(customDashboardData["translations"], widget["id"], "YES") + `</span>
                     </div>
                     <div class="bars">
                         <div class="bar">
@@ -765,7 +765,7 @@ $(function () {
                 </li>
                 <li>
                    <div class="yesno">
-                        <span>No</span>
+                        <span>`+ getTranslation(customDashboardData["translations"], widget["id"], "NO") + `</span>
                     </div>
                     <div class="bars">
                         <div class="bar">
@@ -834,11 +834,11 @@ $(function () {
 
     function getRespondentName(entry) {
         if (entry === undefined) {
-            return "anonymous";
+            return getTranslation(customDashboardData["translations"], 19, "NO");
         }
         if ((entry.firstName === undefined || entry.firstName === "") && (entry.lastName === undefined || entry.lastName === "")) {
             if (entry.email === undefined || entry.email === "") {
-                return "anonymous";
+                return getTranslation(customDashboardData["translations"], 19, "NO");
             } else {
                 return entry.email;
             }
@@ -948,27 +948,27 @@ $(function () {
                 <div class="data">
                     <div class="row">
                         <div class="data-item">
-                            <span class="grey">VERY POSITIVE</span>
+                            <span class="grey">`+ getTranslation(customDashboardData["translations"], widget["id"], "VERY_POSITIVE") + `</span>
                             <span class="veryPositive">`+ getSentiment("VeryPositive", widgetData) + `%</span>
                         </div>
                         <div class="data-item">
-                            <span class="grey">POSITIVE</span>
+                            <span class="grey">`+ getTranslation(customDashboardData["translations"], widget["id"], "POSITIVE") + `</span>
                             <span class="positive">`+ getSentiment("Positive", widgetData) + `%</span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="data-item">
-                            <span class="grey">VERY NEGATIVE</span>
+                            <span class="grey">`+ getTranslation(customDashboardData["translations"], widget["id"], "VERY_NEGATIVE") + `</span>
                             <span class="veryNegative">`+ getSentiment("VeryNegative", widgetData) + `%</span>
                         </div>
                         <div class="data-item">
-                            <span class="grey">NEGATIVE</span>
+                            <span class="grey">`+ getTranslation(customDashboardData["translations"], widget["id"], "NEGATIVE") + `</span>
                             <span class="negative">`+ getSentiment("Negative", widgetData) + `%</span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="data-item">
-                            <span class="grey">UNKNOWN</span>
+                            <span class="grey">`+ getTranslation(customDashboardData["translations"], widget["id"], "UNKNOWN") + `</span>
                             <span class="neutral">`+ getSentiment("Neutral", widgetData) + `%</span>
                         </div>
                     </div>
@@ -983,7 +983,7 @@ $(function () {
     function getSentiment(polarity, data) {
         let result = data.find(sen => sen["polarity"] === polarity);
         if (result) {
-            return (result["percentage"]*100).toFixed(2);
+            return (result["percentage"] * 100).toFixed(2);
         } else {
             return 0;
         }
@@ -1032,7 +1032,7 @@ $(function () {
                 <ul class="chart">
                     <li class="empty">
                         <div class="name">
-                            <span class="path">category</span>
+                            <span class="path">`+ getTranslation(customDashboardData["translations"], widget["id"], "CATEGORY") + `</span>
                         </div>
                         <div class="graph">
                             <div class="left side"></div>
@@ -1229,7 +1229,7 @@ $(function () {
         } else {
             percentage = sentiments.find(item => item.polarity === "VeryNegative").percentage + sentiments.find(item => item.polarity === "Negative").percentage;
         }
-        return (percentage*100).toFixed(2);
+        return (percentage * 100).toFixed(2);
     }
 
     function getSLClass(sentiments, direction) {
@@ -1327,14 +1327,24 @@ $(function () {
     }
 
     // GENERAL FUNCTIONS
+    function getTranslation(translations, widgetId, request) {
+        let translation;
+
+        let content = translations.find(item => item["id"] === widgetId)["content"];
+        let result = content[request];
+        translation = result;
+
+        return translation
+    }
+
     function getPeriod(period) {
         switch (period) {
             case 1:
-                return "Weekly";
+                return getTranslation(customDashboardData["translations"], 0, "WEEKLY");
             case 2:
-                return "Monthly";
+                return getTranslation(customDashboardData["translations"], 0, "MONTHLY");
             case 0:
-                return "Daily";
+                return getTranslation(customDashboardData["translations"], 0, "DAILY");
             default:
                 return "";
         }
